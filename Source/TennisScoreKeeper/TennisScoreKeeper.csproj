@@ -61,7 +61,8 @@
     <Content Include="index.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\Lib\qunit.js" />
-    <Content Include="Scripts\tests\dummy.js" />
+    <Content Include="Scripts\Lib\string.js" />
+    <Content Include="Scripts\tests\GameDefinition.js" />
     <Content Include="Tests.html" />
     <Content Include="Web.config" />
     <Content Include="Scripts\_references.js" />
