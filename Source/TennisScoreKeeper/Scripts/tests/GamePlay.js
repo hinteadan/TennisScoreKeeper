@@ -12,12 +12,18 @@
     });
 
     test("Scoring a point is recorded", function () {
-        scorePoint();
+        scorePointFor();
         ok(game.points.length === 1);
     });
 
-    function scorePoint() {
-        game.points.push({});
+    test("Scoring a point is recorded per user", function () {
+        var player = {};
+        scorePointFor(player);
+        ok(game.points[0].player === player);
+    });
+
+    function scorePointFor(player) {
+        game.points.push({ player: player });
     }
 
 }).call(this);
