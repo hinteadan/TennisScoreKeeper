@@ -1,55 +1,44 @@
-﻿(function (check, undefined) {
+﻿(function (check, m, tsk, undefined) {
     "use strict";
 
-    var game,
-        player = {};
+    var gameEngine;
 
     module("Game Play", {
         setup: function () {
-            game = {
-                points: []
-            };
+            gameEngine = new tsk.Engine(
+                new m.MatchDefinition(
+                    new m.Player("Player 1"),
+                    new m.Player("Player 2")
+                    )
+                );
         }
     });
 
     test("Scoring a point is recorded", function () {
-        scorePointFor();
-        ok(game.points.length === 1);
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        ok(gameEngine.points.length === 1);
     });
 
     test("Scoring a point is recorded per player", function () {
-        scorePointFor(player);
-        ok(game.points[0].player === player);
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        ok(gameEngine.points[0].player === gameEngine.players[0]);
     });
 
     test("Scoring a point mandatory stuff", function () {
-        scorePointFor(player);
-        ok(check.isNotEmpty(game.points[0].creditedTo), "creditedTo");
-        ok(check.isNotEmpty(game.points[0].timestamp), "timestamp");
-        ok(check.isNotEmpty(game.points[0].type), "type");
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        ok(check.isNotEmpty(gameEngine.points[0].creditedTo), "creditedTo");
+        ok(check.isNotEmpty(gameEngine.points[0].timestamp), "timestamp");
+        ok(check.isNotEmpty(gameEngine.points[0].type), "type");
     });
 
     test("A scored point can be undone", function () {
-        scorePointFor(player);
-        undo();
-        ok(game.points.length === 0);
-        scorePointFor(player);
-        scorePointFor(player);
-        undo();
-        ok(game.points.length === 1);
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        gameEngine.undoLatestPoint();
+        ok(gameEngine.points.length === 0);
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        gameEngine.scorePointFor(gameEngine.players[0], {});
+        gameEngine.undoLatestPoint();
+        ok(gameEngine.points.length === 1);
     });
 
-    function scorePointFor(player) {
-        game.points.push({
-            player: player,
-            creditedTo: player,
-            timestamp: new Date(),
-            type: {}
-        });
-    }
-
-    function undo() {
-        game.points.pop();
-    }
-
-}).call(this, this.H.Check);
+}).call(this, this.H.Check, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);

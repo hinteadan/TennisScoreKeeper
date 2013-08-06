@@ -31,11 +31,22 @@
         this.startingPlayer = isPlayerTwoFirstToServe ? playerTwo : playerOne;
     }
 
+    function Point(forPlayer, creditedTo, type) {
+        check.notEmpty(forPlayer, "forPlayer");
+        check.notEmpty(creditedTo, "creditedTo");
+        check.notEmpty(type, "type");
+        this.player = forPlayer;
+        this.creditedTo = creditedTo;
+        this.timestamp = new Date();
+        this.type = type;
+    }
+
     this.Model = {
         Player: Player,
         MatchDefinition: MatchDefinition,
         TieMode: gameTieModes,
-        LastSetTieMode: lastSetTieModes
+        LastSetTieMode: lastSetTieModes,
+        Point: Point
     };
 
 }).call(this.H.TennisScoreKeeper, this.H.Check);

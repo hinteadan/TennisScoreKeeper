@@ -60,6 +60,7 @@
     <Content Include="css\qunit.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\Engine\GameEngine.js" />
     <Content Include="Scripts\Lib\check.js" />
     <Content Include="Scripts\Lib\qunit.js" />
     <Content Include="Scripts\Lib\string.js" />

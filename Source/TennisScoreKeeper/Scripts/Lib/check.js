@@ -9,6 +9,12 @@
         }
     }
 
+    function condition(conditionResult, message) {
+        if (!conditionResult) {
+            throw new Error(message || "An error occured");
+        }
+    }
+
     function isEmpty(param) {
         return param === undefined || param === null;
     }
@@ -18,6 +24,7 @@
     }
 
     this.notEmpty = notEmpty;
+    this.condition = condition;
     this.isEmpty = isEmpty;
     this.isNotEmpty = isNotEmpty;
 
