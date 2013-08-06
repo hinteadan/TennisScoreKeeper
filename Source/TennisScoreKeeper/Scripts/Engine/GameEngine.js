@@ -49,5 +49,6 @@
     }
 
     this.Engine = GameEngine;
+    this.PointFactory = PointFactory;
 
 }).call(this.H.TennisScoreKeeper, this.H.Check, this.H.TennisScoreKeeper.Model);
