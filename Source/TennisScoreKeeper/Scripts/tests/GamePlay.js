@@ -1,4 +1,4 @@
-﻿(function (undefined) {
+﻿(function (check, undefined) {
     "use strict";
 
     var game,
@@ -24,9 +24,9 @@
 
     test("Scoring a point mandatory stuff", function () {
         scorePointFor(player);
-        ok(notEmpty(game.points[0].creditedTo), "creditedTo");
-        ok(notEmpty(game.points[0].timestamp), "timestamp");
-        ok(notEmpty(game.points[0].type), "type");
+        ok(check.isNotEmpty(game.points[0].creditedTo), "creditedTo");
+        ok(check.isNotEmpty(game.points[0].timestamp), "timestamp");
+        ok(check.isNotEmpty(game.points[0].type), "type");
     });
 
     test("A scored point can be undone", function () {
@@ -52,10 +52,4 @@
         game.points.pop();
     }
 
-    function notEmpty(field) {
-        return field != undefined
-            && field != null
-        ;
-    }
-
-}).call(this);
+}).call(this, this.H.Check);

@@ -9,6 +9,16 @@
         }
     }
 
+    function isEmpty(param) {
+        return param === undefined || param === null;
+    }
+
+    function isNotEmpty(param) {
+        return !isEmpty(param);
+    }
+
     this.notEmpty = notEmpty;
+    this.isEmpty = isEmpty;
+    this.isNotEmpty = isNotEmpty;
 
 }).call(this.H.Check);
