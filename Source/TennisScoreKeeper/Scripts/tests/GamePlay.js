@@ -29,6 +29,16 @@
         ok(notEmpty(game.points[0].type), "type");
     });
 
+    test("A scored point can be undone", function () {
+        scorePointFor(player);
+        undo();
+        ok(game.points.length === 0);
+        scorePointFor(player);
+        scorePointFor(player);
+        undo();
+        ok(game.points.length === 1);
+    });
+
     function scorePointFor(player) {
         game.points.push({
             player: player,
@@ -36,6 +46,10 @@
             timestamp: new Date(),
             type: {}
         });
+    }
+
+    function undo() {
+        game.points.pop();
     }
 
     function notEmpty(field) {

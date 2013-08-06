@@ -1,20 +1,14 @@
-﻿(function (S) {
+﻿(function (S, Model) {
     "use strict";
 
-    var game,
-        gameTieModes = {
-            advantageWin: {},
-            singlePointWin: {}
-        },
-        lastSetTieModes = {
-            tiebreak: {},
-            superTiebreak: {},
-            gameDifference: {}
-        };
+    var game;
 
     module("Game Definition", {
         setup: function () {
-            game = createGame();
+            game = new Model.MatchDefinition(
+                new Model.Player("Player 1"),
+                new Model.Player("Player 2")
+            );
         }
     });
 
@@ -38,11 +32,11 @@
     });
 
     test("The game must define tie mode for a game, defaulting to Advantage win", function () {
-        ok(game.gameTieMode === gameTieModes.advantageWin);
+        ok(game.gameTieMode === Model.TieMode.advantageWin);
     });
 
     test("The game must define last set tie mode, defaulting to Tiebreak", function () {
-        ok(game.lastSetTieMode === lastSetTieModes.tiebreak);
+        ok(game.lastSetTieMode === Model.LastSetTieMode.tiebreak);
     });
 
     test("The game must define the starting player", function () {
@@ -50,20 +44,4 @@
             || game.startingPlayer === game.players[1]);
     });
 
-    function createGame() {
-        var players = [
-            { name: 'Player 1' },
-            { name: 'Player 2' }
-        ];
-
-        return {
-            players: players,
-            gamesPerSet: 6,
-            setsCount: 3,
-            gameTieMode: gameTieModes.advantageWin,
-            lastSetTieMode: lastSetTieModes.tiebreak,
-            startingPlayer: players[0]
-        };
-    }
-
-}).call(this, S);
+}).call(this, S, this.H.TennisScoreKeeper.Model);
