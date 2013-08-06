@@ -9,7 +9,55 @@
             tiebreak: {},
             superTiebreak: {},
             gameDifference: {}
+        },
+        shotStyles = {
+            NormalPassing: new ShotStyle("Normal/Passing"),
+            Smash: new ShotStyle("Smash"),
+            Lob: new ShotStyle("Lob"),
+            Drop: new ShotStyle("Drop")
+        },
+        pointCreditTypes = {
+            PointWinner: 0,
+            PointLoser: 1
+        },
+        pointTypes = {
+            WinningShot: function (shotStyle) {
+                return new PointType(
+                    pointCreditTypes.PointWinner,
+                    "Winning Shot",
+                    shotStyle);
+            },
+            ForcedError: function (shotStyle) {
+                return new PointType(
+                    pointCreditTypes.PointWinner,
+                    "Forced Error",
+                    shotStyle);
+            },
+            UnforcedError: function (shotStyle) {
+                return new PointType(
+                    pointCreditTypes.PointLoser,
+                    "Unforced Error",
+                    shotStyle);
+            }
         };
+
+    function ShotStyle(label) {
+        check.notEmpty(label, "label");
+
+        this.label = label;
+    }
+
+    function PointType(pointCreditType, label, shotStyle) {
+        check.notEmpty(label, "label");
+        check.notEmpty(shotStyle, "shotStyle");
+        check.condition(
+            pointCreditType === pointCreditTypes.PointWinner
+            || pointCreditType === pointCreditTypes.PointLoser,
+            "Point credit goes to winner or loser. Use pointCreditTypes enum");
+
+        this.label = label;
+        this.creditTo = pointCreditType;
+    }
 
     function Player(name) {
         check.notEmpty(name, "name");
@@ -32,6 +80,8 @@
     }
 
     function Point(forPlayer, creditedTo, type) {
+        /// <param name="forPlayer" type="Player">Player for which the point counts.</param>
+        /// <param name="creditedTo" type="Player">Player who gets merit for the point.</param>
         check.notEmpty(forPlayer, "forPlayer");
         check.notEmpty(creditedTo, "creditedTo");
         check.notEmpty(type, "type");
@@ -46,7 +96,10 @@
         MatchDefinition: MatchDefinition,
         TieMode: gameTieModes,
         LastSetTieMode: lastSetTieModes,
-        Point: Point
+        Point: Point,
+        ShotStyles: shotStyles,
+        PointCreditTypes: pointCreditTypes,
+        PointTypes: pointTypes
     };
 
 }).call(this.H.TennisScoreKeeper, this.H.Check);
