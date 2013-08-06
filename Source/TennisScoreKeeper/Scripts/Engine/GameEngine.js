@@ -40,7 +40,13 @@
         }
 
         function pointFor(player, type) {
-            return new m.Point(player, player, type);
+            /// <param name="player" type="m.Player">Player for which the points counts.</param>
+            /// <param name="type" type="m.PointType">Point Type</param>
+            var losingPlayer = player === players[0] ?  players[1] : players[0];
+            return new m.Point(
+                player,
+                type.creditTo === m.PointCreditTypes.PointWinner ? player : losingPlayer,
+                type);
         }
 
         construct();

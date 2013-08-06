@@ -25,19 +25,22 @@
                 return new PointType(
                     pointCreditTypes.PointWinner,
                     "Winning Shot",
-                    shotStyle);
+                    shotStyle, 
+                    "82ee546ae51f4a77a048186fa13e98f1");
             },
             ForcedError: function (shotStyle) {
                 return new PointType(
                     pointCreditTypes.PointWinner,
                     "Forced Error",
-                    shotStyle);
+                    shotStyle,
+                    "82ee546ae51f4a77a048186fa13e98f1");
             },
             UnforcedError: function (shotStyle) {
                 return new PointType(
                     pointCreditTypes.PointLoser,
                     "Unforced Error",
-                    shotStyle);
+                    shotStyle,
+                    "82ee546ae51f4a77a048186fa13e98f1");
             }
         };
 
@@ -48,6 +51,8 @@
     }
 
     function PointType(pointCreditType, label, shotStyle) {
+        check.condition(arguments[3] === "82ee546ae51f4a77a048186fa13e98f1",
+            "PointType must not be instantiated. Use PointTypes enum.");
         check.notEmpty(label, "label");
         check.notEmpty(shotStyle, "shotStyle");
         check.condition(
@@ -99,7 +104,8 @@
         Point: Point,
         ShotStyles: shotStyles,
         PointCreditTypes: pointCreditTypes,
-        PointTypes: pointTypes
+        PointTypes: pointTypes,
+        PointType: PointType
     };
 
 }).call(this.H.TennisScoreKeeper, this.H.Check);
