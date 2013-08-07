@@ -30,35 +30,18 @@
             }
         }
 
-        function scorePoint(point, opponentPoints) {
+        function scorePoint(point) {
             check.notEmpty(point, "point");
             points.push(point);
-            processScore(opponentPoints);
         }
 
-        function undoPoint(point, opponentPoints) {
+        function undoPoint(point) {
             check.notEmpty(point, "point");
             if (points.length === 0 || points[points.length - 1] !== point) {
                 return;
             }
 
             points.pop();
-            processScore(opponentPoints);
-        }
-
-        function processScore(opponentPoints) {
-            /// <param name="opponentPoints" type="Array" elementType="m.Point"></param>
-            if (points.length < scoreMappings.length) {
-                self.Score.Game = scoreMappings[points.length];
-                return;
-            }
-            
-            if (points.length - opponentPoints.length === 1) {
-                self.Score.Game = m.TennisPoints.Advantage;
-                return;
-            }
-
-            self.Score.Game = m.TennisPoints.Love;
         }
 
         this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
@@ -88,7 +71,8 @@
         function scorePointFor(player, type) {
             var point = pointFactory.pointFor(player, type);
             points.push(point);
-            getScoringPlayer(player).scorePoint(point, getScoringOpponent(player).Points);
+            getScoringPlayer(player).scorePoint(point);
+            processScore();
         }
 
         function undoLatestPoint() {
@@ -102,6 +86,8 @@
                 /// <param name="p" type="ScoringPlayer"></param>
                 p.undoPoint(point, getScoringOpponent(p).Points);
             });
+
+            processScore();
         }
 
         function getScoringPlayer(player) {
@@ -110,6 +96,34 @@
 
         function getScoringOpponent(player) {
             return players[0].Info === player ? players[1] : players[0];
+        }
+
+        function processScore() {
+            processPlayerScore(players[0], players[1]);
+            processPlayerScore(players[1], players[0]);
+        }
+
+        function processPlayerScore(player, opponent) {
+            /// <param name="player" type="ScoringPlayer"></param>
+            /// <param name="opponent" type="ScoringPlayer"></param>
+            if (player.Points.length < scoreMappings.length) {
+                player.Score.Game = scoreMappings[player.Points.length];
+                return;
+            }
+
+            var difference = player.Points.length - opponent.Points.length;
+
+            if (difference === 1) {
+                player.Score.Game = m.TennisPoints.Advantage;
+                return;
+            }
+
+            if (difference === 0 || difference === -1) {
+                player.Score.Game = m.TennisPoints.Fourty;
+                return;
+            }
+
+            player.Score.Game = m.TennisPoints.Love;
         }
 
         construct();
