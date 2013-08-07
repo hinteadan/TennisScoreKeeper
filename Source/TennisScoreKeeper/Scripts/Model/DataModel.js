@@ -41,6 +41,20 @@
                     "Unforced Error",
                     shotStyle,
                     "82ee546ae51f4a77a048186fa13e98f1");
+            },
+            Ace: function (shotStyle) {
+                return new PointType(
+                    pointCreditTypes.PointWinner,
+                    "Ace",
+                    shotStyle,
+                    "82ee546ae51f4a77a048186fa13e98f1");
+            },
+            DoubleFault: function (shotStyle) {
+                return new PointType(
+                    pointCreditTypes.PointLoser,
+                    "Double Fault",
+                    shotStyle,
+                    "82ee546ae51f4a77a048186fa13e98f1");
             }
         };
 
