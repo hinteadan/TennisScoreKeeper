@@ -56,6 +56,13 @@
                     shotStyle,
                     "82ee546ae51f4a77a048186fa13e98f1");
             }
+        },
+        tennisPoints = {
+            Love: {},
+            Fifteen: {},
+            Thirty: {},
+            Fourty: {},
+            Advantage: {}
         };
 
     function ShotStyle(label) {
@@ -119,7 +126,8 @@
         ShotStyles: shotStyles,
         PointCreditTypes: pointCreditTypes,
         PointTypes: pointTypes,
-        PointType: PointType
+        PointType: PointType,
+        TennisPoints: tennisPoints
     };
 
 }).call(this.H.TennisScoreKeeper, this.H.Check);

@@ -1,14 +1,46 @@
 ﻿(function (check, m) {
     "use strict";
 
+    function Score() {
+        check.condition(arguments[0] === "61f6a346-6248-4cd4-a796-84feb4751129",
+            "Score must not be instantiated. It is created by the GameEngine.");
+
+        this.Game = m.TennisPoints.Love;
+    }
+
+    function ScoringPlayer(player) {
+        /// <param name="player" type="m.Player">The player</param>
+        check.condition(arguments[1] === "bd1c4b62-e682-4984-985f-9d701913e2f8",
+            "ScoringPlayer must not be instantiated. It is created by the GameEngine.");
+        check.notEmpty(player, "player");
+
+        var self = this;
+
+        function construct() {
+            for (var property in player) {
+                self[property] = player[property];
+            }
+        }
+
+        this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
+        this.Info = player;
+
+        construct();
+    }
+
     function GameEngine(gameDefinition) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
         
         var points = [],
-            pointFactory = new PointFactory(gameDefinition.players);
+            pointFactory = new PointFactory(gameDefinition.players),
+            players = [];
 
         function construct() {
             check.notEmpty(gameDefinition, "gameDefinition");
+            players = [
+                new ScoringPlayer(gameDefinition.players[0], "bd1c4b62-e682-4984-985f-9d701913e2f8"),
+                new ScoringPlayer(gameDefinition.players[1], "bd1c4b62-e682-4984-985f-9d701913e2f8")
+            ];
         }
 
         function scorePointFor(player, type) {
@@ -27,7 +59,7 @@
 
         this.scorePointFor = scorePointFor;
         this.undoLatestPoint = undoLatestPoint;
-        this.players = gameDefinition.players;
+        this.players = players;
         this.points = points;
     }
 
