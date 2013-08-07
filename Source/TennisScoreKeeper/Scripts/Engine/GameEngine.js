@@ -13,6 +13,7 @@
             "Score must not be instantiated. It is created by the GameEngine.");
 
         this.Game = m.TennisPoints.Love;
+        this.Games = 0;
     }
 
     function ScoringPlayer(player) {
@@ -33,6 +34,12 @@
         function scorePoint(point) {
             check.notEmpty(point, "point");
             points.push(point);
+            self.GamePoints.push(point);
+        }
+
+        function winGame() {
+            self.GamePoints = [];
+            self.Score.Games++;
         }
 
         function undoPoint(point) {
@@ -42,13 +49,19 @@
             }
 
             points.pop();
+
+            if (self.GamePoints.length > 0 && self.GamePoints[gamePoints.length - 1] === point) {
+                self.GamePoints.pop();
+            }
         }
 
         this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
         this.Info = player;
         this.Points = points;
+        this.GamePoints = [];
         this.scorePoint = scorePoint;
         this.undoPoint = undoPoint;
+        this.winGame = winGame;
 
         construct();
     }
@@ -84,7 +97,7 @@
 
             _.each(players, function (p) {
                 /// <param name="p" type="ScoringPlayer"></param>
-                p.undoPoint(point, getScoringOpponent(p).Points);
+                p.undoPoint(point);
             });
 
             processScore();
@@ -106,16 +119,20 @@
         function processPlayerScore(player, opponent) {
             /// <param name="player" type="ScoringPlayer"></param>
             /// <param name="opponent" type="ScoringPlayer"></param>
-            if (player.Points.length < scoreMappings.length) {
-                player.Score.Game = scoreMappings[player.Points.length];
+            if (player.GamePoints.length < scoreMappings.length) {
+                player.Score.Game = scoreMappings[player.GamePoints.length];
                 return;
             }
 
             var tennisPoint = gameDefinition.gameTieMode.PointByDifference(
-                player.Points.length - opponent.Points.length
+                player.GamePoints.length - opponent.GamePoints.length
                 );
 
             player.Score.Game = tennisPoint;
+
+            if (tennisPoint === m.TennisPoints.Love) {
+                player.winGame();
+            }
         }
 
         construct();

@@ -60,6 +60,8 @@
     });
 
     test("Perfect win 2 games", function () {
+        ok(gameEngine.players[0].Score.Games === 0);
+        ok(gameEngine.players[0].Score.Game === m.TennisPoints.Love);
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
