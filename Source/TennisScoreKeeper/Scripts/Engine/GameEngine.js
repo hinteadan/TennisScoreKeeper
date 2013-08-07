@@ -1,6 +1,13 @@
 ﻿(function (check, m, _) {
     "use strict";
 
+    var scoreMappings = [
+        m.TennisPoints.Love,
+        m.TennisPoints.Fifteen,
+        m.TennisPoints.Thirty,
+        m.TennisPoints.Fourty
+    ];
+
     function Score() {
         check.condition(arguments[0] === "61f6a346-6248-4cd4-a796-84feb4751129",
             "Score must not be instantiated. It is created by the GameEngine.");
@@ -23,34 +30,40 @@
             }
         }
 
-        function scorePoint(point) {
+        function scorePoint(point, opponentPoints) {
             check.notEmpty(point, "point");
             points.push(point);
-            processScore();
+            processScore(opponentPoints);
         }
 
-        function undoPoint(point){
+        function undoPoint(point, opponentPoints) {
             check.notEmpty(point, "point");
             if (points.length === 0 || points[points.length - 1] !== point) {
                 return;
             }
 
             points.pop();
-            processScore();
+            processScore(opponentPoints);
         }
 
-        function processScore() {
-            switch (points.length) {
-                case 0: self.Score.Game = m.TennisPoints.Love; break;
-                case 1: self.Score.Game = m.TennisPoints.Fifteen; break;
-                case 2: self.Score.Game = m.TennisPoints.Thirty; break;
-                case 3: self.Score.Game = m.TennisPoints.Fourty; break;
-                case 4: self.Score.Game = m.TennisPoints.Love; break;
+        function processScore(opponentPoints) {
+            /// <param name="opponentPoints" type="Array" elementType="m.Point"></param>
+            if (points.length < scoreMappings.length) {
+                self.Score.Game = scoreMappings[points.length];
+                return;
             }
+            
+            if (points.length - opponentPoints.length === 1) {
+                self.Score.Game = m.TennisPoints.Advantage;
+                return;
+            }
+
+            self.Score.Game = m.TennisPoints.Love;
         }
 
         this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
         this.Info = player;
+        this.Points = points;
         this.scorePoint = scorePoint;
         this.undoPoint = undoPoint;
 
@@ -75,8 +88,7 @@
         function scorePointFor(player, type) {
             var point = pointFactory.pointFor(player, type);
             points.push(point);
-            getScoringPlayer(player).scorePoint(point);
-
+            getScoringPlayer(player).scorePoint(point, getScoringOpponent(player).Points);
         }
 
         function undoLatestPoint() {
@@ -88,12 +100,16 @@
 
             _.each(players, function (p) {
                 /// <param name="p" type="ScoringPlayer"></param>
-                p.undoPoint(point);
+                p.undoPoint(point, getScoringOpponent(p).Points);
             });
         }
 
         function getScoringPlayer(player) {
             return players[0].Info === player ? players[0] : players[1];
+        }
+
+        function getScoringOpponent(player) {
+            return players[0].Info === player ? players[1] : players[0];
         }
 
         construct();
