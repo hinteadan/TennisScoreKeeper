@@ -1,4 +1,4 @@
-﻿(function (check, m) {
+﻿(function (check, m, _) {
     "use strict";
 
     function Score() {
@@ -14,7 +14,8 @@
             "ScoringPlayer must not be instantiated. It is created by the GameEngine.");
         check.notEmpty(player, "player");
 
-        var self = this;
+        var self = this,
+            points = [];
 
         function construct() {
             for (var property in player) {
@@ -22,8 +23,36 @@
             }
         }
 
+        function scorePoint(point) {
+            check.notEmpty(point, "point");
+            points.push(point);
+            processScore();
+        }
+
+        function undoPoint(point){
+            check.notEmpty(point, "point");
+            if (points.length === 0 || points[points.length - 1] !== point) {
+                return;
+            }
+
+            points.pop();
+            processScore();
+        }
+
+        function processScore() {
+            switch (points.length) {
+                case 0: self.Score.Game = m.TennisPoints.Love; break;
+                case 1: self.Score.Game = m.TennisPoints.Fifteen; break;
+                case 2: self.Score.Game = m.TennisPoints.Thirty; break;
+                case 3: self.Score.Game = m.TennisPoints.Fourty; break;
+                case 4: self.Score.Game = m.TennisPoints.Love; break;
+            }
+        }
+
         this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
         this.Info = player;
+        this.scorePoint = scorePoint;
+        this.undoPoint = undoPoint;
 
         construct();
     }
@@ -44,7 +73,10 @@
         }
 
         function scorePointFor(player, type) {
-            points.push(pointFactory.pointFor(player, type));
+            var point = pointFactory.pointFor(player, type);
+            points.push(point);
+            getScoringPlayer(player).scorePoint(point);
+
         }
 
         function undoLatestPoint() {
@@ -52,7 +84,16 @@
                 return;
             }
 
-            points.pop();
+            var point = points.pop();
+
+            _.each(players, function (p) {
+                /// <param name="p" type="ScoringPlayer"></param>
+                p.undoPoint(point);
+            });
+        }
+
+        function getScoringPlayer(player) {
+            return players[0].Info === player ? players[0] : players[1];
         }
 
         construct();
@@ -89,4 +130,4 @@
     this.Engine = GameEngine;
     this.PointFactory = PointFactory;
 
-}).call(this.H.TennisScoreKeeper, this.H.Check, this.H.TennisScoreKeeper.Model);
+}).call(this.H.TennisScoreKeeper, this.H.Check, this.H.TennisScoreKeeper.Model, this._);
