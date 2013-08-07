@@ -59,4 +59,19 @@
         ok(gameEngine.players[1].Points.length === 5, "Player 2 total number of points");
     });
 
+    test("Perfect win 2 games", function () {
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(gameEngine.players[0].Score.Games === 1);
+        ok(gameEngine.players[0].Score.Game === m.TennisPoints.Love);
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(gameEngine.players[0].Score.Games === 2);
+        ok(gameEngine.players[0].Score.Game === m.TennisPoints.Love);
+    });
+
 }).call(this, this.H.Check, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);
