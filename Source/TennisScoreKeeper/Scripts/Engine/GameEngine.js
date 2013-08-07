@@ -111,19 +111,11 @@
                 return;
             }
 
-            var difference = player.Points.length - opponent.Points.length;
+            var tennisPoint = gameDefinition.gameTieMode.PointByDifference(
+                player.Points.length - opponent.Points.length
+                );
 
-            if (difference === 1) {
-                player.Score.Game = m.TennisPoints.Advantage;
-                return;
-            }
-
-            if (difference === 0 || difference === -1) {
-                player.Score.Game = m.TennisPoints.Fourty;
-                return;
-            }
-
-            player.Score.Game = m.TennisPoints.Love;
+            player.Score.Game = tennisPoint;
         }
 
         construct();

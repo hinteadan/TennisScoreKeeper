@@ -1,9 +1,16 @@
 ﻿(function (check, undefined) {
     "use strict";
 
-    var gameTieModes = {
-            advantageWin: {},
-            singlePointWin: {}
+    var tennisPoints = {
+            Love: {},
+            Fifteen: {},
+            Thirty: {},
+            Fourty: {},
+            Advantage: {}
+        },
+        gameTieModes = {
+            advantageWin: new GameTieMode(advantageWinPointFunc, "15b6d1fc81a043c081242617308b4fdc"),
+            singlePointWin: new GameTieMode(singlePointWinFunc, "15b6d1fc81a043c081242617308b4fdc")
         },
         lastSetTieModes = {
             tiebreak: {},
@@ -56,14 +63,35 @@
                     shotStyle,
                     "82ee546ae51f4a77a048186fa13e98f1");
             }
-        },
-        tennisPoints = {
-            Love: {},
-            Fifteen: {},
-            Thirty: {},
-            Fourty: {},
-            Advantage: {}
         };
+
+    function GameTieMode(pointByDifferenceFunc) {
+        check.condition(arguments[1] === "15b6d1fc81a043c081242617308b4fdc",
+            "GameTieMode must not be instantiated. Use TieMode enum.");
+        check.notEmpty(pointByDifferenceFunc, "pointByDifferenceFunc");
+        check.condition(typeof(pointByDifferenceFunc) === 'function', 
+            "pointByDifferenceFunc must be a function returning tennisPoint via point difference");
+
+        this.PointByDifference = function (difference) {
+            return pointByDifferenceFunc.call(null, difference);
+        }
+    }
+
+    function advantageWinPointFunc(difference) {
+        if (difference === 1) {
+            return tennisPoints.Advantage;
+        }
+
+        if (difference === 0 || difference === -1) {
+            return tennisPoints.Fourty;
+        }
+
+        return tennisPoints.Love;
+    }
+
+    function singlePointWinFunc(difference) {
+        throw new Error("singlePointWinFunc Not Implemented");
+    }
 
     function ShotStyle(label) {
         check.notEmpty(label, "label");
