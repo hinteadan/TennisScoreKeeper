@@ -31,11 +31,22 @@
             return true;
         }
 
-        if (firstType !== 'object' && secondType !== 'object') {
-            return firstType == secondType;
+        if (firstType !== secondType) {
+            return false;
         }
 
+        if (firstType !== 'object' && secondType !== 'object') {
+            return first == second;
+        }
 
+        var areSame = true;
+        for (var prop in first) {
+            areSame = areSame && sameObjects(first[prop], second[prop]);
+            if (!areSame) {
+                return false;
+            }
+        }
+        return true;
     }
 
     this.notEmpty = notEmpty;
