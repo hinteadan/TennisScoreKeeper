@@ -1,7 +1,8 @@
 ﻿(function (check, m, _) {
     "use strict";
 
-    var scoreMappings = [
+    var tsk = this,
+        scoreMappings = [
         m.TennisPoints.Love,
         m.TennisPoints.Fifteen,
         m.TennisPoints.Thirty,
@@ -68,13 +69,14 @@
 
     function GameEngine(gameDefinition) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
-        
+        check.notEmpty(gameDefinition, "gameDefinition");
+
         var points = [],
             pointFactory = new PointFactory(gameDefinition.players),
-            players = [];
+            players = [],
+            scoreProjector = new tsk.ScoreProjector(gameDefinition);
 
         function construct() {
-            check.notEmpty(gameDefinition, "gameDefinition");
             players = [
                 new ScoringPlayer(gameDefinition.players[0], "bd1c4b62-e682-4984-985f-9d701913e2f8"),
                 new ScoringPlayer(gameDefinition.players[1], "bd1c4b62-e682-4984-985f-9d701913e2f8")
@@ -141,6 +143,7 @@
         this.undoLatestPoint = undoLatestPoint;
         this.players = players;
         this.points = points;
+        this.tennisScore = function () { return scoreProjector.toTennisScore(points); }
     }
 
     function PointFactory(players) {
