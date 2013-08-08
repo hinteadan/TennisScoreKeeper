@@ -25,12 +25,36 @@
 
         function projectPointsToTennisScore(points) {
             check.notEmpty(points, "points");
+
             return new MatchScoreProjection(
-                new PlayerScoreProjection(gameDefinition.players[0]),
-                new PlayerScoreProjection(gameDefinition.players[1])
+                processPlayerScore(points, new PlayerScoreProjection(gameDefinition.players[0])),
+                processPlayerScore(points, new PlayerScoreProjection(gameDefinition.players[1]))
                 );
         }
 
+        function processPlayerScore(points, playerScore, opponentScore) {
+            /// <param name="points" type="Array" elementType="m.Point" />
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            for (var pointIndex = 0; pointIndex < points.length; pointIndex++) {
+                var point = points[pointIndex];
+                if (point.player !== playerScore.Player) {
+                    continue;
+                }
+
+                addGamePoint(playerScore, opponentScore);
+            }
+
+            return playerScore;
+        }
+
+        function addGamePoint(playerScore, opponentScore){
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            switch (playerScore.Game) {
+                case m.TennisPoints.Love: playerScore.Game = m.TennisPoints.Fifteen; break;
+            }
+        }
 
         this.toTennisScore = projectPointsToTennisScore;
     }

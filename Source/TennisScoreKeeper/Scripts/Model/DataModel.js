@@ -2,11 +2,11 @@
     "use strict";
 
     var tennisPoints = {
-            Love: {},
-            Fifteen: {},
-            Thirty: {},
-            Fourty: {},
-            Advantage: {}
+            Love: { code: '0' },
+            Fifteen: { code: '15' },
+            Thirty: { code: '30' },
+            Fourty: { code: '40' },
+            Advantage: { code: 'Ad' }
         },
         gameTieModes = {
             advantageWin: new GameTieMode(advantageWinPointFunc, "15b6d1fc81a043c081242617308b4fdc"),
