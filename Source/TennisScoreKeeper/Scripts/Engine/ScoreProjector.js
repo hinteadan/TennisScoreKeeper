@@ -7,6 +7,7 @@
 
         this.Player = player;
         this.Game = m.TennisPoints.Love;
+        this.GamePoints = 0;
         this.Games = 0;
         this.Sets = 0;
     }
@@ -26,9 +27,12 @@
         function projectPointsToTennisScore(points) {
             check.notEmpty(points, "points");
 
+            var playerOneScoreProjection = new PlayerScoreProjection(gameDefinition.players[0]),
+                playerTwoScoreProjection = new PlayerScoreProjection(gameDefinition.players[1]);
+
             return new MatchScoreProjection(
-                processPlayerScore(points, new PlayerScoreProjection(gameDefinition.players[0])),
-                processPlayerScore(points, new PlayerScoreProjection(gameDefinition.players[1]))
+                processPlayerScore(points, playerOneScoreProjection, playerTwoScoreProjection),
+                processPlayerScore(points, playerTwoScoreProjection, playerOneScoreProjection)
                 );
         }
 
@@ -51,12 +55,32 @@
         function addGamePoint(playerScore, opponentScore){
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
+
+            playerScore.GamePoints++;
+
+            if (isGameTied(playerScore, opponentScore)) {
+                playerScore.Game = gameDefinition.gameTieMode.PointByDifference(
+                    playerScore.GamePoints - opponentScore.GamePoints
+                    );
+                return;
+            }
+
             switch (playerScore.Game) {
                 case m.TennisPoints.Love: playerScore.Game = m.TennisPoints.Fifteen; break;
                 case m.TennisPoints.Fifteen: playerScore.Game = m.TennisPoints.Thirty; break;
                 case m.TennisPoints.Thirty: playerScore.Game = m.TennisPoints.Fourty; break;
                 case m.TennisPoints.Fourty: playerScore.Game = m.TennisPoints.Love; break;
             }
+        }
+
+        function isGameTied(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            return (playerScore.Game === m.TennisPoints.Fourty
+                && opponentScore.Game === m.TennisPoints.Fourty)
+                || playerScore.Game === m.TennisPoints.Advantage
+                || opponentScore.Game === m.TennisPoints.Advantage;
+
         }
 
         this.toTennisScore = projectPointsToTennisScore;
