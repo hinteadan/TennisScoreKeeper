@@ -13,13 +13,13 @@
 
     test("Basic projections", function () {
         ok(check.areSame(gameEngine.tennisScore(), {
-            Player1: {
+            PlayerOne: {
                 Player: fed,
                 Game: m.TennisPoints.Love,
                 Games: 0,
                 Sets: 0
             },
-            Player2: {
+            PlayerTwo: {
                 Player: rafa,
                 Game: m.TennisPoints.Love,
                 Games: 0,
