@@ -53,6 +53,9 @@
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
             switch (playerScore.Game) {
                 case m.TennisPoints.Love: playerScore.Game = m.TennisPoints.Fifteen; break;
+                case m.TennisPoints.Fifteen: playerScore.Game = m.TennisPoints.Thirty; break;
+                case m.TennisPoints.Thirty: playerScore.Game = m.TennisPoints.Fourty; break;
+                case m.TennisPoints.Fourty: playerScore.Game = m.TennisPoints.Love; break;
             }
         }
 
