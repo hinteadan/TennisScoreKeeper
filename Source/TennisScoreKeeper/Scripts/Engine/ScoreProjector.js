@@ -78,8 +78,17 @@
                 return;
             }
 
+            gameWonFor(playerScore, opponentScore);
+        }
+
+        function gameWonFor(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
             playerScore.Game = m.TennisPoints.Love;
             opponentScore.Game = m.TennisPoints.Love;
+            playerScore.GamePoints = 0;
+            opponentScore.GamePoints = 0;
+            playerScore.Games++;
         }
 
         function isGameTied(playerScore, opponentScore) {
