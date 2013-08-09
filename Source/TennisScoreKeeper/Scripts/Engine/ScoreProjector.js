@@ -89,6 +89,19 @@
             playerScore.GamePoints = 0;
             opponentScore.GamePoints = 0;
             playerScore.Games++;
+
+            if (playerScore.Games === gameDefinition.gamesPerSet) {
+                setWonFor(playerScore, opponentScore);
+            }
+
+        }
+
+        function setWonFor(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            playerScore.Games = 0;
+            opponentScore.Games = 0;
+            playerScore.Sets++;
         }
 
         function isGameTied(playerScore, opponentScore) {

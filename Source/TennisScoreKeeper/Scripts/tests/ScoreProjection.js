@@ -103,7 +103,7 @@
         }));
     });
 
-    test("Perfect win Games count", function () {
+    test("Games count", function () {
         winOnePerfectGameFor(fed);
         ok(check.areSame(gameEngine.tennisScore(), {
             PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 1, Sets: 0 },
@@ -127,11 +127,58 @@
         }));
     });
 
+    test("Simple Sets count", function () {
+        winOnePerfectSetFor(fed, 6);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+        winOnePerfectSetFor(fed, 6);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 2 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+        winOnePerfectSetFor(rafa, 6);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 2 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
+    });
+
+    test("Simple Sets count for variable games per set", function () {
+
+        var matchDefinition = new m.MatchDefinition(fed, rafa);
+        matchDefinition.gamesPerSet = 3;
+        gameEngine = new tsk.Engine(matchDefinition);
+
+        winOnePerfectSetFor(fed, matchDefinition.gamesPerSet);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+        winOnePerfectSetFor(rafa, matchDefinition.gamesPerSet);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
+        winOnePerfectSetFor(fed, matchDefinition.gamesPerSet);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 2 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
+    });
+
     function winOnePerfectGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+    }
+
+    function winOnePerfectSetFor(player, gamesPerSet) {
+        for (var i = 0; i < gamesPerSet; i++) {
+            winOnePerfectGameFor(player);
+        }
     }
 
 }).call(this, this.H.Check, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);
