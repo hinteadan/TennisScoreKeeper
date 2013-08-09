@@ -93,7 +93,14 @@
     }
 
     function singlePointWinFunc(difference) {
-        throw new Error("singlePointWinFunc Not Implemented");
+        check.condition(check.value(difference).isBetweenInclusive(-1, 1),
+            "Something is wrong, point difference must be [-1,1]");
+
+        if (difference === 0) {
+            return tennisPoints.Fourty;
+        }
+
+        return tennisPoints.Love;
     }
 
     function ShotStyle(label) {
