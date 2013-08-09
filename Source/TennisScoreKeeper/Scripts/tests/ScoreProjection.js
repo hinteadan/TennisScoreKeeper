@@ -189,6 +189,26 @@
             PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
             PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
         }));
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 5, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 0 }
+        }));
+        winOnePerfectGameFor(rafa);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
     });
 
     function winOnePerfectGameFor(player) {

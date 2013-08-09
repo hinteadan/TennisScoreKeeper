@@ -90,10 +90,16 @@
             opponentScore.GamePoints = 0;
             playerScore.Games++;
 
-            if (playerScore.Games === gameDefinition.gamesPerSet) {
+            if (isSetWon(playerScore, opponentScore)) {
                 setWonFor(playerScore, opponentScore);
             }
+        }
 
+        function isSetWon(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            var diff = playerScore.Games - opponentScore.Games;
+            return diff >= 2 && playerScore.Games >= gameDefinition.gamesPerSet;
         }
 
         function setWonFor(playerScore, opponentScore) {
