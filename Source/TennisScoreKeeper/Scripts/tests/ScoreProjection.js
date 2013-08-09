@@ -243,6 +243,65 @@
         }));
     });
 
+    test("Set win on tiebreak with tiebreak tied", function () {
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(rafa);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 0 }
+        }));
+
+        //Tiebreak start
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 6, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 6, Games: 6, Sets: 0 }
+        }));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 7, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 6, Games: 6, Sets: 0 }
+        }));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 7, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 7, Games: 6, Sets: 0 }
+        }));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 8, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 7, Games: 6, Sets: 0 }
+        }));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+    });
+
     function winOnePerfectGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
