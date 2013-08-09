@@ -78,12 +78,15 @@
     }
 
     function advantageWinPointFunc(difference) {
-        if (difference === 1) {
-            return tennisPoints.Advantage;
+        check.condition(check.value(difference).isBetweenInclusive(-1, 1),
+            "Something is wrong, point difference must be [-1,1]");
+
+        if (check.value(difference).isBetweenInclusive(-1, 0)) {
+            return tennisPoints.Fourty;
         }
 
-        if (difference === 0 || difference === -1) {
-            return tennisPoints.Fourty;
+        if (difference === 1) {
+            return tennisPoints.Advantage;
         }
 
         return tennisPoints.Love;

@@ -23,6 +23,15 @@
         return !isEmpty(param);
     }
 
+    function value(v) {
+        this.isBetweenInclusive = function(min, max){
+            return v >= min && v <= max;
+        }
+        this.isBetweenExclusive = function (min, max) {
+            return v > min && v < max;
+        }
+    }
+
     function sameObjects(first, second) {
         var firstType = typeof(first),
             secondType = typeof(second);
@@ -54,5 +63,6 @@
     this.isEmpty = isEmpty;
     this.isNotEmpty = isNotEmpty;
     this.areSame = sameObjects;
+    this.value = function (val) { return new value(val); }
 
 }).call(this.H.Check);

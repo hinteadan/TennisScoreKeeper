@@ -86,8 +86,6 @@
         function scorePointFor(player, type) {
             var point = pointFactory.pointFor(player, type);
             points.push(point);
-            getScoringPlayer(player).scorePoint(point);
-            processScore();
         }
 
         function undoLatestPoint() {

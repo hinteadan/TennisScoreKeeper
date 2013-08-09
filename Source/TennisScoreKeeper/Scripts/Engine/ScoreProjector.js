@@ -1,6 +1,13 @@
 ﻿(function (check, m, undefined) {
     "use strict";
 
+    var gamePointMapping = [
+        m.TennisPoints.Love,
+        m.TennisPoints.Fifteen,
+        m.TennisPoints.Thirty,
+        m.TennisPoints.Fourty
+    ];
+
     function PlayerScoreProjection(player) {
         /// <param name="player" type="m.Player">Player</param>
         check.notEmpty(player, "player");
@@ -30,26 +37,24 @@
             var playerOneScoreProjection = new PlayerScoreProjection(gameDefinition.players[0]),
                 playerTwoScoreProjection = new PlayerScoreProjection(gameDefinition.players[1]);
 
-            return new MatchScoreProjection(
-                processPlayerScore(points, playerOneScoreProjection, playerTwoScoreProjection),
-                processPlayerScore(points, playerTwoScoreProjection, playerOneScoreProjection)
-                );
+            processPoints(points, playerOneScoreProjection, playerTwoScoreProjection);
+
+            return new MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection);
         }
 
-        function processPlayerScore(points, playerScore, opponentScore) {
+        function processPoints(points, playerScore, opponentScore) {
             /// <param name="points" type="Array" elementType="m.Point" />
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
             for (var pointIndex = 0; pointIndex < points.length; pointIndex++) {
                 var point = points[pointIndex];
-                if (point.player !== playerScore.Player) {
-                    continue;
+                if (point.player === playerScore.Player) {
+                    addGamePoint(playerScore, opponentScore);
                 }
-
-                addGamePoint(playerScore, opponentScore);
+                else {
+                    addGamePoint(opponentScore, playerScore);
+                }
             }
-
-            return playerScore;
         }
 
         function addGamePoint(playerScore, opponentScore){
@@ -58,29 +63,30 @@
 
             playerScore.GamePoints++;
 
+            if (playerScore.GamePoints <= 3) {
+                playerScore.Game = gamePointMapping[playerScore.GamePoints];
+                return;
+            }
+
             if (isGameTied(playerScore, opponentScore)) {
                 playerScore.Game = gameDefinition.gameTieMode.PointByDifference(
                     playerScore.GamePoints - opponentScore.GamePoints
                     );
+                opponentScore.Game = gameDefinition.gameTieMode.PointByDifference(
+                    opponentScore.GamePoints - playerScore.GamePoints
+                    );
                 return;
             }
 
-            switch (playerScore.Game) {
-                case m.TennisPoints.Love: playerScore.Game = m.TennisPoints.Fifteen; break;
-                case m.TennisPoints.Fifteen: playerScore.Game = m.TennisPoints.Thirty; break;
-                case m.TennisPoints.Thirty: playerScore.Game = m.TennisPoints.Fourty; break;
-                case m.TennisPoints.Fourty: playerScore.Game = m.TennisPoints.Love; break;
-            }
+            playerScore.Game = m.TennisPoints.Love;
+            opponentScore.Game = m.TennisPoints.Love;
         }
 
         function isGameTied(playerScore, opponentScore) {
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
-            return (playerScore.Game === m.TennisPoints.Fourty
-                && opponentScore.Game === m.TennisPoints.Fourty)
-                || playerScore.Game === m.TennisPoints.Advantage
-                || opponentScore.Game === m.TennisPoints.Advantage;
-
+            return check.value(playerScore.GamePoints - opponentScore.GamePoints)
+                .isBetweenInclusive(-1, 1);
         }
 
         this.toTennisScore = projectPointsToTennisScore;
