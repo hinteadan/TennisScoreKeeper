@@ -64,7 +64,7 @@
             playerScore.GamePoints++;
 
             if (shouldSetBeTieBroke(playerScore, opponentScore)) {
-                if (playerScore.GamePoints === 7) {
+                if (isTiebreakWon(playerScore, opponentScore)) {
                     gameWonFor(playerScore, opponentScore);
                     setWonFor(playerScore, opponentScore);
                 }
@@ -108,6 +108,13 @@
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
             var diff = playerScore.Games - opponentScore.Games;
             return diff >= 2 && playerScore.Games >= gameDefinition.gamesPerSet;
+        }
+
+        function isTiebreakWon(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            var diff = playerScore.GamePoints - opponentScore.GamePoints;
+            return diff >= 2 && playerScore.GamePoints >= 7;
         }
 
         function setWonFor(playerScore, opponentScore) {
