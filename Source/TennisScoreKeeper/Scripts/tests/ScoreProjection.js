@@ -168,6 +168,29 @@
         }));
     });
 
+    test("Set win on 7-5", function () {
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(fed);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 0 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 5, Sets: 0 }
+        }));
+        winOnePerfectGameFor(fed);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+    });
+
     function winOnePerfectGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
