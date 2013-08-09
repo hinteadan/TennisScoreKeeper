@@ -63,6 +63,14 @@
 
             playerScore.GamePoints++;
 
+            if (shouldSetBeTieBroke(playerScore, opponentScore)) {
+                if (playerScore.GamePoints === 7) {
+                    gameWonFor(playerScore, opponentScore);
+                    setWonFor(playerScore, opponentScore);
+                }
+                return;
+            }
+
             if (playerScore.GamePoints <= 3) {
                 playerScore.Game = gamePointMapping[playerScore.GamePoints];
                 return;
@@ -115,6 +123,13 @@
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
             return check.value(playerScore.GamePoints - opponentScore.GamePoints)
                 .isBetweenInclusive(-1, 1);
+        }
+
+        function shouldSetBeTieBroke(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            return playerScore.Games === gameDefinition.gamesPerSet
+                && opponentScore.Games === gameDefinition.gamesPerSet;
         }
 
         this.toTennisScore = projectPointsToTennisScore;
