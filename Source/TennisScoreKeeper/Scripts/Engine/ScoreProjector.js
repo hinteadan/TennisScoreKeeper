@@ -19,12 +19,13 @@
         this.Sets = 0;
     }
 
-    function MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection, setsPerMatch) {
+    function MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection, setsPerMatch, servingPlayer) {
         /// <param name="playerOneScoreProjection" type="PlayerScoreProjection"  />
         /// <param name="playerTwoScoreProjection" type="PlayerScoreProjection"  />
         check.notEmpty(playerOneScoreProjection, "playerOneScoreProjection");
         check.notEmpty(playerTwoScoreProjection, "playerTwoScoreProjection");
         check.notEmpty(setsPerMatch, "setsPerMatch");
+        check.notEmpty(servingPlayer, "servingPlayer");
 
         var self = this,
             setsToWin = Math.ceil(setsPerMatch / 2);
@@ -41,12 +42,16 @@
         this.IsWon = function () {
             return self.Winner() !== null;
         }
+        this.ServingPlayer = function () {
+            return servingPlayer;
+        }
     }
 
     function ScoreProjector(gameDefinition) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
         check.notEmpty(gameDefinition, "gameDefinition");
 
+        var servingPlayer = gameDefinition.startingPlayer;
 
         function projectPointsToTennisScore(points) {
             check.notEmpty(points, "points");
@@ -54,12 +59,15 @@
             var playerOneScoreProjection = new PlayerScoreProjection(gameDefinition.players[0]),
                 playerTwoScoreProjection = new PlayerScoreProjection(gameDefinition.players[1]);
 
+            servingPlayer = gameDefinition.startingPlayer;
+
             processPoints(points, playerOneScoreProjection, playerTwoScoreProjection);
 
             return new MatchScoreProjection(
                 playerOneScoreProjection,
                 playerTwoScoreProjection,
-                gameDefinition.setsCount);
+                gameDefinition.setsCount,
+                servingPlayer);
         }
 
         function processPoints(points, playerScore, opponentScore) {
@@ -118,9 +126,17 @@
             opponentScore.GamePoints = 0;
             playerScore.Games++;
 
+            toggleServingPlayer();
+
             if (isSetWon(playerScore, opponentScore)) {
                 setWonFor(playerScore, opponentScore);
             }
+        }
+
+        function toggleServingPlayer() {
+            servingPlayer = servingPlayer === gameDefinition.players[0]
+                ? gameDefinition.players[1]
+                : gameDefinition.players[0];
         }
 
         function isSetWon(playerScore, opponentScore) {
@@ -183,6 +199,7 @@
         }
 
         this.toTennisScore = projectPointsToTennisScore;
+        this.ser
     }
 
     this.ScoreProjector = ScoreProjector;
