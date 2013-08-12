@@ -92,7 +92,11 @@
             playerScore.GamePoints++;
 
             if (shouldSetBeTieBroke(playerScore, opponentScore)) {
+                if ((playerScore.GamePoints + opponentScore.GamePoints) % 2 !== 0) {
+                    toggleServingPlayer();
+                }
                 if (isTiebreakWon(playerScore, opponentScore)) {
+                    toggleServingPlayer();
                     gameWonFor(playerScore, opponentScore);
                     setWonFor(playerScore, opponentScore);
                 }
