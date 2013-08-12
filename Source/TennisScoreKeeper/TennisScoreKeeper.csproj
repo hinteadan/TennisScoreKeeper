@@ -73,6 +73,7 @@
     <Content Include="Scripts\tests\GamePlay.js" />
     <Content Include="Scripts\tests\PointFactory.js" />
     <Content Include="Scripts\tests\ScoreProjection.js" />
+    <Content Include="Scripts\tests\ServingPlayer.js" />
     <Content Include="Tests.html" />
     <Content Include="Web.config" />
     <Content Include="Scripts\_references.js" />

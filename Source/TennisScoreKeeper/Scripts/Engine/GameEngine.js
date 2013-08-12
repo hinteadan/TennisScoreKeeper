@@ -10,7 +10,8 @@
         var points = [],
             pointFactory = new PointFactory(gameDefinition.players),
             players = [],
-            scoreProjector = new tsk.ScoreProjector(gameDefinition);
+            scoreProjector = new tsk.ScoreProjector(gameDefinition),
+            servingPlayer = gameDefinition.startingPlayer;
 
         function construct() {
             players = [
@@ -38,6 +39,7 @@
         this.players = players;
         this.points = points;
         this.tennisScore = function () { return scoreProjector.toTennisScore(points); }
+        this.ServingPlayer = function(){ return servingPlayer; };
     }
 
     function PointFactory(players) {
