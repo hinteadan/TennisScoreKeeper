@@ -203,7 +203,6 @@
         }
 
         this.toTennisScore = projectPointsToTennisScore;
-        this.ser
     }
 
     this.ScoreProjector = ScoreProjector;
