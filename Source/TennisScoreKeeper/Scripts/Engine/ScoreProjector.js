@@ -19,11 +19,28 @@
         this.Sets = 0;
     }
 
-    function MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection) {
+    function MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection, setsPerMatch) {
+        /// <param name="playerOneScoreProjection" type="PlayerScoreProjection"  />
+        /// <param name="playerTwoScoreProjection" type="PlayerScoreProjection"  />
         check.notEmpty(playerOneScoreProjection, "playerOneScoreProjection");
         check.notEmpty(playerTwoScoreProjection, "playerTwoScoreProjection");
+        check.notEmpty(setsPerMatch, "setsPerMatch");
+
+        var self = this,
+            setsToWin = Math.ceil(setsPerMatch / 2);
+
         this.PlayerOne = playerOneScoreProjection;
         this.PlayerTwo = playerTwoScoreProjection;
+        this.Winner = function () {
+            return playerOneScoreProjection.Sets === setsToWin
+                ? playerOneScoreProjection
+                : playerTwoScoreProjection.Sets === setsToWin
+                ? playerTwoScoreProjection
+                : null;
+        }
+        this.IsWon = function () {
+            return self.Winner() !== null;
+        }
     }
 
     function ScoreProjector(gameDefinition) {
@@ -39,7 +56,10 @@
 
             processPoints(points, playerOneScoreProjection, playerTwoScoreProjection);
 
-            return new MatchScoreProjection(playerOneScoreProjection, playerTwoScoreProjection);
+            return new MatchScoreProjection(
+                playerOneScoreProjection,
+                playerTwoScoreProjection,
+                gameDefinition.setsCount);
         }
 
         function processPoints(points, playerScore, opponentScore) {

@@ -433,6 +433,18 @@
         }));
     });
 
+    test("Match is won", function () {
+        winOnePerfectSetFor(fed, 6);
+        winOnePerfectSetFor(fed, 6);
+        var match = gameEngine.tennisScore();
+        ok(check.areSame(match, {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 2 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 0 }
+        }));
+        ok(match.IsWon());
+        ok(match.Winner().Player === fed);
+    });
+
     function winOnePerfectGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));

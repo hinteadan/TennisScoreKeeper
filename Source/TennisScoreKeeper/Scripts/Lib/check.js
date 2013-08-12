@@ -50,6 +50,9 @@
 
         var areSame = true;
         for (var prop in first) {
+            if (typeof (first[prop]) === 'function') {
+                continue;
+            }
             areSame = areSame && sameObjects(first[prop], second[prop]);
             if (!areSame) {
                 return false;
