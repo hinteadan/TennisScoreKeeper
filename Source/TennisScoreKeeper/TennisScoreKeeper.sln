@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisScoreKeeper", "TennisScoreKeeper.csproj", "{12512099-E57B-4389-8309-ABEA193A3E5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8F873B49-301A-4DEB-B11B-1D71FA34D591}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Tools\GoogleClosureCompiler\ClosureCompilerUrl.txt = ..\..\Tools\GoogleClosureCompiler\ClosureCompilerUrl.txt
+		..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js = ..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
