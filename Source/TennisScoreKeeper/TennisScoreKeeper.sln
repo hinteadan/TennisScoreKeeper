@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B23C1D40
 		..\Builds\h_tsk.js = ..\Builds\h_tsk.js
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisScoreKeeper.Frontend", "..\TennisScoreKeeper.Frontend\TennisScoreKeeper.Frontend.csproj", "{A824804B-AEE3-48EC-9D37-E17642ED7172}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{12512099-E57B-4389-8309-ABEA193A3E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12512099-E57B-4389-8309-ABEA193A3E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12512099-E57B-4389-8309-ABEA193A3E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A824804B-AEE3-48EC-9D37-E17642ED7172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A824804B-AEE3-48EC-9D37-E17642ED7172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A824804B-AEE3-48EC-9D37-E17642ED7172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A824804B-AEE3-48EC-9D37-E17642ED7172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
