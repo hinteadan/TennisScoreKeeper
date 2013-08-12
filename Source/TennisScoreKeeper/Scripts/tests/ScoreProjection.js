@@ -302,6 +302,48 @@
         }));
     });
 
+    test("Deciding set win with tiebreak", function () {
+        winOnePerfectSetFor(fed, 6);
+        winOnePerfectSetFor(rafa, 6);
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(fed);
+
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+        winOnePerfectGameFor(rafa);
+
+        winOnePerfectGameFor(fed);
+        winOnePerfectGameFor(rafa);
+
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 1 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 6, Sets: 1 }
+        }));
+
+        //Tiebreak start
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+
+        ok(check.areSame(gameEngine.tennisScore(), {
+            PlayerOne: { Player: fed, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 2 },
+            PlayerTwo: { Player: rafa, Game: m.TennisPoints.Love, GamePoints: 0, Games: 0, Sets: 1 }
+        }));
+    });
+
     function winOnePerfectGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
