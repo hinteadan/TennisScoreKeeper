@@ -1,71 +1,7 @@
 ﻿(function (check, m, _) {
     "use strict";
 
-    var tsk = this,
-        scoreMappings = [
-        m.TennisPoints.Love,
-        m.TennisPoints.Fifteen,
-        m.TennisPoints.Thirty,
-        m.TennisPoints.Fourty
-    ];
-
-    function Score() {
-        check.condition(arguments[0] === "61f6a346-6248-4cd4-a796-84feb4751129",
-            "Score must not be instantiated. It is created by the GameEngine.");
-
-        this.Game = m.TennisPoints.Love;
-        this.Games = 0;
-    }
-
-    function ScoringPlayer(player) {
-        /// <param name="player" type="m.Player">The player</param>
-        check.condition(arguments[1] === "bd1c4b62-e682-4984-985f-9d701913e2f8",
-            "ScoringPlayer must not be instantiated. It is created by the GameEngine.");
-        check.notEmpty(player, "player");
-
-        var self = this,
-            points = [];
-
-        function construct() {
-            for (var property in player) {
-                self[property] = player[property];
-            }
-        }
-
-        function scorePoint(point) {
-            check.notEmpty(point, "point");
-            points.push(point);
-            self.GamePoints.push(point);
-        }
-
-        function winGame() {
-            self.GamePoints = [];
-            self.Score.Games++;
-        }
-
-        function undoPoint(point) {
-            check.notEmpty(point, "point");
-            if (points.length === 0 || points[points.length - 1] !== point) {
-                return;
-            }
-
-            points.pop();
-
-            if (self.GamePoints.length > 0 && self.GamePoints[gamePoints.length - 1] === point) {
-                self.GamePoints.pop();
-            }
-        }
-
-        this.Score = new Score("61f6a346-6248-4cd4-a796-84feb4751129");
-        this.Info = player;
-        this.Points = points;
-        this.GamePoints = [];
-        this.scorePoint = scorePoint;
-        this.undoPoint = undoPoint;
-        this.winGame = winGame;
-
-        construct();
-    }
+    var tsk = this;
 
     function GameEngine(gameDefinition) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
@@ -78,8 +14,8 @@
 
         function construct() {
             players = [
-                new ScoringPlayer(gameDefinition.players[0], "bd1c4b62-e682-4984-985f-9d701913e2f8"),
-                new ScoringPlayer(gameDefinition.players[1], "bd1c4b62-e682-4984-985f-9d701913e2f8")
+                gameDefinition.players[0],
+                gameDefinition.players[1]
             ];
         }
 
@@ -92,47 +28,7 @@
             if (points.length === 0) {
                 return;
             }
-
-            var point = points.pop();
-
-            _.each(players, function (p) {
-                /// <param name="p" type="ScoringPlayer"></param>
-                p.undoPoint(point);
-            });
-
-            processScore();
-        }
-
-        function getScoringPlayer(player) {
-            return players[0].Info === player ? players[0] : players[1];
-        }
-
-        function getScoringOpponent(player) {
-            return players[0].Info === player ? players[1] : players[0];
-        }
-
-        function processScore() {
-            processPlayerScore(players[0], players[1]);
-            processPlayerScore(players[1], players[0]);
-        }
-
-        function processPlayerScore(player, opponent) {
-            /// <param name="player" type="ScoringPlayer"></param>
-            /// <param name="opponent" type="ScoringPlayer"></param>
-            if (player.GamePoints.length < scoreMappings.length) {
-                player.Score.Game = scoreMappings[player.GamePoints.length];
-                return;
-            }
-
-            var tennisPoint = gameDefinition.gameTieMode.PointByDifference(
-                player.GamePoints.length - opponent.GamePoints.length
-                );
-
-            player.Score.Game = tennisPoint;
-
-            if (tennisPoint === m.TennisPoints.Love) {
-                player.winGame();
-            }
+            points.pop();
         }
 
         construct();
