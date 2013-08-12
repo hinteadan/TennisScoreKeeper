@@ -1,16 +1,21 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="H.TennisScoreKeeperUi">
 <head>
     <title>H's Tennis Score Keeper</title>
+
     <script src="Scripts/Lib/h_tsk.js"></script>
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/jquery.js"></script>
     <script src="Scripts/Lib/bootstrap.js"></script>
 
+    <script src="Scripts/namespace.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="Scripts/Controllers/HomeController.js"></script>
+
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-responsive.css" rel="stylesheet" />
 </head>
 <body>
-
+    <div ng-view></div>
 </body>
 </html>
