@@ -9,6 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8F873B49
 		..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js = ..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B23C1D40-27C0-4307-AD20-6FEA453F4F1F}"
+	ProjectSection(SolutionItems) = preProject
+		..\Builds\h_tsk.js = ..\Builds\h_tsk.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
