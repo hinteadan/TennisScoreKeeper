@@ -57,8 +57,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="index.html" />
+    <Content Include="Scripts\Lib\angular.js" />
+    <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\h_tsk.js" />
+    <Content Include="Scripts\Lib\jquery.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
