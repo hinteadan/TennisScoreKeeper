@@ -2,11 +2,11 @@
     "use strict";
 
     var gamePointMapping = [
-        m.TennisPoints.Love,
-        m.TennisPoints.Fifteen,
-        m.TennisPoints.Thirty,
-        m.TennisPoints.Fourty
-    ];
+            m.TennisPoints.Love,
+            m.TennisPoints.Fifteen,
+            m.TennisPoints.Thirty,
+            m.TennisPoints.Fourty
+        ];
 
     function PlayerScoreProjection(player) {
         /// <param name="player" type="m.Player">Player</param>
@@ -114,7 +114,23 @@
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
             var diff = playerScore.GamePoints - opponentScore.GamePoints;
-            return diff >= 2 && playerScore.GamePoints >= 7;
+            return diff >= 2 && playerScore.GamePoints >=
+                tieBreakMinimumPointsToWin(playerScore, opponentScore);
+        }
+
+        function tieBreakMinimumPointsToWin(playerScore, opponentScore) {
+            if (!isDecidingSet(playerScore, opponentScore)) {
+                return 7;
+            }
+
+            return gameDefinition.lastSetTieMode.minimumGamePoints;
+        }
+
+        function isDecidingSet(playerScore, opponentScore) {
+            /// <param name="playerScore" type="PlayerScoreProjection"  />
+            /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            return playerScore.Sets === opponentScore.Sets
+                && playerScore.Sets === Math.floor(gameDefinition.setsCount / 2);
         }
 
         function setWonFor(playerScore, opponentScore) {

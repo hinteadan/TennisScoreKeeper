@@ -13,9 +13,9 @@
             singlePointWin: new GameTieMode(singlePointWinFunc, "15b6d1fc81a043c081242617308b4fdc")
         },
         lastSetTieModes = {
-            tiebreak: {},
-            superTiebreak: {},
-            gameDifference: {}
+            tiebreak: { code: 'TB', minimumGamePoints: 7 },
+            superTiebreak: { code: 'STB', minimumGamePoints: 10 },
+            gameDifference: { code: 'GD', minimumGamePoints: 4 }
         },
         shotStyles = {
             NormalPassing: new ShotStyle("Normal/Passing"),
