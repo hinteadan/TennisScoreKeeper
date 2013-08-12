@@ -1,10 +1,10 @@
 ﻿(function () {
     "use strict";
 
-    function HomeController() {
-
+    function HomeController($scope, $location) {
+        
     }
 
-    this.controller('HomeController', [HomeController]);
+    this.controller('HomeController', ['$scope', '$location', HomeController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule);
