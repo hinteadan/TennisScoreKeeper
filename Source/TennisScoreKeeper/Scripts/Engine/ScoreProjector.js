@@ -151,8 +151,15 @@
         function shouldSetBeTieBroke(playerScore, opponentScore) {
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
-            return playerScore.Games === gameDefinition.gamesPerSet
+            var shouldTieBreakByScore = playerScore.Games === gameDefinition.gamesPerSet
                 && opponentScore.Games === gameDefinition.gamesPerSet;
+
+            if (!isDecidingSet(playerScore, opponentScore)) {
+                return shouldTieBreakByScore;
+            }
+
+            return shouldTieBreakByScore &&
+                gameDefinition.lastSetTieMode !== m.LastSetTieMode.gameDifference;
         }
 
         this.toTennisScore = projectPointsToTennisScore;
