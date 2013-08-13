@@ -3,6 +3,12 @@
 .table th.text-center,
 .table td.text-center {
     text-align: center;
+}
+
+.table.vertical-middle th,
+.table.vertical-middle td,
+.table th.vertical-middle,
+.table td.vertical-middle {
     vertical-align: middle;
 }
 
