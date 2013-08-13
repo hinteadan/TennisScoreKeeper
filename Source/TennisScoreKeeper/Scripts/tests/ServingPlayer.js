@@ -26,6 +26,7 @@
     });
 
     test("Change of serve with tie breaks", function () {
+        //http://sports.stackexchange.com/questions/605/who-serves-in-the-first-game-after-a-tiebreaker
         ok(gameEngine.tennisScore().ServingPlayer() === fed);
         winOnePerfectSetFor(fed, 6);
         winOnePerfectSetFor(rafa, 6);
@@ -47,9 +48,8 @@
         ok(gameEngine.tennisScore().ServingPlayer() === rafa);
         winOnePerfectGameFor(rafa);
 
-        ok(gameEngine.tennisScore().ServingPlayer() === fed);
-
         //Tiebreak start
+        ok(gameEngine.tennisScore().ServingPlayer() === fed);
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         ok(gameEngine.tennisScore().ServingPlayer() === rafa);
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
@@ -60,7 +60,9 @@
         ok(gameEngine.tennisScore().ServingPlayer() === rafa);
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
-        ok(gameEngine.tennisScore().ServingPlayer() === fed);
+
+        //New set
+        ok(gameEngine.tennisScore().ServingPlayer() === rafa);
 
     });
 

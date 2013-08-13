@@ -51,7 +51,8 @@
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
         check.notEmpty(gameDefinition, "gameDefinition");
 
-        var servingPlayer = gameDefinition.startingPlayer;
+        var servingPlayer = gameDefinition.startingPlayer,
+            firstServingPlayerOnTiebreak = null;
 
         function projectPointsToTennisScore(points) {
             check.notEmpty(points, "points");
@@ -92,11 +93,14 @@
             playerScore.GamePoints++;
 
             if (shouldSetBeTieBroke(playerScore, opponentScore)) {
+                firstServingPlayerOnTiebreak = servingPlayer;
                 if ((playerScore.GamePoints + opponentScore.GamePoints) % 2 !== 0) {
                     toggleServingPlayer();
                 }
                 if (isTiebreakWon(playerScore, opponentScore)) {
-                    toggleServingPlayer();
+                    servingPlayer = firstServingPlayerOnTiebreak === playerScore.Player
+                        ? opponentScore.Player
+                        : playerScore.Player;
                     gameWonFor(playerScore, opponentScore);
                     setWonFor(playerScore, opponentScore);
                 }
