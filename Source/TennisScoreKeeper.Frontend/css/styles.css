@@ -1,0 +1,13 @@
+﻿.table.text-center th,
+.table.text-center td,
+.table th.text-center,
+.table td.text-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table input,
+.table textarea,
+.table select {
+    margin-bottom: 0px;
+}
