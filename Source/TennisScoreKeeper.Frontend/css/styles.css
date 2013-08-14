@@ -26,20 +26,42 @@
     height: 6px;
 }
 
+.caret {
+    vertical-align:middle;
+    margin-top: 0px!important;
+}
+
 @media (max-width: 719px) {
     * {
         font-size: 1em!important;
+        line-height: 1em!important;
     }
 }
 
 @media (min-width: 720px) and (max-width: 767px) {
     * {
         font-size: 1em!important;
+        line-height: 1em!important;
     }
 }
 
 @media (min-width: 768px) {
     * {
         font-size: 1.1em!important;
+        line-height: 1.3em!important;
+    }
+    h1 {
+        font-size: 2.5em!important;
+    }
+    input {
+        height: 60px!important;
+    }
+    .btn {
+        font-size: 1em!important;
+        line-height: 1.3em!important;
+    }
+    .btn-group > .dropdown-menu a {
+        font-size: 0.8em!important;
+        line-height: 1.3em!important;
     }
 }
