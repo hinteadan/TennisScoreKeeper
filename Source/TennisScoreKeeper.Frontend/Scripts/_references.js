@@ -5,3 +5,5 @@
 /// <reference path="namespace.js" />
 /// <reference path="app.js" />
 /// <reference path="Controllers/HomeController.js" />
+/// <reference path="Controllers/NewMatchController.js" />
+/// <reference path="Controllers/MatchPlayController.js" />

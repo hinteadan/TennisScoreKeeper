@@ -3,6 +3,11 @@
 
     function NewMatchController($scope, $location) {
 
+        function startMatch() {
+            $location.path('/Play');
+        }
+
+        $scope.play = startMatch;
     }
 
     this.controller('NewMatchController', ['$scope', '$location', NewMatchController]);
