@@ -17,3 +17,11 @@
 .table select {
     margin-bottom: 0px;
 }
+
+.indicatorFill {
+    background-color: #000;
+}
+
+.thick {
+    height: 6px;
+}
