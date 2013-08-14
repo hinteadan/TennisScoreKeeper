@@ -34,7 +34,22 @@
 @media (max-width: 599px) {
     * {
         font-size: 1em!important;
-        line-height: 1em!important;
+        line-height: 1.1em!important;
+    }
+    h1 {
+        font-size: 3em!important;
+    }
+    input {
+        height: 20px!important;
+    }
+    .btn {
+        font-size: 1em!important;
+        line-height: 1.5em!important;
+        margin-bottom: 10px;
+    }
+    .btn-group > .dropdown-menu a {
+        font-size: 0.8em!important;
+        line-height: 1.3em!important;
     }
 }
 
@@ -52,6 +67,7 @@
     .btn {
         font-size: 1em!important;
         line-height: 2em!important;
+        margin-bottom: 20px;
     }
     .btn-group > .dropdown-menu a {
         font-size: 0.8em!important;
@@ -73,6 +89,7 @@
     .btn {
         font-size: 1em!important;
         line-height: 1.3em!important;
+        margin-bottom: 30px;
     }
     .btn-group > .dropdown-menu a {
         font-size: 0.8em!important;
