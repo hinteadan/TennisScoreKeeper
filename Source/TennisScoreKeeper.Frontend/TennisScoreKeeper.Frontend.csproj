@@ -67,7 +67,6 @@
     <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\MatchPlayController.js" />
     <Content Include="Scripts\Controllers\NewMatchController.js" />
-    <Content Include="Scripts\Directives\HResponsiveText.js" />
     <Content Include="Scripts\Lib\angular.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\h_tsk.js" />

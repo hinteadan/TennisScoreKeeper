@@ -26,44 +26,20 @@
     height: 6px;
 }
 
-.text-big {
-    font-size: 2em;
-    line-height: 2em;
-}
-.text-bigger {
-    font-size: 3em;
-    line-height: 3em;
-}
-
 @media (max-width: 719px) {
-  .hidden-desktop {
-    display: inherit !important;
-  }
-  .visible-desktop {
-    display: none !important;
-  }
-  .visible-phone {
-    display: inherit !important;
-  }
-  .hidden-phone {
-    display: none !important;
-  }
+    * {
+        font-size: 1em!important;
+    }
 }
 
 @media (min-width: 720px) and (max-width: 767px) {
-  .hidden-desktop {
-    display: inherit !important;
-  }
-  .visible-desktop {
-    display: none !important ;
-  }
-  .visible-phone {
-    display: none !important;
-  }
-  .visible-tablet {
-    display: inherit !important;
-  }
-  .hidden-tablet {
-    display: none !important;
-  }
+    * {
+        font-size: 1em!important;
+    }
+}
+
+@media (min-width: 768px) {
+    * {
+        font-size: 1.1em!important;
+    }
 }

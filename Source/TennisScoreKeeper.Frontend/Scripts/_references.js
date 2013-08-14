@@ -7,4 +7,3 @@
 /// <reference path="Controllers/HomeController.js" />
 /// <reference path="Controllers/NewMatchController.js" />
 /// <reference path="Controllers/MatchPlayController.js" />
-/// <reference path="Directives/HResponsiveText.js" />
