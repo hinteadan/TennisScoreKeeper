@@ -40,18 +40,18 @@
 
 @media (min-width: 600px) and (max-width: 767px) {
     * {
-        font-size: 1.04em!important;
-        line-height: 1em!important;
+        font-size: 1.1em!important;
+        line-height: 1.3em!important;
     }
     h1 {
         font-size: 2em!important;
     }
     input {
-        height: 45px!important;
+        height: 60px!important;
     }
     .btn {
         font-size: 1em!important;
-        line-height: 1.3em!important;
+        line-height: 2em!important;
     }
     .btn-group > .dropdown-menu a {
         font-size: 0.8em!important;
