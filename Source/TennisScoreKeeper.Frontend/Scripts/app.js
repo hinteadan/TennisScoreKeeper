@@ -1,4 +1,4 @@
-﻿(function (angular) {
+﻿(function (angular, m) {
     "use strict";
 
     var appModule = angular.module('H.TennisScoreKeeperUi', []);
@@ -9,6 +9,13 @@
             .when('/Play', { controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html' });
     }]);
 
+    appModule.service('MatchDefinition', function () {
+        return new m.MatchDefinition(
+            new m.Player(''),
+            new m.Player('')
+            );
+    });
+
     this.AppModule = appModule;
 
-}).call(this.H.TennisScoreKeeper.Ui.Angular, this.angular);
+}).call(this.H.TennisScoreKeeper.Ui.Angular, this.angular, this.H.TennisScoreKeeper.Model);

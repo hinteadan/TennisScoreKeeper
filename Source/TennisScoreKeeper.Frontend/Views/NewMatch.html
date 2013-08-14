@@ -17,18 +17,24 @@
             </tr>
             <tr>
                 <td>
-                    <input type="radio" name="firstToServe" value="playerOne" checked="checked" />
+                    <input type="radio" name="firstToServe" 
+                        ng-model="firstToServe"
+                        value="0"
+                        ng-change="setStartingPlayer(0)" />
                 </td>
                 <td>
-                    <input type="radio" name="firstToServe" value="playerOne" />
+                    <input type="radio" name="firstToServe" 
+                        ng-model="firstToServe"
+                        value="1"
+                        ng-change="setStartingPlayer(1)" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" placeholder="Name" class="input-block-level" />
+                    <input type="text" placeholder="Name" class="input-block-level" ng-model="Match.players[0].name" />
                 </td>
                 <td>
-                    <input type="text" placeholder="Name" class="input-block-level" />
+                    <input type="text" placeholder="Name" class="input-block-level" ng-model="Match.players[1].name" />
                 </td>
             </tr>
         </tbody>
@@ -42,8 +48,12 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn">3</button>
-                        <button class="btn active">6</button>
+                        <button class="btn" 
+                            ng-click="Match.gamesPerSet = 3" 
+                            ng-class="{active:Match.gamesPerSet == 3}">3</button>
+                        <button class="btn" 
+                            ng-click="Match.gamesPerSet = 6" 
+                            ng-class="{active:Match.gamesPerSet == 6}">6</button>
                     </div>
                 </td>
             </tr>
@@ -53,9 +63,15 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn">1</button>
-                        <button class="btn active">3</button>
-                        <button class="btn">5</button>
+                        <button class="btn"
+                             ng-click="Match.setsCount = 1"
+                             ng-class="{active:Match.setsCount == 1}">1</button>
+                        <button class="btn"
+                             ng-click="Match.setsCount = 3"
+                             ng-class="{active:Match.setsCount == 3}">3</button>
+                        <button class="btn"
+                             ng-click="Match.setsCount = 5"
+                             ng-class="{active:Match.setsCount == 5}">5</button>
                     </div>
                 </td>
             </tr>

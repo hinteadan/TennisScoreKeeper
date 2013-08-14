@@ -1,15 +1,30 @@
-﻿(function () {
+﻿(function (tsk, check) {
     "use strict";
 
-    function NewMatchController($scope, $location) {
+    var app = this;
+
+    function NewMatchController(matchDefinition, $scope, $location) {
+        ///<param name="matchDefinition" type="tsk.Model.MatchDefinition" />
 
         function startMatch() {
-            $location.path('/Play');
+
+            var a = matchDefinition;
+            var b = '';
+
+            //$location.path('/Play');
         }
 
+        function setStartingPlayer(index) {
+            check.condition(check.value(index).isBetweenInclusive(0, 1), 'Index must be [0,1]');
+            matchDefinition.startingPlayer = matchDefinition.players[index];
+        }
+
+        $scope.setStartingPlayer = setStartingPlayer;
+        $scope.firstToServe = 0;
+        $scope.Match = matchDefinition;
         $scope.play = startMatch;
     }
 
-    this.controller('NewMatchController', ['$scope', '$location', NewMatchController]);
+    this.controller('NewMatchController', ['MatchDefinition', '$scope', '$location', NewMatchController]);
 
-}).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule);
+}).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this.H.Check);
