@@ -13,8 +13,14 @@
             updateScore();
         }
 
+        function undoLastPoint() {
+            scoreKeeperEngine.undoLatestPoint();
+            updateScore();
+        }
+
         $scope.updateScore = updateScore;
         $scope.scorePoint = scorePoint;
+        $scope.undoLastPoint = undoLastPoint;
 
         updateScore();
     }
