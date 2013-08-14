@@ -1,4 +1,4 @@
-﻿(function (angular, m) {
+﻿(function (angular, m, tsk) {
     "use strict";
 
     var appModule = angular.module('H.TennisScoreKeeperUi', []);
@@ -16,6 +16,10 @@
             );
     });
 
+    appModule.service('ScoreKeeper', ['MatchDefinition', function (matchDefinition) {
+        return new tsk.Engine(matchDefinition);
+    }]);
+
     this.AppModule = appModule;
 
-}).call(this.H.TennisScoreKeeper.Ui.Angular, this.angular, this.H.TennisScoreKeeper.Model);
+}).call(this.H.TennisScoreKeeper.Ui.Angular, this.angular, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);

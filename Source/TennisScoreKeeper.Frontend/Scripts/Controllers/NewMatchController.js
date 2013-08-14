@@ -7,11 +7,7 @@
         ///<param name="matchDefinition" type="tsk.Model.MatchDefinition" />
 
         function startMatch() {
-
-            var a = matchDefinition;
-            var b = '';
-
-            //$location.path('/Play');
+            $location.path('/Play');
         }
 
         function setStartingPlayer(index) {

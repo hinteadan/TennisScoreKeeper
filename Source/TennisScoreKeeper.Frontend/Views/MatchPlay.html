@@ -1,27 +1,27 @@
 ﻿<table class="table text-center vertical-middle">
     <tbody>
         <tr>
-            <td class="w45p"><h5>Roger FEDERER</h5></td>
+            <td class="w45p"><h5>{{scorer.players[0].name}}</h5></td>
             <td>vs</td>
-            <td class="w45p"><h5>Rafael NADAL</h5></td>
+            <td class="w45p"><h5>{{scorer.players[1].name}}</h5></td>
         </tr>
         <tr>
-            <td><div class="thick indicatorFill"></div></td>
+            <td><div class="thick indicatorFill" ng-show="score.ServingPlayer() == score.PlayerOne.Player"></div></td>
             <td>Serving</td>
-            <td></td>
+            <td><div class="thick indicatorFill" ng-show="score.ServingPlayer() == score.PlayerTwo.Player"></div></td>
         </tr>
         <tr>
             <td>
-                <h1>30</h1>
-                <h3>3</h3>
+                <h1>{{score.PlayerOne.Game.code}}</h1>
+                <h3>{{score.PlayerOne.Games}}</h3>
             </td>
             <td>
                 <h6>Sets</h6>
-                <h4>1 - 0</h4>
+                <h4>{{score.PlayerOne.Sets}} - {{score.PlayerTwo.Sets}}</h4>
             </td>
             <td>
-                <h1>15</h1>
-                <h3>3</h3>
+                <h1>{{score.PlayerTwo.Game.code}}</h1>
+                <h3>{{score.PlayerTwo.Games}}</h3>
             </td>
         </tr>
     </tbody>
