@@ -1,6 +1,11 @@
 ﻿(function (tsk, m) {
     "use strict";
 
+    var labels = {
+        servingFirstService: 'Serving 1st service',
+        servingSecondService: 'Serving 2nd service'
+    };
+
     function MatchPlayController(scoreKeeperEngine, matchDef, $scope) {
         /// <param name="scoreKeeperEngine" type="tsk.Engine" />
         ///<param name="matchDef" type="m.MatchDefinition" />
@@ -10,12 +15,16 @@
         }
 
         function scorePoint(player) {
-            scoreKeeperEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+            scoreKeeperEngine.scorePointFor(player,
+                m.PointTypes.Ace(m.ShotStyles.NormalPassing),
+                $scope.isSecondServe);
+            toggleServe(true);
             updateScore();
         }
 
         function undoLastPoint() {
             scoreKeeperEngine.undoLatestPoint();
+            toggleServe(true);
             updateScore();
         }
 
@@ -31,6 +40,14 @@
                 && $scope.score.PlayerTwo.Games === matchDef.gamesPerSet;
         }
 
+        function toggleServe(isForceToFirstService) {
+            $scope.isSecondServe = isForceToFirstService === true ? false : !$scope.isSecondServe;
+            $scope.serveButtonLabel = $scope.isSecondServe ? labels.servingSecondService : labels.servingFirstService;
+        }
+
+        $scope.isSecondServe = false;
+        $scope.serveButtonLabel = labels.servingFirstService;
+        $scope.toggleServe = toggleServe;
         $scope.updateScore = updateScore;
         $scope.scorePoint = scorePoint;
         $scope.undoLastPoint = undoLastPoint;

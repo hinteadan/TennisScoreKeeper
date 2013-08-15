@@ -6,9 +6,19 @@
             <td class="w45p"><h5>{{score.PlayerTwo.Player.name}}</h5></td>
         </tr>
         <tr>
-            <td><div class="thick indicatorFill" ng-show="score.ServingPlayer() == score.PlayerOne.Player"></div></td>
+            <td>
+                <div ng-show="score.ServingPlayer() == score.PlayerOne.Player">
+                    <button class="btn" ng-click="toggleServe()">{{serveButtonLabel}}</button>
+                    <div class="thick indicatorFill"></div>
+                </div>
+            </td>
             <td>Serving</td>
-            <td><div class="thick indicatorFill" ng-show="score.ServingPlayer() == score.PlayerTwo.Player"></div></td>
+            <td>
+                <div ng-show="score.ServingPlayer() == score.PlayerTwo.Player">
+                    <button class="btn" ng-click="toggleServe()">{{serveButtonLabel}}</button>
+                    <div class="thick indicatorFill"></div>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>
