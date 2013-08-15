@@ -143,7 +143,7 @@
         this.startingPlayer = isPlayerTwoFirstToServe ? playerTwo : playerOne;
     }
 
-    function Point(forPlayer, creditedTo, type) {
+    function Point(forPlayer, creditedTo, type, isOnSecondServe) {
         /// <param name="forPlayer" type="Player">Player for which the point counts.</param>
         /// <param name="creditedTo" type="Player">Player who gets merit for the point.</param>
         check.notEmpty(forPlayer, "forPlayer");
@@ -153,6 +153,7 @@
         this.creditedTo = creditedTo;
         this.timestamp = new Date();
         this.type = type;
+        this.isOnSecondServe = isOnSecondServe;
     }
 
     this.Model = {

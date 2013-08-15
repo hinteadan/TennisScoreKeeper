@@ -19,8 +19,8 @@
             ];
         }
 
-        function scorePointFor(player, type) {
-            var point = pointFactory.pointFor(player, type);
+        function scorePointFor(player, type, isOnSecondServe) {
+            var point = pointFactory.pointFor(player, type, isOnSecondServe);
             points.push(point);
         }
 
@@ -48,14 +48,15 @@
             check.condition(players.length === 2, "The match must have exactly two players");
         }
 
-        function pointFor(player, type) {
+        function pointFor(player, type, isOnSecondServe) {
             /// <param name="player" type="m.Player">Player for which the points counts.</param>
             /// <param name="type" type="m.PointType">Point Type</param>
             var losingPlayer = player === players[0] ?  players[1] : players[0];
             return new m.Point(
                 player,
                 type.creditTo === m.PointCreditTypes.PointWinner ? player : losingPlayer,
-                type);
+                type,
+                isOnSecondServe === true ? true : false);
         }
 
         construct();
