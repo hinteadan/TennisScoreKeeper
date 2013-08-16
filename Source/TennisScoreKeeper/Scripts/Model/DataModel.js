@@ -66,7 +66,7 @@
         };
 
     function GameTieMode(id, pointByDifferenceFunc) {
-        check.condition(arguments[1] === "15b6d1fc81a043c081242617308b4fdc",
+        check.condition(arguments[2] === "15b6d1fc81a043c081242617308b4fdc",
             "GameTieMode must not be instantiated. Use TieMode enum.");
         check.notEmpty(id, "id");
         check.notEmpty(pointByDifferenceFunc, "pointByDifferenceFunc");
