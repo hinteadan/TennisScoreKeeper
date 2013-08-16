@@ -167,7 +167,7 @@
         return S(fromString)
             .trim()
             .replaceAll(' ', '')
-            .replaceAll('/', '-')
+            .replaceAll('/', '')
             .s;
     }
 
