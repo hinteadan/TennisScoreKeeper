@@ -47,10 +47,11 @@
 
         function saveMatch() {
             var json = {
-                Metadata: angular.toJson(matchDef, true),
-                Points: angular.toJson(scoreKeeperEngine.points, true)
-            };
-            debugger;
+                    Metadata: matchDef,
+                    Points: scoreKeeperEngine.points
+                },
+                uriContent = 'data:application/json;filename=match.json,' + encodeURIComponent(angular.toJson(json));
+            window.open(uriContent, 'match.json');
         }
 
         $scope.isSecondServe = false;

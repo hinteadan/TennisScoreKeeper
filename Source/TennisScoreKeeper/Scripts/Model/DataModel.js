@@ -125,6 +125,7 @@
 
         this.label = label;
         this.creditTo = pointCreditType;
+        this.shotStyle = shotStyle;
         this.id = generateId(label);
     }
 
