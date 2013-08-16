@@ -50,7 +50,7 @@
                     Metadata: matchDef,
                     Points: scoreKeeperEngine.points
                 },
-                uriContent = 'data:application/json;filename=match.json,' + encodeURIComponent(angular.toJson(json));
+                uriContent = 'data:application/json;filename=match.json,' + encodeURIComponent(angular.toJson(json, true));
             window.open(uriContent, 'match.json');
         }
 
