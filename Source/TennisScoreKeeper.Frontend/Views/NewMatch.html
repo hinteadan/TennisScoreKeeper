@@ -82,12 +82,13 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            Advantage Win
+                            {{selectedTieMode.Label}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="javascript:void(0)">Advantage Win</a></li>
-                            <li><a tabindex="-1" href="javascript:void(0)">Single Point Win</a></li>
+                            <li ng-repeat="tieMode in tieModes">
+                                <a tabindex="-1" href="javascript:void(0)" ng-click="tieMode.Toggle()">{{tieMode.Label}}</a>
+                            </li>
                         </ul>
                     </div>
                 </td>
