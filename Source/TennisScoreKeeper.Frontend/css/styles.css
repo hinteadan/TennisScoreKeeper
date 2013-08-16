@@ -41,7 +41,29 @@
     width: 10%;
 }
 
-@media (max-width: 599px) {
+.w90p
+{
+    width: 90%;
+}
+
+.w100p
+{
+    width: 100%;
+}
+
+.bottom-spacing-small
+{
+    margin-bottom: 4px;
+}
+
+.top-spacing-small
+{
+    margin-top: 4px;
+}
+
+
+
+/*@media (max-width: 599px) {
     * {
         font-size: 1em!important;
         line-height: 1.1em!important;
@@ -105,4 +127,4 @@
         font-size: 0.8em!important;
         line-height: 1.3em!important;
     }
-}
+}*/
