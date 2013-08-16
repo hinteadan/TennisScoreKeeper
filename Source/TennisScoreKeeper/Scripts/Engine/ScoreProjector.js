@@ -113,12 +113,12 @@
             }
 
             if (isGameTied(playerScore, opponentScore)) {
-                playerScore.Game = gameDefinition.gameTieMode.PointByDifference(
-                    playerScore.GamePoints - opponentScore.GamePoints
-                    );
-                opponentScore.Game = gameDefinition.gameTieMode.PointByDifference(
-                    opponentScore.GamePoints - playerScore.GamePoints
-                    );
+                var diff = playerScore.GamePoints - opponentScore.GamePoints;
+                playerScore.Game = gameDefinition.gameTieMode.PointByDifference(diff);
+                opponentScore.Game = gameDefinition.gameTieMode.PointByDifference(-diff);
+                if (diff > 0 && playerScore.Game == m.TennisPoints.Love && opponentScore.Game == m.TennisPoints.Love) {
+                    gameWonFor(playerScore, opponentScore);
+                }
                 return;
             }
 
