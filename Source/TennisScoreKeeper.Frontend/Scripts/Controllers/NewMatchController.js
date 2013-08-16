@@ -1,4 +1,4 @@
-﻿(function (tsk, m, check) {
+﻿(function (tsk, m, check, _) {
     "use strict";
 
     var app = this;
@@ -26,6 +26,10 @@
         }
 
         function startMatch() {
+            _.each(matchDefinition.players, function (p) {
+                ///<param name="p" type="m.Player" />
+                p.setName(p.name);
+            });
             $location.path('/Play');
         }
 
@@ -59,4 +63,5 @@
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule,
     this.H.TennisScoreKeeper,
     this.H.TennisScoreKeeper.Model,
-    this.H.Check);
+    this.H.Check,
+    this._);
