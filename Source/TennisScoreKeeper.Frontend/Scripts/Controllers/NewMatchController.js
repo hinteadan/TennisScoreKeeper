@@ -7,16 +7,21 @@
         ///<param name="matchDefinition" type="tsk.Model.MatchDefinition" />
 
         var gameTieModes = {
-                AdvantageWin: new GameTieMode('Advantage Win', m.TieMode.advantageWin),
-                SinglePointWin: new GameTieMode('Single Point Win', m.TieMode.singlePointWin)
+                AdvantageWin: new TieMode('Advantage Win', m.TieMode.advantageWin, toggleTieMode),
+                SinglePointWin: new TieMode('Single Point Win', m.TieMode.singlePointWin, toggleTieMode)
+            },
+            lastSetTieModes = {
+                TieBreak: new TieMode('Tie Break', m.LastSetTieMode.tiebreak, toggleLastSetTieMode),
+                SuperTieBreak: new TieMode('Super Tie Break', m.LastSetTieMode.superTiebreak, toggleLastSetTieMode),
+                GameDifference: new TieMode('Game Difference', m.LastSetTieMode.gameDifference, toggleLastSetTieMode)
             };
 
-        function GameTieMode(label, tskMode){
+        function TieMode(label, tskMode, toggleCallback){
             var self = this;
             this.Label = label;
             this.Mode = tskMode;
             this.Toggle = function(){
-                toggleTieMode(self);
+                toggleCallback.call(self, self);
             }
         }
 
@@ -34,11 +39,18 @@
             $scope.selectedTieMode = mode;
         }
 
+        function toggleLastSetTieMode(mode) {
+            matchDefinition.lastSetTieMode = mode.Mode;
+            $scope.selectedLastSetTieMode = mode;
+        }
+
         $scope.setStartingPlayer = setStartingPlayer;
         $scope.firstToServe = 0;
         $scope.Match = matchDefinition;
         $scope.tieModes = gameTieModes;
         $scope.selectedTieMode = gameTieModes.AdvantageWin;
+        $scope.lastSetTieModes = lastSetTieModes;
+        $scope.selectedLastSetTieMode = lastSetTieModes.TieBreak;
         $scope.play = startMatch;
     }
 

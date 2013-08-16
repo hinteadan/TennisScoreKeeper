@@ -100,13 +100,13 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            Tie Break
+                            {{selectedLastSetTieMode.Label}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="javascript:void(0)">Tie Break</a></li>
-                            <li><a tabindex="-1" href="javascript:void(0)">Super Tie Break</a></li>
-                            <li><a tabindex="-1" href="javascript:void(0)">Game Difference</a></li>
+                            <li ng-repeat="tieMode in lastSetTieModes">
+                                <a tabindex="-1" href="javascript:void(0)" ng-click="tieMode.Toggle()">{{tieMode.Label}}</a>
+                            </li>
                         </ul>
                     </div>
                 </td>
