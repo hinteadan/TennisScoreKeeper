@@ -1,4 +1,4 @@
-﻿(function (tsk, m) {
+﻿(function (tsk, m, angular) {
     "use strict";
 
     var labels = {
@@ -45,6 +45,14 @@
             $scope.serveButtonLabel = $scope.isSecondServe ? labels.servingSecondService : labels.servingFirstService;
         }
 
+        function saveMatch() {
+            var json = {
+                Metadata: angular.toJson(matchDef, true),
+                Points: angular.toJson(scoreKeeperEngine.points, true)
+            };
+            debugger;
+        }
+
         $scope.isSecondServe = false;
         $scope.serveButtonLabel = labels.servingFirstService;
         $scope.toggleServe = toggleServe;
@@ -53,10 +61,11 @@
         $scope.undoLastPoint = undoLastPoint;
         $scope.gameScore = gameScore;
         $scope.pointTypes = m.PointTypes;
+        $scope.saveMatch = saveMatch;
 
         updateScore();
     }
 
     this.controller('MatchPlayController', ['ScoreKeeper', 'MatchDefinition', '$scope', MatchPlayController]);
 
-}).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model);
+}).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model, this.angular);

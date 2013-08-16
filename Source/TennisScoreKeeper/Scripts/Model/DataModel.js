@@ -1,21 +1,21 @@
-﻿(function (check, undefined) {
+﻿(function (check, S, undefined) {
     "use strict";
 
     var tennisPoints = {
-            Love: { code: '0' },
-            Fifteen: { code: '15' },
-            Thirty: { code: '30' },
-            Fourty: { code: '40' },
-            Advantage: { code: 'Ad' }
+            Love: { id: 'Love', code: '0' },
+            Fifteen: { id: 'Fifteen', code: '15' },
+            Thirty: { id: 'Thirty', code: '30' },
+            Fourty: { id: 'Fourty', code: '40' },
+            Advantage: { id: 'Advantage', code: 'Ad' }
         },
         gameTieModes = {
-            advantageWin: new GameTieMode(advantageWinPointFunc, "15b6d1fc81a043c081242617308b4fdc"),
-            singlePointWin: new GameTieMode(singlePointWinFunc, "15b6d1fc81a043c081242617308b4fdc")
+            advantageWin: new GameTieMode('AdvantageWin', advantageWinPointFunc, "15b6d1fc81a043c081242617308b4fdc"),
+            singlePointWin: new GameTieMode('SinglePointWin', singlePointWinFunc, "15b6d1fc81a043c081242617308b4fdc")
         },
         lastSetTieModes = {
-            tiebreak: { code: 'TB', minimumGamePoints: 7 },
-            superTiebreak: { code: 'STB', minimumGamePoints: 10 },
-            gameDifference: { code: 'GD', minimumGamePoints: 4 }
+            tiebreak: { id: 'TieBreak', minimumGamePoints: 7 },
+            superTiebreak: { id: 'SuperTieBreak', minimumGamePoints: 10 },
+            gameDifference: { id: 'GameDifference', minimumGamePoints: 4 }
         },
         shotStyles = {
             NormalPassing: new ShotStyle("Normal/Passing"),
@@ -65,9 +65,10 @@
             }
         };
 
-    function GameTieMode(pointByDifferenceFunc) {
+    function GameTieMode(id, pointByDifferenceFunc) {
         check.condition(arguments[1] === "15b6d1fc81a043c081242617308b4fdc",
             "GameTieMode must not be instantiated. Use TieMode enum.");
+        check.notEmpty(id, "id");
         check.notEmpty(pointByDifferenceFunc, "pointByDifferenceFunc");
         check.condition(typeof(pointByDifferenceFunc) === 'function', 
             "pointByDifferenceFunc must be a function returning tennisPoint via point difference");
@@ -75,6 +76,8 @@
         this.PointByDifference = function (difference) {
             return pointByDifferenceFunc.call(null, difference);
         }
+
+        this.id = id;
     }
 
     function advantageWinPointFunc(difference) {
@@ -107,6 +110,7 @@
         check.notEmpty(label, "label");
 
         this.label = label;
+        this.id = generateId(label);
     }
 
     function PointType(pointCreditType, label, shotStyle) {
@@ -121,11 +125,13 @@
 
         this.label = label;
         this.creditTo = pointCreditType;
+        this.id = generateId(label);
     }
 
     function Player(name) {
         check.notEmpty(name, "name");
         this.name = name;
+        this.id = generateId(name);
     }
 
     function MatchDefinition(playerOne, playerTwo, isPlayerTwoFirstToServe) {
@@ -156,6 +162,14 @@
         this.isOnSecondServe = isOnSecondServe;
     }
 
+    function generateId(fromString) {
+        return S(fromString)
+            .trim()
+            .replaceAll(' ', '')
+            .replaceAll('/', '-')
+            .s;
+    }
+
     this.Model = {
         Player: Player,
         MatchDefinition: MatchDefinition,
@@ -169,4 +183,4 @@
         TennisPoints: tennisPoints
     };
 
-}).call(this.H.TennisScoreKeeper, this.H.Check);
+}).call(this.H.TennisScoreKeeper, this.H.Check, this.S);
