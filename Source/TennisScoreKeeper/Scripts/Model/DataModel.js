@@ -131,8 +131,13 @@
 
     function Player(name) {
         check.notEmpty(name, "name");
+        var self = this;
         this.name = name;
         this.id = generateId(name);
+        this.setName = function(newName){
+            self.name = newName;
+            self.id = generateId(newName);
+        }
     }
 
     function MatchDefinition(playerOne, playerTwo, isPlayerTwoFirstToServe) {
