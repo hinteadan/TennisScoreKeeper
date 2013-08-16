@@ -14,10 +14,10 @@
             $scope.score = scoreKeeperEngine.tennisScore();
         }
 
-        function scorePoint(player) {
-            scoreKeeperEngine.scorePointFor(player,
-                m.PointTypes.Ace(m.ShotStyles.NormalPassing),
-                $scope.isSecondServe);
+        function scorePoint(player, pointType, shotStyle) {
+            var pointType = pointType || m.PointTypes.WinningShot,
+                shotStyle = shotStyle || m.ShotStyles.NormalPassing;
+            scoreKeeperEngine.scorePointFor(player, pointType(shotStyle), $scope.isSecondServe);
             toggleServe(true);
             updateScore();
         }
@@ -52,6 +52,7 @@
         $scope.scorePoint = scorePoint;
         $scope.undoLastPoint = undoLastPoint;
         $scope.gameScore = gameScore;
+        $scope.pointTypes = m.PointTypes;
 
         updateScore();
     }
