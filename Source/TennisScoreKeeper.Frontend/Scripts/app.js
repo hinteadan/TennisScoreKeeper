@@ -1,7 +1,7 @@
 ﻿(function (angular, m, tsk) {
     "use strict";
 
-    var appModule = angular.module('H.TennisScoreKeeperUi', []);
+    var appModule = angular.module('H.TennisScoreKeeperUi', ['ngResource']);
     appModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', { controller: 'HomeController', templateUrl: 'Views/Home.html' })
