@@ -12,5 +12,6 @@ namespace H.TennisScoreKeeper.Data
         void SaveOrUpdate(KeyValuePair<Guid, object> entry);
         object Load(Guid id);
         IEnumerable<KeyValuePair<Guid, object>> Load();
+        void Remove(Guid id);
     }
 }

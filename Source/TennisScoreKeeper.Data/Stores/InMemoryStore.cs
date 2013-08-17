@@ -39,5 +39,11 @@ namespace H.TennisScoreKeeper.Data.Stores
                 .Select(k => new KeyValuePair<Guid, object>(k, dataDictionary[k]))
                 .ToArray();
         }
+
+
+        public void Remove(Guid id)
+        {
+            dataDictionary.Remove(id);
+        }
     }
 }

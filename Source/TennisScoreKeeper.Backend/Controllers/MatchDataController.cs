@@ -17,31 +17,29 @@ namespace TennisScoreKeeper.Backend.Controllers
             this.dataStore = dataStore;
         }
 
-        // GET api/matchdata
-        public IEnumerable<string> Get()
+        public IEnumerable<KeyValuePair<Guid, object>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return dataStore.Load();
         }
 
-        // GET api/matchdata/5
-        public string Get(int id)
+        public object Get(Guid id)
         {
-            return "value";
+            return dataStore.Load(id);
         }
 
-        // POST api/matchdata
-        public void Post([FromBody]string value)
+        public Guid Post([FromBody]object value)
         {
+            return dataStore.Save(value);
         }
 
-        // PUT api/matchdata/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]object value)
         {
+            dataStore.SaveOrUpdate(new KeyValuePair<Guid, object>(id, value));
         }
 
-        // DELETE api/matchdata/5
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            dataStore.Remove(id);
         }
     }
 }
