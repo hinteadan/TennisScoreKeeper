@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TennisScoreKeeper.Backend.Infrastructure;
 
 namespace TennisScoreKeeper.Backend
 {
@@ -15,6 +16,8 @@ namespace TennisScoreKeeper.Backend
     {
         protected void Application_Start()
         {
+            Dependencies.Init();
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }

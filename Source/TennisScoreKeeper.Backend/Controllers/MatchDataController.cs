@@ -4,11 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using H.TennisScoreKeeper.Data;
 
 namespace TennisScoreKeeper.Backend.Controllers
 {
     public class MatchDataController : ApiController
     {
+        private readonly IStoreDataAsKeyValue dataStore;
+
+        public MatchDataController(IStoreDataAsKeyValue dataStore)
+        {
+            this.dataStore = dataStore;
+        }
+
         // GET api/matchdata
         public IEnumerable<string> Get()
         {
