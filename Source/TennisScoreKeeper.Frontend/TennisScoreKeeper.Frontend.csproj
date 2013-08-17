@@ -74,6 +74,7 @@
     <Content Include="Scripts\Lib\h_tsk.js" />
     <Content Include="Scripts\Lib\jquery.js" />
     <Content Include="Scripts\namespace.js" />
+    <Content Include="Scripts\Services\DataService.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home.html" />
     <Content Include="Views\MatchPlay.html" />

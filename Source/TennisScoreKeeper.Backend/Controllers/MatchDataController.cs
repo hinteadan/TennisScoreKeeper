@@ -27,9 +27,9 @@ namespace TennisScoreKeeper.Backend.Controllers
             return dataStore.Load(id);
         }
 
-        public Guid Post([FromBody]object value)
+        public object Post([FromBody]object value)
         {
-            return dataStore.Save(value);
+            return new { Id = dataStore.Save(value) };
         }
 
         public void Put(Guid id, [FromBody]object value)

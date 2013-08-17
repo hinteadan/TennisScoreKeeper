@@ -9,3 +9,4 @@
 /// <reference path="Controllers/NewMatchController.js" />
 /// <reference path="Controllers/MatchPlayController.js" />
 /// <reference path="Directives/ShotStyle.js" />
+/// <reference path="Services/DataService.js" />
