@@ -47,7 +47,7 @@
         }
     }
 
-    function ScoreProjectorHooks(onGame, onSet, onMatch) {
+    function ScoreProjectorHooks(onPoint, onGame, onSet, onMatch) {
 
         var self = this;
 
@@ -58,10 +58,12 @@
             hook.apply(undefined, argsArray);
         }
 
+        this.onPointWon = onPoint;
         this.onGameWon = onGame;
         this.onSetWon = onSet,
         this.onMatchWon = onMatch;
 
+        this.raiseOnPointWon = function () { tryCallHook(self.onPointWon, arguments); }
         this.raiseOnGameWon = function () { tryCallHook(self.onGameWon, arguments); }
         this.raiseOnSetWon = function () { tryCallHook(self.onSetWon, arguments); }
         this.raiseOnMatchWon = function () { tryCallHook(self.onMatchWon, arguments); }
@@ -122,6 +124,8 @@
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
 
             playerScore.GamePoints++;
+
+            hook('raiseOnPointWon', [new HookArgs(playerScore, opponentScore, "22eb1d7990b640aab2c47aa9ba18572f")]);
 
             if (shouldSetBeTieBroke(playerScore, opponentScore)) {
                 firstServingPlayerOnTiebreak = servingPlayer;
