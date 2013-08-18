@@ -69,7 +69,8 @@
 
         function onGame(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            var playerScore = score.forPlayer(data.WinningPlayer).Score;
+            var playerScore = score.forPlayer(data.WinningPlayer).Score,
+                losingPlayerScore = score.forPlayer(data.LosingPlayer).Score;
 
             if (playerScore.Sets.length === 0) {
                 playerScore.Sets.push(new Set());
@@ -79,8 +80,15 @@
                 playerScore.Games[playerScore.Games.length - 1]
                 );
 
+            if (data.IsTiebreak) {
+                playerScore.Sets[playerScore.Sets.length - 1].TiebreakGame =
+                    playerScore.Games[playerScore.Games.length - 1];
+                losingPlayerScore.Sets[losingPlayerScore.Sets.length - 1].TiebreakGame = 
+                    losingPlayerScore.Games[losingPlayerScore.Games.length - 1];
+            }
+
             playerScore.Games.push(new Game());
-            score.forPlayer(data.LosingPlayer).Score.Games.push(new Game());
+            losingPlayerScore.Games.push(new Game());
         }
 
         function onSet(data) {

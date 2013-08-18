@@ -88,10 +88,17 @@
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
 
         score = projector.projectScore(gameEngine.points);
         ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
+        ok(score.PlayerOne.Score.Sets[score.PlayerOne.Score.Sets.length - 2].Score() === 7
+            && score.PlayerTwo.Score.Sets[score.PlayerTwo.Score.Sets.length - 2].Score() === 6);
+        ok(score.PlayerOne.Score.Sets[score.PlayerOne.Score.Sets.length - 2].Score() === 7
+            && score.PlayerTwo.Score.Sets[score.PlayerTwo.Score.Sets.length - 2].Score() === 6);
+        ok(score.PlayerOne.Score.Sets[score.PlayerOne.Score.Sets.length - 2].TiebreakGame.Score() === 7
+            && score.PlayerTwo.Score.Sets[score.PlayerTwo.Score.Sets.length - 2].TiebreakGame.Score() === 1);
     });
 
     function winOneGameFor(player) {
