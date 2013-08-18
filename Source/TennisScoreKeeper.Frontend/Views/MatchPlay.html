@@ -8,15 +8,13 @@
         <tr>
             <td>
                 <div ng-show="score.ServingPlayer() == score.PlayerOne.Player">
-                    <button class="btn" ng-click="toggleServe()">{{serveButtonLabel}}</button>
-                    <div class="thick indicatorFill"></div>
+                    <button class="btn btn-large btn-info btn-block btn-large" ng-click="toggleServe()">{{serveButtonLabel}}</button>
                 </div>
             </td>
             <td>Serving</td>
             <td>
                 <div ng-show="score.ServingPlayer() == score.PlayerTwo.Player">
-                    <button class="btn" ng-click="toggleServe()">{{serveButtonLabel}}</button>
-                    <div class="thick indicatorFill"></div>
+                    <button class="btn btn-large btn-info btn-block btn-large" ng-click="toggleServe()">{{serveButtonLabel}}</button>
                 </div>
             </td>
         </tr>
@@ -41,17 +39,17 @@
     <tbody>
         <tr>
             <td colspan="2">
-                <button class="btn btn-warning btn-block" ng-click="undoLastPoint()">Undo Last Point</button>
+                <button class="btn btn-large btn-warning btn-block" ng-click="undoLastPoint()">Undo Last Point</button>
             </td>
         </tr>
         <tr>
             <td>
                 Scores point because of
                 <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.WinningShot)">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.WinningShot)">
                         <strong>Winning shot</strong>
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerOne.Player" 
@@ -59,43 +57,43 @@
                 </div>
 
                 <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.ForcedError)">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.ForcedError)">
                         <strong>Forced Error</strong> on opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerOne.Player" 
                         point-type="pointTypes.ForcedError" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.UnforcedError)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.UnforcedError)">
                         <strong>Unforced Error</strong> made by opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerOne.Player" 
                         point-type="pointTypes.UnforcedError" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.Ace)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.Ace)">
                         <strong>Ace</strong>
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerOne.Player" 
                         point-type="pointTypes.Ace" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.DoubleFault)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerOne.Player, pointTypes.DoubleFault)">
                         <strong>Double Fault</strong> made by opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerOne.Player" 
@@ -105,10 +103,10 @@
             <td>
                 Scores point because of
                 <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.WinningShot)">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.WinningShot)">
                         <strong>Winning shot</strong>
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerTwo.Player" 
@@ -116,43 +114,43 @@
                 </div>
 
                 <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.ForcedError)">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.ForcedError)">
                         <strong>Forced Error</strong> on opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerTwo.Player" 
                         point-type="pointTypes.ForcedError" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.UnforcedError)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.UnforcedError)">
                         <strong>Unforced Error</strong> made by opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerTwo.Player" 
                         point-type="pointTypes.UnforcedError" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.Ace)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.Ace)">
                         <strong>Ace</strong>
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerTwo.Player" 
                         point-type="pointTypes.Ace" />
                 </div>
 
-                <div class="btn-group btn-block bottom-spacing-small top-spacing-small">
-                    <button class="btn w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.DoubleFault)">
+                <div class="btn-group btn-block bottom-spacing-small top-spacing-small dropup">
+                    <button class="btn btn-large w90p" ng-click="scorePoint(score.PlayerTwo.Player, pointTypes.DoubleFault)">
                         <strong>Double Fault</strong> made by opponent
                     </button>
-                    <button class="btn w10p dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-large w10p dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
                     <shot-style score-point="scorePoint" player="score.PlayerTwo.Player" 
@@ -162,7 +160,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <button class="btn btn-success btn-block" ng-click="saveMatch()">Save Match</button>
+                <button class="btn btn-large btn-success btn-block" ng-click="saveMatch()">Save Match</button>
             </td>
         </tr>
     </tbody>

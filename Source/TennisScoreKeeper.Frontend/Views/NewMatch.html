@@ -48,10 +48,10 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn" 
+                        <button class="btn btn-large" 
                             ng-click="Match.gamesPerSet = 3" 
                             ng-class="{active:Match.gamesPerSet == 3}">3</button>
-                        <button class="btn" 
+                        <button class="btn btn-large" 
                             ng-click="Match.gamesPerSet = 6" 
                             ng-class="{active:Match.gamesPerSet == 6}">6</button>
                     </div>
@@ -63,13 +63,13 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn"
+                        <button class="btn btn-large"
                              ng-click="Match.setsCount = 1"
                              ng-class="{active:Match.setsCount == 1}">1</button>
-                        <button class="btn"
+                        <button class="btn btn-large"
                              ng-click="Match.setsCount = 3"
                              ng-class="{active:Match.setsCount == 3}">3</button>
-                        <button class="btn"
+                        <button class="btn btn-large"
                              ng-click="Match.setsCount = 5"
                              ng-class="{active:Match.setsCount == 5}">5</button>
                     </div>
@@ -81,12 +81,12 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="btn btn-large dropdown-toggle" data-toggle="dropdown" href="#">
                             {{selectedTieMode.Label}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="tieMode in tieModes">
+                            <li class="item-large" ng-repeat="tieMode in tieModes">
                                 <a tabindex="-1" href="javascript:void(0)" ng-click="tieMode.Toggle()">{{tieMode.Label}}</a>
                             </li>
                         </ul>
@@ -98,13 +98,13 @@
                     Deciding set tie resolution
                 </td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <div class="btn-group dropup">
+                        <a class="btn btn-large dropdown-toggle" data-toggle="dropdown" href="#">
                             {{selectedLastSetTieMode.Label}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="tieMode in lastSetTieModes">
+                            <li class="item-large" ng-repeat="tieMode in lastSetTieModes">
                                 <a tabindex="-1" href="javascript:void(0)" ng-click="tieMode.Toggle()">{{tieMode.Label}}</a>
                             </li>
                         </ul>
@@ -117,5 +117,5 @@
 </div>
 
 <div class="row-fluid">
-    <button class="btn btn-block btn-large btn-primary" ng-click="play();">Start Match</button>
+    <button class="btn btn-large btn-block btn-large btn-primary" ng-click="play();">Start Match</button>
 </div>
