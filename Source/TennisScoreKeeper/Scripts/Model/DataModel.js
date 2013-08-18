@@ -19,6 +19,7 @@
         },
         shotStyles = {
             NormalPassing: new ShotStyle("Normal/Passing"),
+            Volley: new ShotStyle("Volley"),
             Smash: new ShotStyle("Smash"),
             Lob: new ShotStyle("Lob"),
             Drop: new ShotStyle("Drop")
