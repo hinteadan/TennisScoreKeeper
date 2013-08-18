@@ -265,6 +265,7 @@
         }
 
         this.toTennisScore = projectPointsToTennisScore;
+        this.processPoints = projectPointsToTennisScore;
         this.HookArgs = HookArgs;
     }
 
