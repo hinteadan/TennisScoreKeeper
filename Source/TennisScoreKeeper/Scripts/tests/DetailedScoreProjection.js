@@ -66,6 +66,32 @@
         winOneGameFor(fed);
         score = projector.projectScore(gameEngine.points);
         ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
+
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(rafa);
+        winOneGameFor(rafa);
+        winOneGameFor(rafa);
+        winOneGameFor(rafa);
+        winOneGameFor(rafa);
+        winOneGameFor(rafa);
+        winOneGameFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 6 && score.PlayerTwo.Score.SetScore() === 6);
+
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
     });
 
     function winOneGameFor(player) {

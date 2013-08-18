@@ -96,7 +96,7 @@
                 servingPlayer);
 
             if (matchProjection.IsWon()) {
-                hook('raiseOnGameWon', [new HookArgs(playerOneScoreProjection, playerTwoScoreProjection, "22eb1d7990b640aab2c47aa9ba18572f")]);
+                hook('raiseOnMatchWon', [new HookArgs(playerOneScoreProjection, playerTwoScoreProjection, "22eb1d7990b640aab2c47aa9ba18572f")]);
             }
 
             return matchProjection;

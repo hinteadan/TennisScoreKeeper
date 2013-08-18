@@ -23,7 +23,7 @@
         var self = this;
         this.Games = [];
         this.TiebreakGame = undefined;
-        this.Score = function () { return self.Games.length + (self.TiebreakGame !== undefined ? 1 : 0); };
+        this.Score = function () { return self.Games.length; };
     }
 
     function Game() {
