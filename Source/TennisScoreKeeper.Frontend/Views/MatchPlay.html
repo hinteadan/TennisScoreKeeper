@@ -35,7 +35,11 @@
     </tbody>
 </table>
 
-<table class="table text-center vertical-middle">
+<div class="alert alert-success" ng-show="score.IsWon()">
+    <h1 class="text-center">{{score.Winner().Player.name}} won the match</h1>
+</div>
+
+<table class="table text-center vertical-middle" ng-hide="score.IsWon()">
     <tbody>
         <tr>
             <td colspan="2">
@@ -158,10 +162,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <button class="btn btn-large btn-success btn-block" ng-click="saveMatch()">Save Match</button>
-            </td>
-        </tr>
     </tbody>
 </table>
+
+<button class="btn btn-large btn-success btn-block bottom-spacing" ng-click="saveMatch()">Save Match</button>
