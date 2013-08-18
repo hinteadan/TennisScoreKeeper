@@ -15,7 +15,7 @@
         }
     });
 
-    test("Simple games", function () {
+    test("Game score", function () {
         score = projector.projectScore(gameEngine.points);
         ok(score.PlayerOne.Score.GameScore() === 0 && score.PlayerTwo.Score.GameScore() === 0);
 
@@ -43,5 +43,36 @@
         score = projector.projectScore(gameEngine.points);
         ok(score.PlayerOne.Score.GameScore() === 0 && score.PlayerTwo.Score.GameScore() === 0);
     });
+
+    test("Set score", function () {
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
+
+        winOneGameFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 1 && score.PlayerTwo.Score.SetScore() === 0);
+
+        winOneGameFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 2 && score.PlayerTwo.Score.SetScore() === 0);
+
+        winOneGameFor(rafa);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 2 && score.PlayerTwo.Score.SetScore() === 1);
+
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        winOneGameFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
+    });
+
+    function winOneGameFor(player) {
+        gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+    }
 
 }).call(this, this.H.Check, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);

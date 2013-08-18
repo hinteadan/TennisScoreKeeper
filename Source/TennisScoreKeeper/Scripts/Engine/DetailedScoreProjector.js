@@ -69,12 +69,24 @@
 
         function onGame(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            score.forPlayer(data.WinningPlayer).Score.Games.push(new Game());
+            var playerScore = score.forPlayer(data.WinningPlayer).Score;
+
+            if (playerScore.Sets.length === 0) {
+                playerScore.Sets.push(new Set());
+            }
+
+            playerScore.Sets[playerScore.Sets.length - 1].Games.push(
+                playerScore.Games[playerScore.Games.length - 1]
+                );
+
+            playerScore.Games.push(new Game());
             score.forPlayer(data.LosingPlayer).Score.Games.push(new Game());
         }
 
         function onSet(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
+            score.forPlayer(data.WinningPlayer).Score.Sets.push(new Set());
+            score.forPlayer(data.LosingPlayer).Score.Sets.push(new Set());
         }
 
         function onMatch(data) {
