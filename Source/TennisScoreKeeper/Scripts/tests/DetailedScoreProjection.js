@@ -101,11 +101,37 @@
             && score.PlayerTwo.Score.Sets[score.PlayerTwo.Score.Sets.length - 2].TiebreakGame.Score() === 1);
     });
 
+    test("Match score", function () {
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.Score() === 0 && score.PlayerTwo.Score.Score() === 0);
+
+        winOneSetFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.Score() === 1 && score.PlayerTwo.Score.Score() === 0);
+
+        winOneSetFor(rafa);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.Score() === 1 && score.PlayerTwo.Score.Score() === 1);
+
+        winOneSetFor(fed);
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.Score() === 2 && score.PlayerTwo.Score.Score() === 1);
+    });
+
     function winOneGameFor(player) {
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
         gameEngine.scorePointFor(player, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+    }
+
+    function winOneSetFor(player) {
+        winOneGameFor(player);
+        winOneGameFor(player);
+        winOneGameFor(player);
+        winOneGameFor(player);
+        winOneGameFor(player);
+        winOneGameFor(player);
     }
 
 }).call(this, this.H.Check, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);

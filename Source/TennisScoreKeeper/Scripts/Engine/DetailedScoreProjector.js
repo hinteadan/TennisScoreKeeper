@@ -9,8 +9,9 @@
         this.Points = [];
         this.Games = [];
         this.Sets = [];
+        this.SetsScore = 0;
 
-        this.Score = function () { return self.Sets.length; };
+        this.Score = function () { return self.SetsScore; };
         this.SetScore = function () {
             return self.Sets.length === 0 ? 0 : self.Sets[self.Sets.length - 1].Score();
         };
@@ -93,7 +94,9 @@
 
         function onSet(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            score.forPlayer(data.WinningPlayer).Score.Sets.push(new Set());
+            var playerScore = score.forPlayer(data.WinningPlayer).Score;
+            playerScore.SetsScore++;
+            playerScore.Sets.push(new Set());
             score.forPlayer(data.LosingPlayer).Score.Sets.push(new Set());
         }
 
