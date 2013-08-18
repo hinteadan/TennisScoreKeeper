@@ -47,12 +47,35 @@
         }
     }
 
-    function ScoreProjector(gameDefinition) {
+    function ScoreProjectorHooks(onGame, onSet, onMatch) {
+
+        var self = this;
+
+        function tryCallHook(hook, argsArray) {
+            if (typeof (hook) !== 'function') {
+                return;
+            }
+            hook.apply(undefined, argsArray);
+        }
+
+        this.onGameWon = onGame;
+        this.onSetWon = onSet,
+        this.onMatchWon = onMatch;
+
+        this.raiseOnGameWon = function () { tryCallHook(self.onGameWon, arguments); }
+        this.raiseOnSetWon = function () { tryCallHook(self.onSetWon, arguments); }
+        this.raiseOnMatchWon = function () { tryCallHook(self.onMatchWon, arguments); }
+    }
+
+    function ScoreProjector(gameDefinition, hooks) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
+        /// <param name="hooks" type="ScoreProjectorHooks">
         check.notEmpty(gameDefinition, "gameDefinition");
 
         var servingPlayer = gameDefinition.startingPlayer,
-            firstServingPlayerOnTiebreak = null;
+            firstServingPlayerOnTiebreak = null,
+            decidingPoint = null,
+            pointsBeingProcessed = [];
 
         function projectPointsToTennisScore(points) {
             check.notEmpty(points, "points");
@@ -64,19 +87,27 @@
 
             processPoints(points, playerOneScoreProjection, playerTwoScoreProjection);
 
-            return new MatchScoreProjection(
+            var matchProjection = new MatchScoreProjection(
                 playerOneScoreProjection,
                 playerTwoScoreProjection,
                 gameDefinition.setsCount,
                 servingPlayer);
+
+            if (matchProjection.IsWon()) {
+                hook('raiseOnGameWon', [new HookArgs(playerOneScoreProjection, playerTwoScoreProjection, "22eb1d7990b640aab2c47aa9ba18572f")]);
+            }
+
+            return matchProjection;
         }
 
         function processPoints(points, playerScore, opponentScore) {
             /// <param name="points" type="Array" elementType="m.Point" />
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
+            pointsBeingProcessed = points;
             for (var pointIndex = 0; pointIndex < points.length; pointIndex++) {
                 var point = points[pointIndex];
+                decidingPoint = point;
                 if (point.player === playerScore.Player) {
                     addGamePoint(playerScore, opponentScore);
                 }
@@ -128,6 +159,9 @@
         function gameWonFor(playerScore, opponentScore) {
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
+
+            hook('raiseOnGameWon', [new HookArgs(playerScore, opponentScore, "22eb1d7990b640aab2c47aa9ba18572f")]);
+
             playerScore.Game = m.TennisPoints.Love;
             opponentScore.Game = m.TennisPoints.Love;
             playerScore.GamePoints = 0;
@@ -180,6 +214,9 @@
         function setWonFor(playerScore, opponentScore) {
             /// <param name="playerScore" type="PlayerScoreProjection"  />
             /// <param name="opponentScore" type="PlayerScoreProjection"  />
+
+            hook('raiseOnSetWon', [new HookArgs(playerScore, opponentScore, "22eb1d7990b640aab2c47aa9ba18572f")]);
+
             playerScore.Games = 0;
             opponentScore.Games = 0;
             playerScore.Sets++;
@@ -206,9 +243,32 @@
                 gameDefinition.lastSetTieMode !== m.LastSetTieMode.gameDifference;
         }
 
+        function hook(hookName, args) {
+            if (!hooks) {
+                return;
+            }
+            hookCall[hookName].apply(undefined, args);
+        }
+
+        function HookArgs(playerScore, opponentScore) {
+            check.condition(arguments[2] === "22eb1d7990b640aab2c47aa9ba18572f",
+                "HookArgs must not be instantiated. They are exposed for intellisense");
+
+            this.WinningPlayer = playerScore.Player;
+            this.WinningGamePoints = playerScore.GamePoints;
+            this.LosingPlayer = opponentScore.Player;
+            this.LosingGamePoints = opponentScore.GamePoints;
+            this.ServingPlayer = servingPlayer;
+            this.IsTiebreak = shouldSetBeTieBroke(playerScore, opponentScore);
+            this.DecidingPoint = decidingPoint;
+            this.AllPoints = pointsBeingProcessed;
+        }
+
         this.toTennisScore = projectPointsToTennisScore;
+        this.HookArgs = HookArgs;
     }
 
     this.ScoreProjector = ScoreProjector;
+    this.ScoreProjectorHooks = ScoreProjectorHooks;
 
 }).call(this.H.TennisScoreKeeper, this.H.Check, this.H.TennisScoreKeeper.Model);
