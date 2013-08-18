@@ -9,11 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8F873B49
 		..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js = ..\..\Tools\GoogleClosureCompiler\h_tsk_compile.def.js
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B23C1D40-27C0-4307-AD20-6FEA453F4F1F}"
-	ProjectSection(SolutionItems) = preProject
-		..\Builds\h_tsk.js = ..\Builds\h_tsk.js
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisScoreKeeper.Frontend", "..\TennisScoreKeeper.Frontend\TennisScoreKeeper.Frontend.csproj", "{A824804B-AEE3-48EC-9D37-E17642ED7172}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisScoreKeeper.Backend", "..\TennisScoreKeeper.Backend\TennisScoreKeeper.Backend.csproj", "{8BCE9E2F-75F0-4803-B0AB-CC0DB818E7C4}"
