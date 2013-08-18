@@ -251,7 +251,7 @@
             if (!hooks) {
                 return;
             }
-            hookCall[hookName].apply(undefined, args);
+            hooks[hookName].apply(undefined, args);
         }
 
         function HookArgs(playerScore, opponentScore) {
