@@ -60,6 +60,7 @@
     <Content Include="css\qunit.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\Engine\DetailedScoreProjector.js" />
     <Content Include="Scripts\Engine\GameEngine.js" />
     <Content Include="Scripts\Engine\ScoreProjector.js" />
     <Content Include="Scripts\Lib\check.js" />
@@ -69,6 +70,7 @@
     <Content Include="Scripts\Model\DataModel.js" />
     <Content Include="Scripts\namespace.js" />
     <Content Include="Scripts\tests\checkLib.js" />
+    <Content Include="Scripts\tests\DetailedScoreProjection.js" />
     <Content Include="Scripts\tests\GameDefinition.js" />
     <Content Include="Scripts\tests\GamePlay.js" />
     <Content Include="Scripts\tests\PointFactory.js" />
