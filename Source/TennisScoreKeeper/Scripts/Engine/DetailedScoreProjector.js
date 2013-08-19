@@ -57,11 +57,10 @@
 
         var score = new MatchScore(gameDefinition.players[0], gameDefinition.players[1], gameDefinition.startingPlayer),
             scoreProjector = new tsk.ScoreProjector(gameDefinition,
-            new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch));
+            new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange));
 
         function onPoint(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            score.ServingPlayer = data.ServingPlayer;
             var playerScore = score.forPlayer(data.WinningPlayer).Score;
             playerScore.Points.push(data.DecidingPoint);
             if (playerScore.Games.length === 0) {
@@ -72,7 +71,6 @@
 
         function onGame(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            score.ServingPlayer = data.ServingPlayer;
             var playerScore = score.forPlayer(data.WinningPlayer).Score,
                 losingPlayerScore = score.forPlayer(data.LosingPlayer).Score;
 
@@ -105,6 +103,11 @@
 
         function onMatch(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
+        }
+
+        function onServeChange(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            score.ServingPlayer = data.ServingPlayer;
         }
 
         function projectPoints(points) {

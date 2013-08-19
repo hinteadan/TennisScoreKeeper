@@ -47,7 +47,7 @@
         }
     }
 
-    function ScoreProjectorHooks(onPoint, onGame, onSet, onMatch) {
+    function ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServe) {
 
         var self = this;
 
@@ -62,11 +62,13 @@
         this.onGameWon = onGame;
         this.onSetWon = onSet,
         this.onMatchWon = onMatch;
+        this.onServeChange = onServe;
 
         this.raiseOnPointWon = function () { tryCallHook(self.onPointWon, arguments); }
         this.raiseOnGameWon = function () { tryCallHook(self.onGameWon, arguments); }
         this.raiseOnSetWon = function () { tryCallHook(self.onSetWon, arguments); }
         this.raiseOnMatchWon = function () { tryCallHook(self.onMatchWon, arguments); }
+        this.raiseOnServeChange = function () { tryCallHook(self.onServeChange, arguments); }
     }
 
     function ScoreProjector(gameDefinition, hooks) {
@@ -131,6 +133,7 @@
                 firstServingPlayerOnTiebreak = servingPlayer;
                 if ((playerScore.GamePoints + opponentScore.GamePoints) % 2 !== 0) {
                     toggleServingPlayer();
+                    hook('raiseOnServeChange', [new HookArgs(playerScore, opponentScore, "22eb1d7990b640aab2c47aa9ba18572f")]);
                 }
                 if (isTiebreakWon(playerScore, opponentScore)) {
                     servingPlayer = firstServingPlayerOnTiebreak === playerScore.Player
@@ -173,6 +176,7 @@
             playerScore.Games++;
 
             toggleServingPlayer();
+            hook('raiseOnServeChange', [new HookArgs(playerScore, opponentScore, "22eb1d7990b640aab2c47aa9ba18572f")]);
 
             if (isSetWon(playerScore, opponentScore)) {
                 setWonFor(playerScore, opponentScore);
