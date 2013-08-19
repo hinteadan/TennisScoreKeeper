@@ -64,6 +64,7 @@
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="index.html" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\Controllers\DetailedScoreController.js" />
     <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\MatchPlayController.js" />
     <Content Include="Scripts\Controllers\NewMatchController.js" />
@@ -76,6 +77,7 @@
     <Content Include="Scripts\namespace.js" />
     <Content Include="Scripts\Services\DataService.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\DetailedScore.html" />
     <Content Include="Views\Home.html" />
     <Content Include="Views\MatchPlay.html" />
     <Content Include="Views\NewMatch.html" />

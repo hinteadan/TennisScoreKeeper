@@ -6,7 +6,9 @@
         $routeProvider
             .when('/', { controller: 'HomeController', templateUrl: 'Views/Home.html' })
             .when('/DefineMatch', { controller: 'NewMatchController', templateUrl: 'Views/NewMatch.html' })
-            .when('/Play', { controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html' });
+            .when('/Play', { controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html' })
+            .when('/Score', { controller: 'DetailedScoreController', templateUrl: 'Views/DetailedScore.html' })
+            .otherwise({ redirectTo: '/' });
     }]);
 
     appModule.service('MatchDefinition', function () {
@@ -18,6 +20,10 @@
 
     appModule.service('ScoreKeeper', ['MatchDefinition', function (matchDefinition) {
         return new tsk.Engine(matchDefinition);
+    }]);
+
+    appModule.service('DetailedScoreProjector', ['MatchDefinition', function (matchDefinition) {
+        return new tsk.DetailedScoreProjector(matchDefinition);
     }]);
 
     this.AppModule = appModule;
