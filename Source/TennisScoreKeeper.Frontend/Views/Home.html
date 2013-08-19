@@ -4,6 +4,16 @@
 <h3 class="text-center">
     H's Tennis Score Keeper
 </h3>
+
+<table class="table">
+    <tbody>
+        <tr ng-repeat="match in savedMatches">
+            <td>{{match.Key}}</td>
+            <td><button class="btn" ng-click="$parent.loadMatch(match.Key)">Load</button></td>
+        </tr>
+    </tbody>
+</table>
+
 <div class="row-fluid">
     <button class="btn btn-block btn-large btn-primary" ng-click="newMatch()">New Match</button>
 </div>

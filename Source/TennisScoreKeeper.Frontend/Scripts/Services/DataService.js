@@ -6,8 +6,9 @@
             api = $resource(baseUrl, {id: ''});
 
         return {
-            AllSavedMatches: api.query,
-            SaveMatch: api.save
+            SavedMatches: api.query,
+            SaveMatch: api.save,
+            LoadMatch: function (id, onDone) { return api.get({ id: id }, onDone);}
         };
     }
 
