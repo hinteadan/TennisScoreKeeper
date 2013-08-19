@@ -1,13 +1,32 @@
 ﻿(function (angular, m, tsk) {
     "use strict";
 
-    var appModule = angular.module('H.TennisScoreKeeperUi', ['ngResource']);
+    var appModule = angular.module('H.TennisScoreKeeperUi', ['ngResource']),
+        isDefined = false;
+
+    function markMatchAsDefined() {
+        isDefined = true;
+    }
+
+    function isMatchDefined() {
+        return isDefined;
+    }
+
     appModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', { controller: 'HomeController', templateUrl: 'Views/Home.html' })
-            .when('/DefineMatch', { controller: 'NewMatchController', templateUrl: 'Views/NewMatch.html' })
-            .when('/Play', { controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html' })
-            .when('/Score', { controller: 'DetailedScoreController', templateUrl: 'Views/DetailedScore.html' })
+            .when('/DefineMatch', {
+                controller: 'NewMatchController', templateUrl: 'Views/NewMatch.html',
+                markMatchAsDefined: markMatchAsDefined
+            })
+            .when('/Play', { 
+                controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html', 
+                isMatchDefined:  isMatchDefined
+            })
+            .when('/Score', {
+                controller: 'DetailedScoreController', templateUrl: 'Views/DetailedScore.html',
+                isMatchDefined: isMatchDefined
+            })
             .otherwise({ redirectTo: '/' });
     }]);
 

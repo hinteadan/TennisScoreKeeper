@@ -3,7 +3,7 @@
 
     var app = this;
 
-    function NewMatchController(matchDefinition, $scope, $location) {
+    function NewMatchController(matchDefinition, $scope, $location, $route) {
         ///<param name="matchDefinition" type="tsk.Model.MatchDefinition" />
 
         var gameTieModes = {
@@ -30,6 +30,7 @@
                 ///<param name="p" type="m.Player" />
                 p.setName(p.name);
             });
+            $route.current.markMatchAsDefined();
             $location.path('/Play');
         }
 
@@ -58,7 +59,7 @@
         $scope.play = startMatch;
     }
 
-    this.controller('NewMatchController', ['MatchDefinition', '$scope', '$location', NewMatchController]);
+    this.controller('NewMatchController', ['MatchDefinition', '$scope', '$location', '$route', NewMatchController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule,
     this.H.TennisScoreKeeper,
