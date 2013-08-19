@@ -49,6 +49,11 @@
                 ? self.PlayerOne
                 : self.PlayerTwo;
         }
+        this.forOpponent = function (player) {
+            return self.PlayerOne.Player === player
+                ? self.PlayerTwo
+                : self.PlayerOne;
+        }
     }
 
     function DetailedScoreProjector(gameDefinition) {
