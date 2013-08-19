@@ -1,7 +1,7 @@
 ﻿<table class="table table-striped text-center vertical-middle top-spacing">
     <tbody>
         <tr class="big success">
-            <td class="bold">Roger FEDERER</td>
+            <td class="bold">{{score.PlayerOne.Player.name}}</td>
             <td><i class="icon-circle-arrow-left"></i></td>
             <td>30</td>
             <td class="bold">7(16)</td>
@@ -21,7 +21,7 @@
             <td>Set 5</td>
         </tr>
         <tr class="big warning">
-            <td class="bold">Rafael NADAL</td>
+            <td class="bold">{{score.PlayerTwo.Player.name}}</td>
             <td></td>
             <td>15</td>
             <td>6(14)</td>
@@ -32,3 +32,4 @@
         </tr>
     </tbody>
 </table>
+<button class="btn btn-large btn-block" ng-click="viewPlayDashboard()">Play Dashboard</button>
