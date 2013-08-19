@@ -38,7 +38,7 @@
         }
 
         function isTiebreak() {
-            if (score.PlayerOne.Score.Sets.length === 0) {
+            if (score.PlayerOne.Score.Sets.length === 0 || score.PlayerTwo.Score.Sets.length === 0) {
                 return false;
             }
             return _.last(score.PlayerOne.Score.Sets).Score() === matchDef.gamesPerSet
