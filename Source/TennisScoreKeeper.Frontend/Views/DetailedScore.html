@@ -1,6 +1,7 @@
 ﻿<table class="table table-striped text-center vertical-middle top-spacing">
     <tbody>
-        <tr class="big success">
+        <tr class="big" 
+            ng-class="{success: winner() == score.PlayerOne.Player, warning: winner() == score.PlayerTwo.Player}">
             <td class="bold">{{score.PlayerOne.Player.name}}</td>
             <td>
                 <i ng-show="score.ServingPlayer == score.PlayerOne.Player" class="icon-circle-arrow-left"></i>
@@ -22,7 +23,8 @@
             <td>Set 4</td>
             <td>Set 5</td>
         </tr>
-        <tr class="big warning">
+        <tr class="big"
+            ng-class="{success: winner() == score.PlayerTwo.Player, warning: winner() == score.PlayerOne.Player}">
             <td class="bold">{{score.PlayerTwo.Player.name}}</td>
             <td>
                 <i ng-show="score.ServingPlayer == score.PlayerTwo.Player" class="icon-circle-arrow-left"></i>

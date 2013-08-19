@@ -8,6 +8,9 @@
         /// <param name="scoreKeeper" type="tsk.Engine" />
         /// <param name="scoreProjector" type="tsk.DetailedScoreProjector" />
 
+        var score = scoreProjector.projectScore(scoreKeeper.points),
+            setsToWin = Math.ceil(matchDef.setsCount / 2);
+
         function gameScore(game, opponentGame) {
             if (!game) {
                 return 0;
@@ -35,19 +38,32 @@
         }
 
         function isTiebreak() {
-            if ($scope.score.PlayerOne.Score.Sets.length === 0) {
+            if (score.PlayerOne.Score.Sets.length === 0) {
                 return false;
             }
-            return _.last($scope.score.PlayerOne.Score.Sets).Score() === matchDef.gamesPerSet
-                && _.last($scope.score.PlayerTwo.Score.Sets).Score() === matchDef.gamesPerSet;
+            return _.last(score.PlayerOne.Score.Sets).Score() === matchDef.gamesPerSet
+                && _.last(score.PlayerTwo.Score.Sets).Score() === matchDef.gamesPerSet;
         }
 
-        $scope.score = scoreProjector.projectScore(scoreKeeper.points);
+        function winningPlayer() {
+            if (score.PlayerOne.Score.Score() === setsToWin) {
+                return score.PlayerOne.Player;
+            }
+
+            if (score.PlayerTwo.Score.Score() === setsToWin) {
+                return score.PlayerTwo.Player;
+            }
+
+            return undefined;
+        }
+
+        $scope.score = score;
+        $scope.winner = winningPlayer;
         $scope.playerOneGameScore = function () {
-            return gameScore(_.last($scope.score.PlayerOne.Score.Games), _.last($scope.score.PlayerTwo.Score.Games));
+            return gameScore(_.last(score.PlayerOne.Score.Games), _.last(score.PlayerTwo.Score.Games));
         }
         $scope.playerTwoGameScore = function () {
-            return gameScore(_.last($scope.score.PlayerTwo.Score.Games), _.last($scope.score.PlayerOne.Score.Games));
+            return gameScore(_.last(score.PlayerTwo.Score.Games), _.last(score.PlayerOne.Score.Games));
         }
         $scope.viewPlayDashboard = function () {
             $location.path('/Play');
