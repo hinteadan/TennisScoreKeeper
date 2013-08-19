@@ -72,6 +72,7 @@
 
         function onGame(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
+            score.ServingPlayer = data.ServingPlayer;
             var playerScore = score.forPlayer(data.WinningPlayer).Score,
                 losingPlayerScore = score.forPlayer(data.LosingPlayer).Score;
 

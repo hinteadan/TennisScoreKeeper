@@ -2,7 +2,9 @@
     <tbody>
         <tr class="big success">
             <td class="bold">{{score.PlayerOne.Player.name}}</td>
-            <td><i class="icon-circle-arrow-left"></i></td>
+            <td>
+                <i ng-show="score.ServingPlayer == score.PlayerOne.Player" class="icon-circle-arrow-left"></i>
+            </td>
             <td>30</td>
             <td class="bold">7(16)</td>
             <td>5</td>
@@ -22,7 +24,9 @@
         </tr>
         <tr class="big warning">
             <td class="bold">{{score.PlayerTwo.Player.name}}</td>
-            <td></td>
+            <td>
+                <i ng-show="score.ServingPlayer == score.PlayerTwo.Player" class="icon-circle-arrow-left"></i>
+            </td>
             <td>15</td>
             <td>6(14)</td>
             <td>3</td>
