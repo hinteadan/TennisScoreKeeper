@@ -62,7 +62,15 @@
             if (!playerScore.Score.Sets[setIndex]) {
                 return score.forOpponent(player).Score.Sets[setIndex] ? 0 : '';
             }
-            return playerScore.Score.Sets[setIndex].Score();
+            return playerScore.Score.Sets[setIndex].Score() + labelSetTiebreak(playerScore.Score.Sets[setIndex]);
+        }
+
+        function labelSetTiebreak(set) {
+            if (!set.TiebreakGame) {
+                return '';
+            }
+
+            return '(' + set.TiebreakGame.Score() + ')';
         }
 
         $scope.score = score;
