@@ -110,6 +110,8 @@
 
         function onMatch(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
+            score.forPlayer(data.WinningPlayer).Score.Sets.pop();
+            score.forPlayer(data.LosingPlayer).Score.Sets.pop();
         }
 
         function onServeChange(data) {

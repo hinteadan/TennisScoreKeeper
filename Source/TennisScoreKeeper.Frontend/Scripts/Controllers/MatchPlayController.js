@@ -6,7 +6,7 @@
         servingSecondService: 'Serving 2nd service'
     };
 
-    function MatchPlayController(scoreKeeperEngine, matchDef, $scope, $location, dataService) {
+    function MatchPlayController(scoreKeeperEngine, matchDef, $scope, $location, $window, dataService) {
         /// <param name="scoreKeeperEngine" type="tsk.Engine" />
         /// <param name="matchDef" type="m.MatchDefinition" />
 
@@ -59,6 +59,13 @@
             $location.path('/Score');
         }
 
+        function newMatch() {
+            if (!confirm('Are you sure you want to start a new match ? Any unsaved data will be lost')) {
+                return;
+            }
+            $window.location.href = $window.location.pathname;
+        }
+
         $scope.isSecondServe = false;
         $scope.serveButtonLabel = labels.servingFirstService;
         $scope.toggleServe = toggleServe;
@@ -69,11 +76,12 @@
         $scope.pointTypes = m.PointTypes;
         $scope.saveMatch = saveMatch;
         $scope.viewDetailedScore = viewDetailedScore;
+        $scope.newMatch = newMatch;
 
         updateScore();
     }
 
     this.controller('MatchPlayController',
-        ['ScoreKeeper', 'MatchDefinition', '$scope', '$location', 'DataService', MatchPlayController]);
+        ['ScoreKeeper', 'MatchDefinition', '$scope', '$location', '$window', 'DataService', MatchPlayController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model, this.angular);
