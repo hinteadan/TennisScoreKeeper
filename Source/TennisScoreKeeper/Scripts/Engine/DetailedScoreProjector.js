@@ -33,7 +33,7 @@
         this.Score = function () { return self.Points.length; };
     }
 
-    function MatchScore(playerOne, playerTwo) {
+    function MatchScore(playerOne, playerTwo, servingPlayer) {
         var self = this;
         this.PlayerOne = {
             Player: playerOne,
@@ -43,6 +43,7 @@
             Player: playerTwo,
             Score: new Match()
         };
+        this.ServingPlayer = servingPlayer;
         this.forPlayer = function (player) {
             return self.PlayerOne.Player === player
                 ? self.PlayerOne
@@ -54,12 +55,13 @@
         /// <param name="gameDefinition" type="m.MatchDefinition" />
         check.notEmpty(gameDefinition, "gameDefinition");
 
-        var score = new MatchScore(gameDefinition.players[0], gameDefinition.players[1]),
+        var score = new MatchScore(gameDefinition.players[0], gameDefinition.players[1], gameDefinition.startingPlayer),
             scoreProjector = new tsk.ScoreProjector(gameDefinition,
             new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch));
 
         function onPoint(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
+            score.ServingPlayer = data.ServingPlayer;
             var playerScore = score.forPlayer(data.WinningPlayer).Score;
             playerScore.Points.push(data.DecidingPoint);
             if (playerScore.Games.length === 0) {
@@ -106,7 +108,7 @@
 
         function projectPoints(points) {
             /// <param name="points" type="Array" elementType="m.Point" />
-            score = new MatchScore(gameDefinition.players[0], gameDefinition.players[1]);
+            score = new MatchScore(gameDefinition.players[0], gameDefinition.players[1], gameDefinition.startingPlayer);
             scoreProjector.processPoints(points);
             return score;
         }
