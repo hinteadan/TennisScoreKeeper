@@ -24,6 +24,7 @@
         var self = this;
         this.Games = [];
         this.TiebreakGame = undefined;
+        this.IsWon = false;
         this.Score = function () { return self.Games.length; };
     }
 
@@ -102,6 +103,7 @@
             /// <param name="data" type="scoreProjector.HookArgs" />
             var playerScore = score.forPlayer(data.WinningPlayer).Score;
             playerScore.SetsScore++;
+            playerScore.Sets[playerScore.Sets.length - 1].IsWon = true;
             playerScore.Sets.push(new Set());
             score.forPlayer(data.LosingPlayer).Score.Sets.push(new Set());
         }
