@@ -57,6 +57,14 @@
             return undefined;
         }
 
+        function labelSet(player, setIndex) {
+            var playerScore = score.forPlayer(player);
+            if (!playerScore.Score.Sets[setIndex]) {
+                return score.forOpponent(player).Score.Sets[setIndex] ? 0 : '';
+            }
+            return playerScore.Score.Sets[setIndex].Score();
+        }
+
         $scope.score = score;
         $scope.winner = winningPlayer;
         $scope.playerOneGameScore = function () {
@@ -68,6 +76,7 @@
         $scope.viewPlayDashboard = function () {
             $location.path('/Play');
         }
+        $scope.labelSet = labelSet;
     }
 
     this.controller('DetailedScoreController', 
