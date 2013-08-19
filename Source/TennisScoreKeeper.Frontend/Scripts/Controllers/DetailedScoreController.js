@@ -3,7 +3,8 @@
 
     var gamePointLabels = ['0', '15', '30', '40', 'Ad'];
 
-    function DetailedScoreController($scope, $location, scoreKeeper, scoreProjector) {
+    function DetailedScoreController($scope, $location, matchDef, scoreKeeper, scoreProjector) {
+        /// <param name="matchDef" type="tsk.Model.MatchDefinition" />
         /// <param name="scoreKeeper" type="tsk.Engine" />
         /// <param name="scoreProjector" type="tsk.DetailedScoreProjector" />
 
@@ -37,7 +38,8 @@
             if ($scope.score.PlayerOne.Score.Sets.length === 0) {
                 return false;
             }
-            return _.last($scope.score.PlayerOne.Score.Sets).TiebreakGame !== undefined;
+            return _.last($scope.score.PlayerOne.Score.Sets).Score() === matchDef.gamesPerSet
+                && _.last($scope.score.PlayerTwo.Score.Sets).Score() === matchDef.gamesPerSet;
         }
 
         $scope.score = scoreProjector.projectScore(scoreKeeper.points);
@@ -53,6 +55,6 @@
     }
 
     this.controller('DetailedScoreController', 
-        ['$scope', '$location', 'ScoreKeeper', 'DetailedScoreProjector', DetailedScoreController]);
+        ['$scope', '$location', 'MatchDefinition', 'ScoreKeeper', 'DetailedScoreProjector', DetailedScoreController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this._);
