@@ -73,6 +73,14 @@
             return '(' + set.TiebreakGame.Score() + ')';
         }
 
+        function isSetWon(player, setIndex) {
+            var playerScore = score.forPlayer(player);
+            if (!playerScore.Score.Sets[setIndex]) {
+                return false;
+            }
+            return playerScore.Score.Sets[setIndex].IsWon;
+        }
+
         $scope.score = score;
         $scope.winner = winningPlayer;
         $scope.playerOneGameScore = function () {
@@ -85,6 +93,7 @@
             $location.path('/Play');
         }
         $scope.labelSet = labelSet;
+        $scope.isSetWon = isSetWon;
     }
 
     this.controller('DetailedScoreController', 

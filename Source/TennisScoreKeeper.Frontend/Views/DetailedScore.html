@@ -7,11 +7,11 @@
                 <i ng-show="score.ServingPlayer == score.PlayerOne.Player" class="icon-circle-arrow-left"></i>
             </td>
             <td>{{playerOneGameScore()}}</td>
-            <td>{{labelSet(score.PlayerOne.Player, 0)}}</td>
-            <td>{{labelSet(score.PlayerOne.Player, 1)}}</td>
-            <td>{{labelSet(score.PlayerOne.Player, 2)}}</td>
-            <td>{{labelSet(score.PlayerOne.Player, 3)}}</td>
-            <td>{{labelSet(score.PlayerOne.Player, 4)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerOne.Player, 0)}">{{labelSet(score.PlayerOne.Player, 0)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerOne.Player, 1)}">{{labelSet(score.PlayerOne.Player, 1)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerOne.Player, 2)}">{{labelSet(score.PlayerOne.Player, 2)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerOne.Player, 3)}">{{labelSet(score.PlayerOne.Player, 3)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerOne.Player, 4)}">{{labelSet(score.PlayerOne.Player, 4)}}</td>
         </tr>
         <tr class="small">
             <td>Player</td>
@@ -30,11 +30,11 @@
                 <i ng-show="score.ServingPlayer == score.PlayerTwo.Player" class="icon-circle-arrow-left"></i>
             </td>
             <td>{{playerTwoGameScore()}}</td>
-            <td>{{labelSet(score.PlayerTwo.Player, 0)}}</td>
-            <td>{{labelSet(score.PlayerTwo.Player, 1)}}</td>
-            <td>{{labelSet(score.PlayerTwo.Player, 2)}}</td>
-            <td>{{labelSet(score.PlayerTwo.Player, 3)}}</td>
-            <td>{{labelSet(score.PlayerTwo.Player, 4)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerTwo.Player, 0)}">{{labelSet(score.PlayerTwo.Player, 0)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerTwo.Player, 1)}">{{labelSet(score.PlayerTwo.Player, 1)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerTwo.Player, 2)}">{{labelSet(score.PlayerTwo.Player, 2)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerTwo.Player, 3)}">{{labelSet(score.PlayerTwo.Player, 3)}}</td>
+            <td ng-class="{bold: isSetWon(score.PlayerTwo.Player, 4)}">{{labelSet(score.PlayerTwo.Player, 4)}}</td>
         </tr>
     </tbody>
 </table>
