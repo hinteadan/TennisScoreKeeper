@@ -67,12 +67,14 @@
     <Content Include="Scripts\Lib\lodash.js" />
     <Content Include="Scripts\Lib\qunit.js" />
     <Content Include="Scripts\Lib\string.js" />
+    <Content Include="Scripts\Model\Converter.js" />
     <Content Include="Scripts\Model\DataModel.js" />
     <Content Include="Scripts\namespace.js" />
     <Content Include="Scripts\tests\checkLib.js" />
     <Content Include="Scripts\tests\DetailedScoreProjection.js" />
     <Content Include="Scripts\tests\GameDefinition.js" />
     <Content Include="Scripts\tests\GamePlay.js" />
+    <Content Include="Scripts\tests\ModelConverter.js" />
     <Content Include="Scripts\tests\PointFactory.js" />
     <Content Include="Scripts\tests\ScoreProjection.js" />
     <Content Include="Scripts\tests\ServingPlayer.js" />

@@ -7,3 +7,4 @@
 /// <reference path="Engine/ScoreProjector.js" />
 /// <reference path="Engine/DetailedScoreProjector.js" />
 /// <reference path="Engine/GameEngine.js" />
+/// <reference path="Model/Converter.js" />
