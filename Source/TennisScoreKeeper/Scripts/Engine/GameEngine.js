@@ -3,11 +3,11 @@
 
     var tsk = this;
 
-    function GameEngine(gameDefinition) {
+    function GameEngine(gameDefinition, points) {
         /// <param name="gameDefinition" type="m.MatchDefinition">The definition of the tennis match.</param>
         check.notEmpty(gameDefinition, "gameDefinition");
 
-        var points = [],
+        var points = points || [],
             pointFactory = new PointFactory(gameDefinition.players),
             players = [],
             scoreProjector = new tsk.ScoreProjector(gameDefinition);
