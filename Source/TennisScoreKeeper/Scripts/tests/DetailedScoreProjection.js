@@ -66,6 +66,11 @@
         winOneGameFor(fed);
         score = projector.projectScore(gameEngine.points);
         ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
+    });
+
+    test("Set score with tiebreak", function () {
+        score = projector.projectScore(gameEngine.points);
+        ok(score.PlayerOne.Score.SetScore() === 0 && score.PlayerTwo.Score.SetScore() === 0);
 
         winOneGameFor(fed);
         winOneGameFor(fed);
