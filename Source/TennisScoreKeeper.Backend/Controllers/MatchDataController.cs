@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using H.TennisScoreKeeper.Data;
+using H.TennisScoreKeeper.Data.Projectors;
 
 namespace TennisScoreKeeper.Backend.Controllers
 {
@@ -17,9 +18,9 @@ namespace TennisScoreKeeper.Backend.Controllers
             this.dataStore = dataStore;
         }
 
-        public IEnumerable<KeyValuePair<Guid, object>> Get()
+        public IEnumerable<object> Get()
         {
-            return dataStore.Load();
+            return dataStore.Load().AsMatchInfo();
         }
 
         public object Get(Guid id)
