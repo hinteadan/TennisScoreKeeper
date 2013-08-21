@@ -122,6 +122,20 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release goto :release
+if $(ConfigurationName) == Debug goto :debug
+
+:release
+"$(SolutionDir)..\..\Tools\FindAndReplace\fnr.exe" --cl --dir "$(SolutionDir)..\TennisScoreKeeper.Frontend\Scripts\Services" --fileMask "DataService.js"  --excludeFileMask "*.dll, *.exe" --caseSensitive --find "var baseUrl = '/TennisScoreKeeper.Backend/MatchData/:id'" --replace "var baseUrl = 'http://hinteadan-001-site1.smarterasp.net/TennisScoreKeeper.Backend/MatchData/:id'"
+goto :exit
+
+:debug
+"$(SolutionDir)..\..\Tools\FindAndReplace\fnr.exe" --cl --dir "$(SolutionDir)..\TennisScoreKeeper.Frontend\Scripts\Services" --fileMask "DataService.js"  --excludeFileMask "*.dll, *.exe" --caseSensitive --find "var baseUrl = 'http://hinteadan-001-site1.smarterasp.net/TennisScoreKeeper.Backend/MatchData/:id'" --replace "var baseUrl = '/TennisScoreKeeper.Backend/MatchData/:id'"
+goto :exit
+
+:exit</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
