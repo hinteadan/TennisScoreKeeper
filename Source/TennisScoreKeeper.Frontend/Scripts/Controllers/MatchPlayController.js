@@ -56,7 +56,7 @@
                 },
                 uriContent = 'data:application/json;filename=match.json,' + encodeURIComponent(angular.toJson(json, true));
             dataService.SaveMatch(json);
-            window.open(uriContent, 'match.json');
+            //window.open(uriContent, 'match.json');
         }
 
         function viewDetailedScore() {
