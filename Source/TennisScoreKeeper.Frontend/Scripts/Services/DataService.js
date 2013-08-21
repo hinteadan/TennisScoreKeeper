@@ -2,7 +2,7 @@
     "use strict";
 
     function DataService($resource) {
-        var baseUrl = 'http://localhost/TennisScoreKeeper.Backend/MatchData/:id',
+        var baseUrl = '/TennisScoreKeeper.Backend/MatchData/:id',
             api = $resource(baseUrl, {id: ''});
 
         return {
