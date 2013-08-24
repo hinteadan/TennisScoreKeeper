@@ -73,7 +73,7 @@ namespace H.TennisScoreKeeper.Data.Stores
 
         public IEnumerable<KeyValuePair<Guid, object>> Load()
         {
-            return LazyLoad().Select(d => new KeyValuePair<Guid, object>(d.Key, d.Value));
+            return LazyLoad().Select(d => new KeyValuePair<Guid, object>(d.Key, d.Value.Value));
         }
 
         public IEnumerable<KeyValuePair<Guid, Lazy<object>>> LazyLoad()
