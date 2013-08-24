@@ -1,1 +1,53 @@
-﻿Stats
+﻿<table class="table vertical-middle">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center">
+                Overall match statistics
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Points Played</td>
+            <td>{{stats.PerMatch.Overall.Points}}</td>
+        </tr>
+        <tr>
+            <td>Serves</td>
+            <td>{{stats.PerMatch.Overall.Serves}}</td>
+        </tr>
+        <tr>
+            <td>Aces</td>
+            <td>{{stats.PerMatch.Overall.Aces}}</td>
+        </tr>
+        <tr>
+            <td>Double Faults</td>
+            <td>{{stats.PerMatch.Overall.DoubleFaults}}</td>
+        </tr>
+        <tr>
+            <td>Unforced errors</td>
+            <td>{{stats.PerMatch.Overall.UnforcedErrors}}</td>
+        </tr>
+        <tr>
+            <td>Forced errors</td>
+            <td>{{stats.PerMatch.Overall.ForcedErrors}}</td>
+        </tr>
+        <tr>
+            <td>Winners</td>
+            <td>{{stats.PerMatch.Overall.Winners}}</td>
+        </tr>
+        <tr>
+            <td>Winners with aces</td>
+            <td>{{stats.PerMatch.Overall.WinnersIncludingAces}}</td>
+        </tr>
+        <tr>
+            <td>Break points</td>
+            <td>{{stats.PerMatch.Overall.BreakPoints}}</td>
+        </tr>
+        <tr>
+            <td>Won Break points</td>
+            <td>{{stats.PerMatch.Overall.BreakPointsWon}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-large btn-block" ng-click="viewPlayDashboard()">Play Dashboard</button>
