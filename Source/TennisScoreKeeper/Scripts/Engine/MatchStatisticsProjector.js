@@ -92,6 +92,14 @@
             );
         }
 
+        function countPointForStatisticsGroup(data, group) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            /// <param name="group" type="StatisticsGroup" />
+
+            group.Overall.Points++;
+            group.ForPlayer(data.WinningPlayer).Points++;
+        }
+
         function onPoint(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
 
@@ -99,10 +107,9 @@
                 newSet(stats.PerMatch.PerSet);
             }
 
-            stats.PerMatch.Overall.Points++;
-            stats.PerMatch.ForPlayer(data.WinningPlayer).Points++;
-            stats.PerMatch.PerSet[setIndex].Overall.Points++;
-            stats.PerMatch.PerSet[setIndex].ForPlayer(data.WinningPlayer).Points++;
+            countPointForStatisticsGroup(data, stats.PerMatch);
+            countPointForStatisticsGroup(data, stats.PerMatch.PerSet[setIndex]);
+            countPointForStatisticsGroup(data, stats.PerMatch.PerSet[setIndex].PerGame[gameIndex]);
         }
 
         function onGame(data) {

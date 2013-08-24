@@ -23,6 +23,9 @@
         ok(stats.PerMatch.PerSet[0].Overall.Points === 0);
         ok(stats.PerMatch.PerSet[0].ForPlayerOne.Statistics.Points === 0);
         ok(stats.PerMatch.PerSet[0].ForPlayerTwo.Statistics.Points === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Points === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerOne.Statistics.Points === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerTwo.Statistics.Points === 0);
 
         gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing), false);
         stats = projector.project(gameEngine.points);
@@ -32,6 +35,9 @@
         ok(stats.PerMatch.PerSet[0].Overall.Points === 1);
         ok(stats.PerMatch.PerSet[0].ForPlayerOne.Statistics.Points === 1);
         ok(stats.PerMatch.PerSet[0].ForPlayerTwo.Statistics.Points === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Points === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerOne.Statistics.Points === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerTwo.Statistics.Points === 0);
 
         gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing), false);
         stats = projector.project(gameEngine.points);
@@ -41,6 +47,9 @@
         ok(stats.PerMatch.PerSet[0].Overall.Points === 2);
         ok(stats.PerMatch.PerSet[0].ForPlayerOne.Statistics.Points === 1);
         ok(stats.PerMatch.PerSet[0].ForPlayerTwo.Statistics.Points === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Points === 2);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerOne.Statistics.Points === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].ForPlayerTwo.Statistics.Points === 1);
     });
 
 }).call(this, this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model);
