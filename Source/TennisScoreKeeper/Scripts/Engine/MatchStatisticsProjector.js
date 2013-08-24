@@ -4,6 +4,7 @@
     var tsk = this;
 
     function PlayerStatistics() {
+        this.Points = 0;
         this.TotalServes = 0;
         this.FirstServeIn = 0;
         this.SecondServeIn = 0;
@@ -47,9 +48,19 @@
             Statistics: new PlayerStatistics()
         };
 
+        this.ForPlayer = function (player) {
+            return this.ForPlayerOne.Player === player
+                ? this.ForPlayerOne.Statistics
+                : this.ForPlayerTwo.Statistics;
+        }
+
         if (extendCallback) {
             extendCallback.call(this, this);
         }
+    }
+
+    function addPerGameStatsForSet(playerOne, playerTwo) {
+        this.PerGame = [new StatisticsGroup(playerOne, playerTwo)];
     }
 
     function MatchStatistics(playerOne, playerTwo) {
@@ -57,14 +68,10 @@
         check.notEmpty(playerTwo, "playerTwo");
 
         this.PerMatch = new StatisticsGroup(playerOne, playerTwo, function () {
-            this.PerSet = []
+            this.PerSet = [new StatisticsGroup(playerOne, playerTwo, function () {
+                addPerGameStatsForSet.call(this, playerOne, playerTwo);
+            })]
         });
-
-        function addPerGameStatsForSet(){
-            this.PerGame = [];
-        }
-
-        //this.PerSet.push(new StatisticsGroup(playerOne, playerTwo, addPerGameStatsForSet));
     }
 
     function MatchStatisticsProjector(gameDefinition) {
@@ -73,11 +80,29 @@
 
         var stats = new MatchStatistics(gameDefinition.players[0], gameDefinition.players[1]),
             scoreProjector = new tsk.ScoreProjector(gameDefinition,
-                new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange));
+                new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange)),
+            setIndex = 0,
+            gameIndex = 0;
+
+        function newSet(perSetArray) {
+            perSetArray.push(
+                new StatisticsGroup(gameDefinition.players[0], gameDefinition.players[1], function () {
+                    addPerGameStatsForSet.call(this, gameDefinition.players[0], gameDefinition.players[1]);
+                })
+            );
+        }
 
         function onPoint(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            
+
+            if (!stats.PerMatch.PerSet[setIndex]) {
+                newSet(stats.PerMatch.PerSet);
+            }
+
+            stats.PerMatch.Overall.Points++;
+            stats.PerMatch.ForPlayer(data.WinningPlayer).Points++;
+            stats.PerMatch.PerSet[setIndex].Overall.Points++;
+            stats.PerMatch.PerSet[setIndex].ForPlayer(data.WinningPlayer).Points++;
         }
 
         function onGame(data) {
