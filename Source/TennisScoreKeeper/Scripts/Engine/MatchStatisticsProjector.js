@@ -19,7 +19,7 @@
         this.BreakPointsWon = 0;
         this.ReceivingPoints = 0;
         this.ReceivingPointsWon = 0;
-        this.PointsWon = 0;
+        this.PointsWonOnOwnMerit = 0;
     }
 
     function CommonStatistics() {
@@ -110,6 +110,10 @@
             /// <param name="data" type="scoreProjector.HookArgs" />
             /// <param name="group" type="StatisticsGroup" />
 
+            var receivingPlayer = group.ForPlayerOne.Player === data.ServingPlayer 
+                ? group.ForPlayerTwo.Player
+                : group.ForPlayerOne.Player;
+
             group.Overall.Points++;
             group.Overall.Serves += data.DecidingPoint.isOnSecondServe ? 2 : 1;
             group.Overall.Aces += data.DecidingPoint.type.id === pointTypeIds.Ace ? 1 : 0;
@@ -122,6 +126,21 @@
             group.Overall.BreakPointsWon += isBreakPointWon(data) ? 1 : 0;
 
             group.ForPlayer(data.WinningPlayer).Points++;
+            group.ForPlayer(data.ServingPlayer).TotalServes += data.DecidingPoint.isOnSecondServe ? 2 : 1;
+            group.ForPlayer(data.ServingPlayer).FirstServeIn += data.DecidingPoint.isOnSecondServe ? 0 : 1;
+            group.ForPlayer(data.ServingPlayer).SecondServeIn += data.DecidingPoint.isOnSecondServe ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).Aces += data.DecidingPoint.type.id === pointTypeIds.Ace ? 1 : 0;
+            group.ForPlayer(data.LosingPlayer).DoubleFaults += data.DecidingPoint.type.id === pointTypeIds.DoubleFault ? 1 : 0;
+            group.ForPlayer(data.LosingPlayer).UnforcedErrors += data.DecidingPoint.type.id === pointTypeIds.UnforcedError ? 1 : 0;
+            group.ForPlayer(data.LosingPlayer).ForcedErrors += data.DecidingPoint.type.id === pointTypeIds.ForcedError ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).Winners += data.DecidingPoint.type.id === pointTypeIds.WinningShot ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).PointsOnFirstService += data.WinningPlayer === data.ServingPlayer && !data.DecidingPoint.isOnSecondServe ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).PointsOnSecondService += data.WinningPlayer === data.ServingPlayer && data.DecidingPoint.isOnSecondServe ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).BreakPoints += isBreakPoint(data) ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).BreakPointsWon += isBreakPointWon(data) ? 1 : 0;
+            group.ForPlayer(receivingPlayer).ReceivingPoints++;
+            group.ForPlayer(receivingPlayer).ReceivingPointsWon += data.WinningPlayer === receivingPlayer ? 1 : 0;
+            group.ForPlayer(data.WinningPlayer).PointsWonOnOwnMerit += data.DecidingPoint.creditedTo === data.WinningPlayer ? 1 : 0;
         }
 
         function isBreakPoint(data) {

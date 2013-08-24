@@ -168,7 +168,7 @@
         gameEngine.scorePointFor(fed, m.PointTypes.ForcedError(m.ShotStyles.NormalPassing), true);
 
         gameEngine.scorePointFor(rafa, m.PointTypes.ForcedError(m.ShotStyles.NormalPassing));
-        gameEngine.scorePointFor(rafa, m.PointTypes.Ace(m.ShotStyles.NormalPassing), true);
+        gameEngine.scorePointFor(rafa, m.PointTypes.DoubleFault(m.ShotStyles.NormalPassing), true);
         gameEngine.scorePointFor(rafa, m.PointTypes.WinningShot(m.ShotStyles.NormalPassing));
 
         stats = projector.project(gameEngine.points);
@@ -179,9 +179,10 @@
         ok(stats.PerMatch.ForPlayerOne.Statistics.FirstServeIn === 4);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.FirstServeIn === 1);
         ok(stats.PerMatch.ForPlayerOne.Statistics.SecondServeIn === 3);
-        ok(stats.PerMatch.ForPlayerOne.Statistics.Aces === 3);
+        ok(stats.PerMatch.ForPlayerTwo.Statistics.SecondServeIn === 3);
+        ok(stats.PerMatch.ForPlayerOne.Statistics.Aces === 2);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.Aces === 0);
-        ok(stats.PerMatch.ForPlayerOne.Statistics.DoubleFaults === 0);
+        ok(stats.PerMatch.ForPlayerOne.Statistics.DoubleFaults === 1);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.DoubleFaults === 1);
         ok(stats.PerMatch.ForPlayerOne.Statistics.UnforcedErrors === 0);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.UnforcedErrors === 1);
@@ -189,10 +190,10 @@
         ok(stats.PerMatch.ForPlayerTwo.Statistics.ForcedErrors === 2);
         ok(stats.PerMatch.ForPlayerOne.Statistics.Winners === 2);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.Winners === 1);
-        ok(stats.PerMatch.ForPlayerOne.Statistics.PointsOnFirstService === 3);
-        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsOnFirstService === 2);
-        ok(stats.PerMatch.ForPlayerOne.Statistics.PointsOnSecondService === 5);
-        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsOnSecondService === 1);
+        ok(stats.PerMatch.ForPlayerOne.Statistics.PointsOnFirstService === 2);
+        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsOnFirstService === 0);
+        ok(stats.PerMatch.ForPlayerOne.Statistics.PointsOnSecondService === 2);
+        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsOnSecondService === 0);
         ok(stats.PerMatch.ForPlayerOne.Statistics.BreakPoints === 1);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.BreakPoints === 1);
         ok(stats.PerMatch.ForPlayerOne.Statistics.BreakPointsWon === 1);
@@ -202,7 +203,7 @@
         ok(stats.PerMatch.ForPlayerOne.Statistics.ReceivingPointsWon === 4);
         ok(stats.PerMatch.ForPlayerTwo.Statistics.ReceivingPointsWon === 3);
         ok(stats.PerMatch.ForPlayerOne.Statistics.PointsWonOnOwnMerit === 6);
-        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsWonOnOwnMerit === 3);
+        ok(stats.PerMatch.ForPlayerTwo.Statistics.PointsWonOnOwnMerit === 2);
     });
 
     function winOneGameFor(player) {
