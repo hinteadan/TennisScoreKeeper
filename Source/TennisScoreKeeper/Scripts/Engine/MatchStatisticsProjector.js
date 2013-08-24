@@ -81,7 +81,7 @@
 
         var stats = new MatchStatistics(gameDefinition.players[0], gameDefinition.players[1]),
             scoreProjector = new tsk.ScoreProjector(gameDefinition,
-                new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange)),
+                new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch)),
             setIndex = 0,
             gameIndex = 0,
             pointTypeIds = {
@@ -192,12 +192,7 @@
 
         function onMatch(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            
-        }
-
-        function onServeChange(data) {
-            /// <param name="data" type="scoreProjector.HookArgs" />
-            
+            stats.PerMatch.PerSet.pop();
         }
 
         function projectPoints(points) {
