@@ -121,6 +121,39 @@
         ok(stats.PerMatch.Overall.WinnersIncludingAces === 4);
         ok(stats.PerMatch.Overall.BreakPoints === 1);
         ok(stats.PerMatch.Overall.BreakPointsWon === 1);
+
+        ok(stats.PerMatch.PerSet[0].Overall.Points === 8);
+        ok(stats.PerMatch.PerSet[0].Overall.Serves === 1 * 3 + 2 * 5);
+        ok(stats.PerMatch.PerSet[0].Overall.Aces === 2);
+        ok(stats.PerMatch.PerSet[0].Overall.DoubleFaults === 1);
+        ok(stats.PerMatch.PerSet[0].Overall.UnforcedErrors === 1);
+        ok(stats.PerMatch.PerSet[0].Overall.ForcedErrors === 2);
+        ok(stats.PerMatch.PerSet[0].Overall.Winners === 2);
+        ok(stats.PerMatch.PerSet[0].Overall.WinnersIncludingAces === 4);
+        ok(stats.PerMatch.PerSet[0].Overall.BreakPoints === 1);
+        ok(stats.PerMatch.PerSet[0].Overall.BreakPointsWon === 1);
+
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Points === 4);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Serves === 6);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Aces === 2);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.DoubleFaults === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.UnforcedErrors === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.ForcedErrors === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.Winners === 2);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.WinnersIncludingAces === 4);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.BreakPoints === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[0].Overall.BreakPointsWon === 0);
+
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.Points === 4);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.Serves === 7);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.Aces === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.DoubleFaults === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.UnforcedErrors === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.ForcedErrors === 2);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.Winners === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.WinnersIncludingAces === 0);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.BreakPoints === 1);
+        ok(stats.PerMatch.PerSet[0].PerGame[1].Overall.BreakPointsWon === 1);
     });
 
     function winOneGameFor(player) {
