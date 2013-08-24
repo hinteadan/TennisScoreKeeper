@@ -50,6 +50,10 @@
                 controller: 'DetailedScoreController', templateUrl: 'Views/DetailedScore.html',
                 isMatchDefined: isMatchDefined
             })
+            .when('/Stats', {
+                controller: 'StatsController', templateUrl: 'Views/Stats.html',
+                isMatchDefined: isMatchDefined
+            })
             .otherwise({ redirectTo: '/' });
     }]);
 
@@ -60,6 +64,7 @@
         return engine;
     });
     appModule.service('DetailedScoreProjector', ['MatchDefinition', tsk.DetailedScoreProjector]);
+    appModule.service('StatsProjector', ['MatchDefinition', tsk.MatchStatisticsProjector]);
 
     this.AppModule = appModule;
 

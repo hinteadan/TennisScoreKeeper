@@ -63,6 +63,10 @@
             $location.path('/Score');
         }
 
+        function viewStats() {
+            $location.path('/Stats');
+        }
+
         function newMatch() {
             if (!confirm('Are you sure you want to start a new match ? Any unsaved data will be lost')) {
                 return;
@@ -80,6 +84,7 @@
         $scope.pointTypes = m.PointTypes;
         $scope.saveMatch = saveMatch;
         $scope.viewDetailedScore = viewDetailedScore;
+        $scope.viewStats = viewStats;
         $scope.newMatch = newMatch;
 
         updateScore();
