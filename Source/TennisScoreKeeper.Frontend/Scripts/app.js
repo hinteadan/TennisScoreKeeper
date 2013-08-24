@@ -1,11 +1,26 @@
-﻿(function (angular, m, tsk) {
+﻿(function (angular, m, tsk, check, undefined) {
     "use strict";
 
     var appModule = angular.module('H.TennisScoreKeeperUi', ['ngResource']),
-        isDefined = false;
+        isDefined = false,
+        matchDefinition = new m.MatchDefinition(new m.Player(''), new m.Player('')),
+        engine = new tsk.Engine(matchDefinition);
 
     function markMatchAsDefined() {
         isDefined = true;
+    }
+
+    function markMatchAsUnDefined() {
+        isDefined = false;
+    }
+
+    function loadMatchDefinition(loadedMatchDefinition) {
+        check.notEmpty(loadedMatchDefinition, "loadedMatchDefinition");
+        matchDefinition = loadedMatchDefinition;
+    }
+
+    function loadEngine(points) {
+        engine = new tsk.Engine(matchDefinition, points);
     }
 
     function isMatchDefined() {
@@ -14,10 +29,18 @@
 
     appModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
-            .when('/', { controller: 'HomeController', templateUrl: 'Views/Home.html' })
+            .when('/', {
+                controller: 'HomeController', templateUrl: 'Views/Home.html',
+                markMatchAsDefined: markMatchAsDefined,
+                setupMatchDefinition: loadMatchDefinition,
+                setupEngine: loadEngine
+            })
             .when('/DefineMatch', {
                 controller: 'NewMatchController', templateUrl: 'Views/NewMatch.html',
-                markMatchAsDefined: markMatchAsDefined
+                markMatchAsDefined: markMatchAsDefined,
+                markMatchAsUnDefined: markMatchAsUnDefined,
+                setupMatchDefinition: loadMatchDefinition,
+                setupEngine: loadEngine
             })
             .when('/Play', { 
                 controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html', 
@@ -31,20 +54,16 @@
     }]);
 
     appModule.service('MatchDefinition', function () {
-        return new m.MatchDefinition(
-            new m.Player(''),
-            new m.Player('')
-            );
+        return matchDefinition;
     });
-
-    appModule.service('ScoreKeeper', ['MatchDefinition', function (matchDefinition) {
-        return new tsk.Engine(matchDefinition);
-    }]);
-
-    appModule.service('DetailedScoreProjector', ['MatchDefinition', function (matchDefinition) {
-        return new tsk.DetailedScoreProjector(matchDefinition);
-    }]);
+    appModule.service('ScoreKeeper', function () {
+        return engine;
+    });
+    appModule.service('DetailedScoreProjector', ['MatchDefinition', tsk.DetailedScoreProjector]);
 
     this.AppModule = appModule;
 
-}).call(this.H.TennisScoreKeeper.Ui.Angular, this.angular, this.H.TennisScoreKeeper.Model, this.H.TennisScoreKeeper);
+}).call(this.H.TennisScoreKeeper.Ui.Angular,
+        this.angular,
+        this.H.TennisScoreKeeper.Model,
+        this.H.TennisScoreKeeper, this.H.Check);

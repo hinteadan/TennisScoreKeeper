@@ -16,6 +16,12 @@
                 GameDifference: new TieMode('Game Difference', m.LastSetTieMode.gameDifference, toggleLastSetTieMode)
             };
 
+        function construct() {
+            $route.current.setupMatchDefinition(new m.MatchDefinition(new m.Player(''), new m.Player('')));
+            $route.current.setupEngine();
+            $route.current.markMatchAsUnDefined();
+        }
+
         function TieMode(label, tskMode, toggleCallback){
             var self = this;
             this.Label = label;
@@ -57,6 +63,8 @@
         $scope.lastSetTieModes = lastSetTieModes;
         $scope.selectedLastSetTieMode = lastSetTieModes.TieBreak;
         $scope.play = startMatch;
+
+        construct();
     }
 
     this.controller('NewMatchController', ['MatchDefinition', '$scope', '$location', '$route', NewMatchController]);
