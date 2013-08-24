@@ -15,8 +15,6 @@
         this.Winners = 0;
         this.PointsOnFirstService = 0;
         this.PointsOnSecondService = 0;
-        this.WinningPointsOnFirstService = 0;
-        this.WinningPointsOnSecondService = 0;
         this.BreakPoints = 0;
         this.BreakPointsWon = 0;
         this.ReceivingPoints = 0;
