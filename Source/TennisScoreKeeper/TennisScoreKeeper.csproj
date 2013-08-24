@@ -75,6 +75,7 @@
     <Content Include="Scripts\tests\DetailedScoreProjection.js" />
     <Content Include="Scripts\tests\GameDefinition.js" />
     <Content Include="Scripts\tests\GamePlay.js" />
+    <Content Include="Scripts\tests\MatchStatisticsProjection.js" />
     <Content Include="Scripts\tests\ModelConverter.js" />
     <Content Include="Scripts\tests\PointFactory.js" />
     <Content Include="Scripts\tests\ScoreProjection.js" />

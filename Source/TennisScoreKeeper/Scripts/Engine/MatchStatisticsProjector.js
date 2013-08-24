@@ -1,5 +1,7 @@
-﻿(function (m) {
+﻿(function (m, check) {
     "use strict";
+
+    var tsk = this;
 
     function PlayerStatistics() {
         this.TotalServes = 0;
@@ -31,4 +33,83 @@
         this.BreakPointsWon = 0;
     }
 
-}).call(this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model);
+    function StatisticsGroup(playerOne, playerTwo, extendCallback) {
+        check.notEmpty(playerOne, "playerOne");
+        check.notEmpty(playerTwo, "playerTwo");
+
+        this.Overall = new CommonStatistics();
+        this.ForPlayerOne = {
+            Player: playerOne,
+            Statistics: new PlayerStatistics()
+        };
+        this.ForPlayerTwo = {
+            Player: playerTwo,
+            Statistics: new PlayerStatistics()
+        };
+
+        if (extendCallback) {
+            extendCallback.call(this, this);
+        }
+    }
+
+    function MatchStatistics(playerOne, playerTwo) {
+        check.notEmpty(playerOne, "playerOne");
+        check.notEmpty(playerTwo, "playerTwo");
+
+        this.PerMatch = new StatisticsGroup(playerOne, playerTwo, function () {
+            this.PerSet = []
+        });
+
+        function addPerGameStatsForSet(){
+            this.PerGame = [];
+        }
+
+        //this.PerSet.push(new StatisticsGroup(playerOne, playerTwo, addPerGameStatsForSet));
+    }
+
+    function MatchStatisticsProjector(gameDefinition) {
+        /// <param name="gameDefinition" type="m.MatchDefinition" />
+        check.notEmpty(gameDefinition, "gameDefinition");
+
+        var stats = new MatchStatistics(gameDefinition.players[0], gameDefinition.players[1]),
+            scoreProjector = new tsk.ScoreProjector(gameDefinition,
+                new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange));
+
+        function onPoint(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            
+        }
+
+        function onGame(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            
+        }
+
+        function onSet(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            
+        }
+
+        function onMatch(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            
+        }
+
+        function onServeChange(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            
+        }
+
+        function projectPoints(points) {
+            /// <param name="points" type="Array" elementType="m.Point" />
+            stats = new MatchStatistics(gameDefinition.players[0], gameDefinition.players[1]);
+            scoreProjector.processPoints(points);
+            return stats;
+        }
+
+        this.project = projectPoints;
+    }
+
+    this.MatchStatisticsProjector = MatchStatisticsProjector;
+
+}).call(this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model, this.H.Check);
