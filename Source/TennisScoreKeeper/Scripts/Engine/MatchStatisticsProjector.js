@@ -84,11 +84,17 @@
             setIndex = 0,
             gameIndex = 0;
 
-        function newSet(perSetArray) {
-            perSetArray.push(
+        function pushNewSet() {
+            stats.PerMatch.PerSet.push(
                 new StatisticsGroup(gameDefinition.players[0], gameDefinition.players[1], function () {
                     addPerGameStatsForSet.call(this, gameDefinition.players[0], gameDefinition.players[1]);
                 })
+            );
+        }
+
+        function pushNewGame() {
+            stats.PerMatch.PerSet[setIndex].PerGame.push(
+                new StatisticsGroup(gameDefinition.players[0], gameDefinition.players[1])
             );
         }
 
@@ -104,7 +110,7 @@
             /// <param name="data" type="scoreProjector.HookArgs" />
 
             if (!stats.PerMatch.PerSet[setIndex]) {
-                newSet(stats.PerMatch.PerSet);
+                pushNewSet();
             }
 
             countPointForStatisticsGroup(data, stats.PerMatch);
@@ -114,12 +120,15 @@
 
         function onGame(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            
+            pushNewGame();
+            gameIndex++;
         }
 
         function onSet(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
-            
+            pushNewSet();
+            gameIndex = 0;
+            setIndex++;
         }
 
         function onMatch(data) {
@@ -135,6 +144,9 @@
         function projectPoints(points) {
             /// <param name="points" type="Array" elementType="m.Point" />
             stats = new MatchStatistics(gameDefinition.players[0], gameDefinition.players[1]);
+            setIndex = 0;
+            gameIndex = 0;
+
             scoreProjector.processPoints(points);
             return stats;
         }
