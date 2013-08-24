@@ -62,6 +62,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\Engine\DetailedScoreProjector.js" />
     <Content Include="Scripts\Engine\GameEngine.js" />
+    <Content Include="Scripts\Engine\MatchStatisticsProjector.js" />
     <Content Include="Scripts\Engine\ScoreProjector.js" />
     <Content Include="Scripts\Lib\check.js" />
     <Content Include="Scripts\Lib\lodash.js" />
