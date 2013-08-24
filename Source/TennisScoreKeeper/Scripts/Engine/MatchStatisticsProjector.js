@@ -11,6 +11,7 @@
         this.Aces = 0;
         this.DoubleFaults = 0;
         this.UnforcedErrors = 0;
+        this.ForcedErrors = 0;
         this.Winners = 0;
         this.PointsOnFirstService = 0;
         this.PointsOnSecondService = 0;
@@ -29,7 +30,9 @@
         this.Aces = 0;
         this.DoubleFaults = 0;
         this.UnforcedErrors = 0;
+        this.ForcedErrors = 0;
         this.Winners = 0;
+        this.WinnersIncludingAces = 0;
         this.BreakPoints = 0;
         this.BreakPointsWon = 0;
     }
@@ -82,7 +85,14 @@
             scoreProjector = new tsk.ScoreProjector(gameDefinition,
                 new tsk.ScoreProjectorHooks(onPoint, onGame, onSet, onMatch, onServeChange)),
             setIndex = 0,
-            gameIndex = 0;
+            gameIndex = 0,
+            pointTypeIds = {
+                Ace: m.PointTypes.Ace(m.ShotStyles.NormalPassing).id,
+                DoubleFault: m.PointTypes.DoubleFault(m.ShotStyles.NormalPassing).id,
+                UnforcedError: m.PointTypes.UnforcedError(m.ShotStyles.NormalPassing).id,
+                ForcedError: m.PointTypes.ForcedError(m.ShotStyles.NormalPassing).id,
+                WinningShot: m.PointTypes.WinningShot(m.ShotStyles.NormalPassing).id
+            };
 
         function pushNewSet() {
             stats.PerMatch.PerSet.push(
@@ -103,7 +113,39 @@
             /// <param name="group" type="StatisticsGroup" />
 
             group.Overall.Points++;
+            group.Overall.Serves += data.DecidingPoint.isOnSecondServe ? 2 : 1;
+            group.Overall.Aces += data.DecidingPoint.type.id === pointTypeIds.Ace ? 1 : 0;
+            group.Overall.DoubleFaults += data.DecidingPoint.type.id === pointTypeIds.DoubleFault ? 1 : 0;
+            group.Overall.UnforcedErrors += data.DecidingPoint.type.id === pointTypeIds.UnforcedError ? 1 : 0;
+            group.Overall.ForcedErrors += data.DecidingPoint.type.id === pointTypeIds.ForcedError ? 1 : 0;
+            group.Overall.Winners += data.DecidingPoint.type.id === pointTypeIds.WinningShot ? 1 : 0;
+            group.Overall.WinnersIncludingAces = group.Overall.Winners + group.Overall.Aces;
+            group.Overall.BreakPoints += isBreakPoint(data) ? 1 : 0;
+            group.Overall.BreakPointsWon += isBreakPointWon(data) ? 1 : 0;
+
             group.ForPlayer(data.WinningPlayer).Points++;
+        }
+
+        function isBreakPoint(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            if (data.ServingPlayer === data.DecidingPoint.player 
+                || data.WinningGamePoints < 3) {
+                return false;
+            }
+
+            return (data.WinningGamePoints === 3 && data.LosingGamePoints <= 2)
+                || (data.WinningGamePoints - data.LosingGamePoints === 1);
+        }
+
+        function isBreakPointWon(data) {
+            /// <param name="data" type="scoreProjector.HookArgs" />
+            if (data.ServingPlayer === data.DecidingPoint.player
+                || data.WinningGamePoints < 4) {
+                return false;
+            }
+
+            return (data.WinningGamePoints === 4 && data.LosingGamePoints <= 2)
+                || (data.WinningGamePoints - data.LosingGamePoints === 2);
         }
 
         function onPoint(data) {

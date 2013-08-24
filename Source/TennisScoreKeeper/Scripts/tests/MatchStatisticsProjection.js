@@ -98,8 +98,29 @@
         ok(stats.PerMatch.PerSet[1].PerGame[0].Overall.Points === 1);
         ok(stats.PerMatch.PerSet[1].PerGame[0].ForPlayerOne.Statistics.Points === 1);
         ok(stats.PerMatch.PerSet[1].PerGame[0].ForPlayerTwo.Statistics.Points === 0);
-        
+    });
 
+    test("Common Statistics properties processing", function () {
+        gameEngine.scorePointFor(fed, m.PointTypes.WinningShot(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.WinningShot(m.ShotStyles.NormalPassing), true);
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.Ace(m.ShotStyles.NormalPassing), true);
+        gameEngine.scorePointFor(fed, m.PointTypes.DoubleFault(m.ShotStyles.NormalPassing), true);
+        gameEngine.scorePointFor(fed, m.PointTypes.ForcedError(m.ShotStyles.NormalPassing));
+        gameEngine.scorePointFor(fed, m.PointTypes.UnforcedError(m.ShotStyles.NormalPassing), true);
+        gameEngine.scorePointFor(fed, m.PointTypes.ForcedError(m.ShotStyles.NormalPassing), true);
+
+        stats = projector.project(gameEngine.points);
+        ok(stats.PerMatch.Overall.Points === 8);
+        ok(stats.PerMatch.Overall.Serves === 1 * 3 + 2 * 5);
+        ok(stats.PerMatch.Overall.Aces === 2);
+        ok(stats.PerMatch.Overall.DoubleFaults === 1);
+        ok(stats.PerMatch.Overall.UnforcedErrors === 1);
+        ok(stats.PerMatch.Overall.ForcedErrors === 2);
+        ok(stats.PerMatch.Overall.Winners === 2);
+        ok(stats.PerMatch.Overall.WinnersIncludingAces === 4);
+        ok(stats.PerMatch.Overall.BreakPoints === 1);
+        ok(stats.PerMatch.Overall.BreakPointsWon === 1);
     });
 
     function winOneGameFor(player) {
