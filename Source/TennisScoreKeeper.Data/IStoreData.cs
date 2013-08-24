@@ -10,8 +10,10 @@ namespace H.TennisScoreKeeper.Data
     {
         Guid Save(object data);
         void SaveOrUpdate(KeyValuePair<Guid, object> entry);
+        void SaveOrUpdate(Guid id, object data);
         object Load(Guid id);
         IEnumerable<KeyValuePair<Guid, object>> Load();
+        IEnumerable<KeyValuePair<Guid, Lazy<object>>> LazyLoad();
         void Remove(Guid id);
     }
 }

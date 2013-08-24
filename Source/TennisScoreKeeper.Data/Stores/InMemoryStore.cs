@@ -45,5 +45,19 @@ namespace H.TennisScoreKeeper.Data.Stores
         {
             dataDictionary.Remove(id);
         }
+
+
+        public void SaveOrUpdate(Guid id, object data)
+        {
+            SaveOrUpdate(new KeyValuePair<Guid, object>(id, data));
+        }
+
+
+        public IEnumerable<KeyValuePair<Guid, Lazy<object>>> LazyLoad()
+        {
+            return Load().Select(d => new KeyValuePair<Guid, Lazy<object>>(
+                d.Key, new Lazy<object>(() => d.Value
+                )));
+        }
     }
 }
