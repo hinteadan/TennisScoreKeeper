@@ -45,7 +45,7 @@ namespace H.TennisScoreKeeper.Data.Stores
         {
             Guid id = Guid.NewGuid();
             File.WriteAllText(
-                string.Format("{0}\\{1}", storeDirectory.FullName, id), 
+                GenerateDataFilePath(id),
                 JsonConvert.SerializeObject(data)
                 );
             return id;
@@ -54,7 +54,7 @@ namespace H.TennisScoreKeeper.Data.Stores
         public void SaveOrUpdate(KeyValuePair<Guid, object> entry)
         {
             File.WriteAllText(
-                string.Format("{0}\\{1}", storeDirectory.FullName, entry.Key),
+                GenerateDataFilePath(entry.Key),
                 JsonConvert.SerializeObject(entry.Value)
                 );
         }
@@ -67,7 +67,7 @@ namespace H.TennisScoreKeeper.Data.Stores
         public object Load(Guid id)
         {
             return JsonConvert.DeserializeObject(
-                File.ReadAllText(string.Format("{0}\\{1}", storeDirectory.FullName, id))
+                File.ReadAllText(GenerateDataFilePath(id))
                 );
         }
 
@@ -78,8 +78,7 @@ namespace H.TennisScoreKeeper.Data.Stores
 
         public IEnumerable<KeyValuePair<Guid, Lazy<object>>> LazyLoad()
         {
-            return storeDirectory
-                .GetFiles()
+            return GetRepositoryEntries()
                 .Select(f => new KeyValuePair<Guid, Lazy<object>>(
                     Guid.Parse(f.Name),
                     new Lazy<object>(() => Load(Guid.Parse(f.Name)))
@@ -88,7 +87,22 @@ namespace H.TennisScoreKeeper.Data.Stores
 
         public void Remove(Guid id)
         {
-            File.Delete(string.Format("{0}\\{1}", storeDirectory.FullName, id));
+            File.Delete(GenerateDataFilePath(id));
+        }
+
+        internal string GetRepositoryDirectoryPath()
+        {
+            return storeDirectory.FullName;
+        }
+
+        internal string GenerateDataFilePath(Guid id)
+        {
+            return string.Format("{0}\\{1}", storeDirectory.FullName, id);
+        }
+
+        internal IEnumerable<FileInfo> GetRepositoryEntries()
+        {
+            return storeDirectory.GetFiles();
         }
     }
 }
