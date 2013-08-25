@@ -5,6 +5,10 @@
     H's Tennis Score Keeper
 </h3>
 
+<div class="row-fluid">
+    <button class="btn btn-block btn-large btn-primary" ng-click="newMatch()">New Match</button>
+</div>
+
 <table class="table">
     <tbody>
         <tr ng-repeat="match in savedMatches">
@@ -15,7 +19,3 @@
         </tr>
     </tbody>
 </table>
-
-<div class="row-fluid">
-    <button class="btn btn-block btn-large btn-primary" ng-click="newMatch()">New Match</button>
-</div>

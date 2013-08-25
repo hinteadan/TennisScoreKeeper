@@ -15,7 +15,7 @@
                 $route.current.setupMatchDefinition(matchDefinition);
                 $route.current.setupEngine(points);
                 $route.current.markMatchAsDefined();
-                $location.path('/Play');
+                $location.path('/Play/' + id);
             });
         }
 

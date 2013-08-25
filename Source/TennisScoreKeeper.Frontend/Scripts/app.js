@@ -42,7 +42,11 @@
                 setupMatchDefinition: loadMatchDefinition,
                 setupEngine: loadEngine
             })
-            .when('/Play', { 
+            .when('/Play', {
+                controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html',
+                isMatchDefined: isMatchDefined
+            })
+            .when('/Play/:id', { 
                 controller: 'MatchPlayController', templateUrl: 'Views/MatchPlay.html', 
                 isMatchDefined:  isMatchDefined
             })
