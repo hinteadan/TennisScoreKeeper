@@ -17,8 +17,6 @@
             };
 
         function construct() {
-            $route.current.setupMatchDefinition(new m.MatchDefinition(new m.Player(''), new m.Player('')));
-            $route.current.setupEngine();
             $route.current.markMatchAsUnDefined();
         }
 
@@ -36,6 +34,8 @@
                 ///<param name="p" type="m.Player" />
                 p.setName(p.name);
             });
+            $route.current.setupMatchDefinition(matchDefinition);
+            $route.current.setupEngine();
             $route.current.markMatchAsDefined();
             $location.path('/Play');
         }

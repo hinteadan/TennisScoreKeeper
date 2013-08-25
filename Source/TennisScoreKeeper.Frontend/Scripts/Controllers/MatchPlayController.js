@@ -14,6 +14,8 @@
             $window.location.href = $window.location.pathname;
         });
 
+        var currentMatchId = null;
+
         function updateScore() {
             $scope.score = scoreKeeperEngine.tennisScore();
         }
@@ -54,8 +56,17 @@
                     Metadata: matchDef,
                     Points: scoreKeeperEngine.points
                 },
-                uriContent = 'data:application/json;filename=match.json,' + encodeURIComponent(angular.toJson(json, true));
-            dataService.SaveMatch(json);
+                matchInfo;
+
+            if (!currentMatchId) {
+                matchInfo = dataService.SaveMatch(json, function () {
+                    currentMatchId = matchInfo.Id;
+                });
+            }
+            else {
+                dataService.UpdateMatch({ id: currentMatchId }, json);
+            }
+
             //window.open(uriContent, 'match.json');
         }
 
