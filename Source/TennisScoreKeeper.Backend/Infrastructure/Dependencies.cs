@@ -17,7 +17,7 @@ namespace TennisScoreKeeper.Backend.Infrastructure
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterInstance<JsonFileStore>(new JsonFileStore()).AsImplementedInterfaces();
+            builder.RegisterInstance<CachedJsonFileStore>(new CachedJsonFileStore()).AsImplementedInterfaces();
 
             GlobalConfiguration.Configuration.DependencyResolver = 
                 new AutofacWebApiDependencyResolver(builder.Build());
