@@ -1,53 +1,21 @@
-﻿<table class="table vertical-middle">
-    <thead>
-        <tr>
-            <th colspan="2" class="text-center">
-                Overall match statistics
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Points Played</td>
-            <td>{{stats.PerMatch.Overall.Points}}</td>
-        </tr>
-        <tr>
-            <td>Serves</td>
-            <td>{{stats.PerMatch.Overall.Serves}}</td>
-        </tr>
-        <tr>
-            <td>Aces</td>
-            <td>{{stats.PerMatch.Overall.Aces}}</td>
-        </tr>
-        <tr>
-            <td>Double Faults</td>
-            <td>{{stats.PerMatch.Overall.DoubleFaults}}</td>
-        </tr>
-        <tr>
-            <td>Unforced errors</td>
-            <td>{{stats.PerMatch.Overall.UnforcedErrors}}</td>
-        </tr>
-        <tr>
-            <td>Forced errors</td>
-            <td>{{stats.PerMatch.Overall.ForcedErrors}}</td>
-        </tr>
-        <tr>
-            <td>Winners</td>
-            <td>{{stats.PerMatch.Overall.Winners}}</td>
-        </tr>
-        <tr>
-            <td>Winners with aces</td>
-            <td>{{stats.PerMatch.Overall.WinnersIncludingAces}}</td>
-        </tr>
-        <tr>
-            <td>Break points</td>
-            <td>{{stats.PerMatch.Overall.BreakPoints}}</td>
-        </tr>
-        <tr>
-            <td>Won Break points</td>
-            <td>{{stats.PerMatch.Overall.BreakPointsWon}}</td>
-        </tr>
-    </tbody>
+﻿<h3 class="text-center">Overall match statistics</h3>
+<overall-stats stats="stats.PerMatch.Overall"></overall-stats>
+
+<table class="table">
+    <tr>
+        <td ng-repeat="stats in stats.PerMatch.PerSet">
+            <h3 class="text-center">Set {{$index + 1}}</h3>
+            <overall-stats stats="stats.Overall"></overall-stats>
+            <table class="table">
+                <tr>
+                    <td ng-repeat="stats in stats.PerGame">
+                        <h3 class="text-center">Game {{$index + 1}}</h3>
+                        <overall-stats stats="stats.Overall"></overall-stats>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 
 <button class="btn btn-large btn-block" ng-click="viewPlayDashboard()">Play Dashboard</button>

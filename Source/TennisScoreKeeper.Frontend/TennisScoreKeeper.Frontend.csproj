@@ -69,6 +69,7 @@
     <Content Include="Scripts\Controllers\MatchPlayController.js" />
     <Content Include="Scripts\Controllers\NewMatchController.js" />
     <Content Include="Scripts\Controllers\StatsController.js" />
+    <Content Include="Scripts\Directives\OverallStats.js" />
     <Content Include="Scripts\Directives\ShotStyle.js" />
     <Content Include="Scripts\Lib\angular-resource.js" />
     <Content Include="Scripts\Lib\angular.js" />
@@ -84,6 +85,7 @@
     <Content Include="Views\MatchPlay.html" />
     <Content Include="Views\NewMatch.html" />
     <Content Include="Views\Stats.html" />
+    <Content Include="Views\Templates\OverallStats.html" />
     <Content Include="Views\Templates\ShotStyle.html" />
     <Content Include="Web.config" />
   </ItemGroup>
