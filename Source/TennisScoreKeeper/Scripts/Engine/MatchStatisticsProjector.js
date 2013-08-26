@@ -186,6 +186,7 @@
         function onSet(data) {
             /// <param name="data" type="scoreProjector.HookArgs" />
             pushNewSet();
+            stats.PerMatch.PerSet[setIndex].PerGame.pop();
             gameIndex = 0;
             setIndex++;
         }
