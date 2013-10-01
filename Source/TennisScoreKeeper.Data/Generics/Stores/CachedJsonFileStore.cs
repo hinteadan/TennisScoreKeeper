@@ -6,27 +6,27 @@ using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H.TennisScoreKeeper.Data.Stores
+namespace H.TennisScoreKeeper.Data.Generics.Stores
 {
-    public class CachedJsonFileStore : IStoreDataAsKeyValue
+    public class CachedJsonFileStore<T> : IStoreDataAsKeyValueOf<T>
     {
         private readonly MemoryCache cache;
-        private readonly JsonFileStore fileStore;
+        private readonly JsonFileStore<T> fileStore;
         private readonly Guid cacheRepositoryId = Guid.NewGuid();
         private readonly string cacheIdForRepositoryEntries = string.Format("{0}", Guid.NewGuid());
 
         public CachedJsonFileStore()
         {
-            this.fileStore = new JsonFileStore();
+            this.fileStore = new JsonFileStore<T>();
             cache = new MemoryCache(cacheRepositoryId.ToString());
         }
         public CachedJsonFileStore(string storeDirectoryPath)
         {
-            this.fileStore = new JsonFileStore(storeDirectoryPath);
+            this.fileStore = new JsonFileStore<T>(storeDirectoryPath);
             cache = new MemoryCache(cacheRepositoryId.ToString());
         }
 
-        public Guid Save(object data)
+        public Guid Save(T data)
         {
             Guid id = Guid.NewGuid();
             fileStore.SaveOrUpdate(id, data);
@@ -35,46 +35,34 @@ namespace H.TennisScoreKeeper.Data.Stores
             return id;
         }
 
-        public void SaveOrUpdate(KeyValuePair<Guid, object> entry)
+        public void SaveOrUpdate(KeyValuePair<Guid, T> entry)
         {
             fileStore.SaveOrUpdate(entry);
             UpdateCache(entry.Key.ToString(), entry.Value);
         }
 
-        public void SaveOrUpdate(Guid id, object data)
+        public void SaveOrUpdate(Guid id, T data)
         {
             fileStore.SaveOrUpdate(id, data);
             UpdateCache(id.ToString(), data);
         }
 
-        public object Load(Guid id)
+        public T Load(Guid id)
         {
             return ReadRepositoryData(id);
         }
 
-        private object ReadRepositoryData(Guid id)
+        public IEnumerable<KeyValuePair<Guid, T>> Load()
         {
-            var key = id.ToString();
-            var dataFromCache = cache[key];
-            var data = dataFromCache ?? fileStore.Load(id);
-            if (dataFromCache == null)
-            {
-                AddToCache(id, data);
-            }
-            return data;
+            return LazyLoad().Select(d => new KeyValuePair<Guid, T>(d.Key, d.Value.Value));
         }
 
-        public IEnumerable<KeyValuePair<Guid, object>> Load()
-        {
-            return LazyLoad().Select(d => new KeyValuePair<Guid, object>(d.Key, d.Value.Value));
-        }
-
-        public IEnumerable<KeyValuePair<Guid, Lazy<object>>> LazyLoad()
+        public IEnumerable<KeyValuePair<Guid, Lazy<T>>> LazyLoad()
         {
             return ReadRepositoryEntries()
-                .Select(f => new KeyValuePair<Guid, Lazy<object>>(
+                .Select(f => new KeyValuePair<Guid, Lazy<T>>(
                     Guid.Parse(f.Name),
-                    new Lazy<object>(() => Load(Guid.Parse(f.Name)))
+                    new Lazy<T>(() => Load(Guid.Parse(f.Name)))
                     ));
         }
 
@@ -83,6 +71,18 @@ namespace H.TennisScoreKeeper.Data.Stores
             fileStore.Remove(id);
             cache.Remove(id.ToString());
             UpdateCache(cacheIdForRepositoryEntries, fileStore.GetRepositoryEntries());
+        }
+
+        private T ReadRepositoryData(Guid id)
+        {
+            var key = id.ToString();
+            var dataFromCache = cache[key];
+            var data = dataFromCache ?? fileStore.Load(id);
+            if (dataFromCache == null)
+            {
+                AddToCache(id, data);
+            }
+            return (T)data;
         }
 
         private void AddToCache(Guid id, object data)

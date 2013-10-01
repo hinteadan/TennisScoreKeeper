@@ -19,7 +19,7 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            var store = new JsonFileStore<SomeDummyDto>();
+            var store = new CachedJsonFileStore<SomeDummyDto>();
             var id = store.Save(new SomeDummyDto { Id = Guid.NewGuid(), Name = "Danish Test", Timestamp = DateTime.Now });
             store.SaveOrUpdate(id, new SomeDummyDto { Id = Guid.NewGuid(), Name = "Danish Test Updated", Timestamp = DateTime.Now });
             var data = store.Load(id);
