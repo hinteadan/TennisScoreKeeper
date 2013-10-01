@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generics\IStoreData.cs" />
+    <Compile Include="Generics\Stores\InMemoryStore.cs" />
     <Compile Include="IStoreData.cs" />
     <Compile Include="Projectors\MatchDataProjectors.cs" />
     <Compile Include="Projectors\Models\MatchInfo.cs" />
