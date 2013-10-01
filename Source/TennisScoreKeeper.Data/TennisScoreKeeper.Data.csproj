@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Generics\IStoreData.cs" />
     <Compile Include="Generics\Stores\InMemoryStore.cs" />
+    <Compile Include="Generics\Stores\JsonFileStore.cs" />
     <Compile Include="IStoreData.cs" />
     <Compile Include="Projectors\MatchDataProjectors.cs" />
     <Compile Include="Projectors\Models\MatchInfo.cs" />
