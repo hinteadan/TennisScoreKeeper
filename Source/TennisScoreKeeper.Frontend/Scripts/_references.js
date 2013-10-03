@@ -11,5 +11,6 @@
 /// <reference path="Directives/ShotStyle.js" />
 /// <reference path="Services/DataService.js" />
 /// <reference path="Services/MatchDefinitionCheckService.js" />
+/// <reference path="Services/EventService.js" />
 /// <reference path="Lib/jquery.pnotify.js" />
 /// <reference path="Lib/jquery.js" />

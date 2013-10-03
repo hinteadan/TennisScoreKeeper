@@ -6,9 +6,10 @@
         servingSecondService: 'Serving 2nd service'
     };
 
-    function MatchPlayController(scoreKeeperEngine, matchDef, $scope, $location, $routeParams, $window, dataService, checkService) {
+    function MatchPlayController(scoreKeeperEngine, matchDef, $scope, $location, $routeParams, $window, dataService, checkService, eventService) {
         /// <param name="scoreKeeperEngine" type="tsk.Engine" />
         /// <param name="matchDef" type="m.MatchDefinition" />
+        /// <param name="eventService" type="tsk.Ui.EventService" />
 
         checkService.isMatchDefined(function () {
             $window.location.href = $window.location.pathname;
@@ -18,6 +19,7 @@
 
         function updateScore() {
             $scope.score = scoreKeeperEngine.tennisScore();
+            eventService.ScoreChanged();
         }
 
         function scorePoint(player, pointType, shotStyle) {
@@ -102,7 +104,7 @@
     }
 
     this.controller('MatchPlayController',
-        ['ScoreKeeper', 'MatchDefinition', '$scope', '$location', '$routeParams', '$window', 'DataService', 'MatchDefinitionCheckService',
+        ['ScoreKeeper', 'MatchDefinition', '$scope', '$location', '$routeParams', '$window', 'DataService', 'MatchDefinitionCheckService', 'EventService',
             MatchPlayController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this.H.TennisScoreKeeper.Model, this.angular);

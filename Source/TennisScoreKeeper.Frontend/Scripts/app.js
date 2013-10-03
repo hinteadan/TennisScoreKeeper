@@ -61,10 +61,10 @@
             .otherwise({ redirectTo: '/' });
     }]);
 
-    appModule.service('MatchDefinition', function () {
+    appModule.factory('MatchDefinition', function () {
         return matchDefinition;
     });
-    appModule.service('ScoreKeeper', function () {
+    appModule.factory('ScoreKeeper', function () {
         return engine;
     });
     appModule.service('DetailedScoreProjector', ['MatchDefinition', tsk.DetailedScoreProjector]);
