@@ -73,11 +73,11 @@
         }
 
         function viewDetailedScore() {
-            $location.path('/Score');
+            $window.open('#/Score', '_blank');
         }
 
         function viewStats() {
-            $location.path('/Stats');
+            $window.open('#/Stats', '_blank');
         }
 
         function newMatch() {

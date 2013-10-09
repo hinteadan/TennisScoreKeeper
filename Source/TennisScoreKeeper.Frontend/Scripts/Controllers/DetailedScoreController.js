@@ -3,13 +3,32 @@
 
     var gamePointLabels = ['0', '15', '30', '40', 'Ad'];
 
-    function DetailedScoreController($scope, $location, matchDef, scoreKeeper, scoreProjector) {
+    function DetailedScoreController($scope, matchDef, scoreKeeper, scoreProjector, eventService) {
         /// <param name="matchDef" type="tsk.Model.MatchDefinition" />
         /// <param name="scoreKeeper" type="tsk.Engine" />
         /// <param name="scoreProjector" type="tsk.DetailedScoreProjector" />
+        /// <param name="eventService" type="tsk.Ui.EventService" />
 
         var score = scoreProjector.projectScore(scoreKeeper.points),
             setsToWin = Math.ceil(matchDef.setsCount / 2);
+
+        eventService.AddScoreChangedHandler(function (scoreData) {
+            var matchDefinition = tsk.Model.Convert.Json(scoreData).ToMatchDefinition(),
+                points = tsk.Model.Convert.Json(scoreData).ToPoints(matchDefinition);
+
+            updateScoreDisplay(matchDefinition, points);
+            console.log(scoreData);
+        });
+
+        function updateScoreDisplay(matchDefinition, points) {
+            var engine = new tsk.Engine(matchDefinition, points),
+                projector = new tsk.DetailedScoreProjector(matchDefinition);
+
+            setsToWin = Math.ceil(matchDefinition.setsCount / 2);
+            $scope.score = score = projector.projectScore(engine.points);
+            $scope.$apply();
+        }
+
 
         function gameScore(game, opponentGame) {
             if (!game) {
@@ -89,14 +108,12 @@
         $scope.playerTwoGameScore = function () {
             return gameScore(_.last(score.PlayerTwo.Score.Games), _.last(score.PlayerOne.Score.Games));
         }
-        $scope.viewPlayDashboard = function () {
-            $location.path('/Play');
-        }
+
         $scope.labelSet = labelSet;
         $scope.isSetWon = isSetWon;
     }
 
     this.controller('DetailedScoreController', 
-        ['$scope', '$location', 'MatchDefinition', 'ScoreKeeper', 'DetailedScoreProjector', DetailedScoreController]);
+        ['$scope', 'MatchDefinition', 'ScoreKeeper', 'DetailedScoreProjector', 'EventService', DetailedScoreController]);
 
 }).call(this.H.TennisScoreKeeper.Ui.Angular.AppModule, this.H.TennisScoreKeeper, this._);
