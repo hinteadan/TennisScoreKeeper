@@ -14,3 +14,4 @@
 /// <reference path="Services/EventService.js" />
 /// <reference path="Lib/jquery.pnotify.js" />
 /// <reference path="Lib/jquery.js" />
+/// <reference path="Lib/jquery.signalR-1.1.3.js" />
