@@ -16,6 +16,8 @@ namespace TennisScoreKeeper.Backend
     {
         protected void Application_Start()
         {
+            RouteTable.Routes.MapHubs();
+
             Dependencies.Init();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
